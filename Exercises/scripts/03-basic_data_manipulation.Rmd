@@ -2,7 +2,7 @@
 title: "Intro to R"
 author: 
 - name: "Adrien Osakwe"
-  affiliation: Workshop Lead
+  affiliation: Contributor
 - name: Larisa M. Soto
   affiliation: Original Material
 - name: Xiaoqi Xie
@@ -40,7 +40,7 @@ Write a data processing snippet to include only the data points collected after 
 ```{r,eval=F}
 asia<-gapminder[gapminder$year > 1995 & gapminder$continent=="Asia", ]
 write.table(asia,
-            file = "data/gapminder_after1995_asia.csv",
+            file = "../data/gapminder_after1995_asia.csv",
             sep = ",", 
             quote = FALSE, 
             row.names = FALSE)
@@ -56,7 +56,7 @@ oceania<-gapminder[gapminder$continent=="Oceania", ]
 europe<-gapminder[gapminder$continent=="Europe", ]
 americas<-gapminder[gapminder$continent=="Americas", ]
 
-save(asia,africa,oceania,europe,americas,file="objects/continents.RData")
+save(asia,africa,oceania,europe,americas,file="../data/continents.RData")
 ```
 
 ## Exploring data frames 

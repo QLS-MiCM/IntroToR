@@ -2,7 +2,7 @@
 title: "Intro to R"
 author: 
 - name: "Adrien Osakwe"
-  affiliation: Workshop Lead
+  affiliation: Contributor
 - name: Larisa M. Soto
   affiliation: Original Material
 - name: Xiaoqi Xie
@@ -1021,22 +1021,22 @@ class(africa$continent)
 Using `.RDS` files
 
 ```{r}
-saveRDS(africa,file = "../objects/africa.RDS")
+saveRDS(africa,file = "../data/africa.RDS")
 ```
 
 ```{r}
-africa<-readRDS(file = "../objects/africa.RDS")
+africa<-readRDS(file = "../data/africa.RDS")
 ```
 
 Using `.RData` files
 
 ```{r}
 americas<-gapminder[gapminder$continent=="Americas",]
-save(africa,americas,file = "../objects/continents.RData")
+save(africa,americas,file = "../data/continents.RData")
 ```
 
 ```{r}
-load(file = "../objects/continents.RData",verbose = T)
+load(file = "../data/continents.RData",verbose = T)
 ```
 
 ## Exploring data frames

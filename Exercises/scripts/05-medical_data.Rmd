@@ -2,7 +2,7 @@
 title: "Intro to R"
 author: 
 - name: "Adrien Osakwe"
-  affiliation: "Workshop Lead"
+  affiliation: "Contributor"
 - name: "Larisa M. Soto"
   affiliation: "Original Material"
 - name: Xiaoqi Xie
