@@ -1,0 +1,132 @@
+---
+title: "Advanced data manipulation"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. The `tidyverse` Philosophy
+
+`dplyr` is part of the **tidyverse**, a collection of R packages designed for data science. The goal is to provide a consistent way to handle data frames.
+
+### The Power of the Pipe (`%>%`)
+
+The pipe operator is the secret sauce of `dplyr`. It takes the output of one function and "pipes" it directly into the next.
+
+-   **Think of it as the word "THEN".**
+
+-   Instead of nesting functions like `head(select(df, year))`, you write: `df %>% select(year) %>% head()`
+
+```{r}
+#| message: false
+if (!require("gapminder", quietly = TRUE))
+    install.packages("gapminder")
+library(gapminder)
+
+if (!require("dplyr", quietly = TRUE))
+    install.packages("dplyr")
+library(dplyr)
+```
+
+------------------------------------------------------------------------
+
+## 2. The Core `dplyr` Verbs
+
+### 2.1 `select()`: Picking Columns
+
+Use `select()` when you only want specific variables (columns) from your dataset.
+
+```{r}         
+#| collapse: true
+# Select specific columns
+gapminder %>% 
+  dplyr::select(year, country, gdpPercap) %>% 
+  head()
+
+# Remove a column using the minus sign
+gapminder %>% 
+  dplyr::select(-continent) %>% 
+  head()
+```
+
+### 2.2 `filter()`: Picking Rows
+
+Use `filter()` to find observations (rows) that meet a certain condition.
+
+```{r}         
+#| collapse: true
+# Include only European countries in the year 2007
+gapminder %>% 
+  dplyr::filter(continent == "Europe", year == 2007) %>% 
+  dplyr::select(country, lifeExp)
+```
+
+------------------------------------------------------------------------
+
+## 3. The Power Duo: `group_by()` and `summarize()`
+
+This is the most common workflow in bioinformatics. You **split** the data into groups, **apply** a calculation, and **combine**the results into a summary table.
+
+### 3.1 `group_by()`
+
+This doesn't change the data visually; it creates "hidden" groups that R remembers for the next step.
+
+```{r}         
+#| collapse: true
+gapminder %>% dplyr::group_by(continent)
+```
+
+### 3.2 `summarize()`
+
+This "collapses" each group into a single row of statistics.
+
+```{r}         
+#| collapse: true
+# Calculate mean GDP and Standard Error for each continent
+gapminder %>% 
+  dplyr::group_by(continent) %>% 
+  dplyr::summarize(
+    mean_le = mean(lifeExp),
+    se_le = sd(lifeExp) / sqrt(dplyr::n()) # n() counts the number of observations
+  )
+```
+
+------------------------------------------------------------------------
+
+## 4. `mutate()`: Creating New Variables
+
+`mutate()` allows you to add new columns while keeping the old ones. It is perfect for calculations like unit conversions or normalization.
+
+```{r}         
+#| collapse: true
+# Create a new column for GDP in billions
+gapminder %>% 
+  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %>% 
+  head()
+```
+
+------------------------------------------------------------------------
+
+## 5. Putting It All Together
+
+The true beauty of `dplyr` is chaining everything into one clean pipeline.
+
+```{r}         
+#| collapse: true
+# A complete pipeline: Create a variable, group it, and summarize it
+summary_table <- gapminder %>% 
+  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %>% 
+  dplyr::group_by(continent, year) %>% 
+  dplyr::summarize(
+    mean_gdpPercap = mean(gdpPercap),
+    mean_pop = mean(pop),
+    mean_gdp_billion = mean(gdp_billion)
+  )
+
+head(summary_table)
+```
+
+### **Pro-Tip: Why use `dplyr::`?**
+
+You’ll notice I used `dplyr::select()` instead of just `select()`. As we discussed in the "Functions" module, many packages have a `filter` or `select` function. Being explicit ensures that your code **never breaks**, even if you load other libraries later.
