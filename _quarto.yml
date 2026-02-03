@@ -1,0 +1,102 @@
+project: 
+  type: website
+  
+website: 
+  page-navigation: true
+  title: "Intro To R" 
+  site-url: "https://martinahyang.github.io/IntroToR_Winter2026/" 
+  repo-url: https://github.com/MartinaHYang/IntroToR_Winter2026
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    left: "&copy; CC-By Martina, 2026. All rights reserved."
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    center: "Workshop created as part of the McGill Initiative in Computational Medicine."
+    
+  sidebar:
+    logo: "images/MiCM_logo.png"
+    pinned: true
+    align: center
+    tools: 
+      - icon: globe
+        href: https://www.mcgill.ca/micm/
+        text: "GLS-MiCM"
+      - icon: github
+        href: https://github.com/QLS-MiCM
+        text: "MiCM Github"     
+    style: "docked"
+    search: true
+    collapse-level: 2
+    contents:
+      - text: "Welcome🎉"
+        href: index.qmd
+      - text: "QLS-MiCM"
+        href: WebsiteCodes/QLS_MiCM.qmd
+      - text: "Why R for Data Science?"
+        href: WebsiteCodes/WhyR.qmd
+      - text: "Installing R and RStudio"
+        href: WebsiteCodes/Setup.qmd
+      - text: "Get Acquainted with R and RStudio"
+        href: WebsiteCodes/RStudio.qmd
+      - text: "How to Use This Materials"
+        href: WebsiteCodes/MaterialsInstructions.qmd
+      - section: "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Types and Data Structures"
+        contents:
+          - text: "Overview"
+            href: WebsiteCodes/Overview.qmd
+          - text: "𝟭 Atomic Classes (Data Types)"
+            href: WebsiteCodes/01AtomicClasses.qmd
+          - text: "𝟮 Arithmetic operators"
+            href: WebsiteCodes/02ArithmeticOp.qmd
+          - text: "𝟯 Syntax operators"
+            href: WebsiteCodes/03SyntaxOp.qmd
+          - text: "𝟰 Logical operators"
+            href: WebsiteCodes/04LogicalOp.qmd
+          - text: "𝟱 Objects (Data Structures)"
+            href: WebsiteCodes/05Objects.qmd  
+      - section: "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Control Structures and Functions"
+        contents:
+          - text: "Overview"
+            href: WebsiteCodes/Overview2.qmd
+          - text: "𝟲 Conditional Statements"
+            href: WebsiteCodes/06ConditionalStat.qmd
+          - text: "𝟳 For Loop/While Loop"
+            href: WebsiteCodes/07Loop.qmd
+          - text: "𝟴 Create New Functions"
+            href: WebsiteCodes/08NewFunctions.qmd
+          - text: "𝟵 Packages"
+            href: WebsiteCodes/09Packages.qmd
+      - section: "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation"
+        contents:
+          - text: "Overview"
+            href: WebsiteCodes/Overview3.qmd
+          - text: "𝟭𝟬 Reading/Writing Data"
+            href: WebsiteCodes/10RWData.qmd
+          - text: "𝟭𝟭 Exploring Data Frames"
+            href: WebsiteCodes/11AdvDataFrames.qmd            
+          - text: "𝟭𝟮	Useful Packages for Data Manipulation"
+            href: WebsiteCodes/12Packages4Data.qmd
+      - section: "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs"
+        contents:
+          - text: "Overview"
+            href: WebsiteCodes/Overview4.qmd
+          - text: "𝟭𝟯 Graphics"
+            href: WebsiteCodes/13Graphics.qmd
+          - text: "𝟭𝟰 Reports with Knitr"
+            href: WebsiteCodes/14Knitr.qmd
+      - text: "Concluding Remarks"
+        href: WebsiteCodes/ConcludingRemarks.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+
+filters:
+  - include-files.lua
+  - quarto
+

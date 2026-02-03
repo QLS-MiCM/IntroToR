@@ -1,0 +1,127 @@
+---
+title: "Logical operators"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+**Comparison operators** are used to compare two values. When you run a comparison, R evaluates the statement and returns a **Logical** value: either `TRUE` or `FALSE`.
+
+> | Operator |         Name         | Example  | Plain English                 |
+> |:---------|:--------------------:|:---------|:------------------------------|
+> | `==`     |     **Equal to**     | `x == y` | Is x exactly equal to y?      |
+> | `!=`     |   **Not equal to**   | `x != y` | Is x different from y?        |
+> | `>`      |   **Greater than**   | `x > y`  | Is x strictly larger than y?  |
+> | `<`      |    **Less than**     | `x < y`  | Is x strictly smaller than y? |
+> | `>=`     | **Greater or equal** | `x >= y` | Is x at least y or larger?    |
+> | `<=`     |  **Less or equal**   | `x <= y` | Is x at most y or smaller?    |
+
+**Logical operators** allow you to combine multiple comparison statements into a single test. This is essential for complex data filtering.
+
+> | Operator | Description |
+> |:-----------------------------------|:-----------------------------------|
+> | `&` | **Element-wise Logical AND operator.** Returns TRUE if both elements are TRUE. |
+> | `|` | **Element-wise Logical OR operator.** Returns TRUE if one of the statements is TRUE. |
+> | `!` | **Logical NOT.** Returns FALSE if statement is TRUE; Reverses the result (TRUE becomes FALSE). |
+> | `%in%` | **Contains/Membership.** Checks if a value belongs to a set. |
+
+![](../images/LogicalOperators.png){fig-align="center" width="800"}
+
+## 1. Comparison operators
+
+### 1.1 `==`
+
+::: callout-warning
+The Most Common R Error: `=` vs `==`
+
+`=` (or `<-`) is for Assignment: You are telling R that a variable equals a value.
+
+`==` is for Comparison: You are asking R if two things are equal.
+:::
+
+```{r}
+# Comparing numbers
+10 == 2
+
+# Comparing text (Case sensitive!)
+"McGill" == "mcgill"
+```
+
+### 1.2 `!=`
+
+In R, the exclamation mark `!` stands for **"NOT"**. When combined with the equals sign, `!=` checks if two values are **different**.
+
+-   It returns `TRUE` if the values are **not** the same.
+-   It returns `FALSE` if they **are** the same.
+
+```{r}
+# Is 10 equal to 2? (False)
+10 == 2
+
+# Is 10 different from 2? (True)
+10 != 2
+```
+
+## 2. Logical operators
+
+### 2.1 `&`
+
+The "AND" Operator (&): Use this when your condition must meet all criteria simultaneously.
+
+```{r}
+age <- 65
+bmi <- 32
+
+# Is the patient over 60 AND obese (BMI > 30)?
+age > 60 & bmi > 30
+```
+
+### 2.2 `|`
+
+The "OR" Operator (`|`): Use this when meeting any one of the criteria is sufficient.
+
+```{r}
+# Is the flower species either 'setosa' OR 'versicolor'?
+species <- "setosa"
+species == "setosa" | species == "versicolor"
+```
+
+::: callout-note
+**Keyboard Tip:** How to type `|`?
+
+Look for the key with the backslash `\` (usually above the Return/Enter key).
+
+-   **Mac & Windows:** Press `Shift + \`
+:::
+
+### 2.3 `!`
+
+The "NOT" Operator (!): This exclamation mark is used to exclude specific data points.
+
+```{r}
+!TRUE
+```
+
+```{r}
+control_group <- FALSE
+# Is the sample NOT in the control group?
+!control_group
+```
+
+### 2.4 The Membership Operator (%in%)
+
+The %in% operator (often called "contains") is extremely useful when you want to check if a value belongs to a large list or group.
+
+Example: Searching for Genes Imagine you have a list of "Genes of Interest" for your diabetes research. You can check if a specific gene is in that list without writing many OR statements.
+
+```{r}
+#| collapse: true
+diabetes_genes <- c("INS", "GCK", "KCNJ11", "SLC30A8")
+
+# Is 'INS' (Insulin) in our list?
+"INS" %in% diabetes_genes
+
+# Is 'SOX2' in our list?
+"SOX2" %in% diabetes_genes
+```

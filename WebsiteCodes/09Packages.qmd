@@ -1,0 +1,148 @@
+---
+title: "Installing New Packages"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+---
+
+## 1. Installing New Packages
+
+Think of R as a smartphone. It comes with "factory settings" (Base R), but to do specific things like high-quality plotting or RNA-seq analysis, you need to download "Apps" (**Packages**).
+
+### 1.1 CRAN (The "App Store")
+
+CRAN is the official repository for R. It is highly regulated and stable.
+
+```{r}
+#| eval: false
+install.packages(c("dplyr", "ggplot2", "gapminder", "medicaldata"))
+```
+
+::: callout-note
+-   **`dplyr`**: The "Swiss Army Knife" for data cleaning and table manipulation.
+
+-   **`ggplot2`**: The gold standard for creating publication-quality figures (Nature/Science style).
+
+-   **`gapminder`**: A famous dataset about global life expectancy and GDP.
+
+-   **`medicaldata`**: A collection of real-world clinical trial datasets.
+:::
+
+### 1.2 BioConductor (The Bioinformatics Specialized Store)
+
+BioConductor is specifically for biological data (Genomics, Proteomics, etc.). It has its own release cycle and installation manager.
+
+```{r}
+#| eval: false
+# 1. Install the Manager first
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# 2. Use the Manager to install tools like DESeq2
+BiocManager::install("DESeq2")
+```
+
+::: callout-note
+**`DESeq2`**: The standard tool for analyzing Differential Gene Expression from RNA-seq data.
+:::
+
+::: callout-note
+#### **What does that `if` sentence mean?**
+
+This is a "Smart Installation" script. It checks if you already have the package before trying to download it again.
+
+1.  **`require("BiocManager")`**: This tries to load the package. If it succeeds, it returns `TRUE`. If the package is missing, it returns `FALSE`.
+
+2.  **The `!` (NOT) symbol**: This flips the result.
+
+    -   If you **HAVE** the package (`TRUE`), it becomes `FALSE` → The `if` block is skipped.
+
+    -   If you **LACK** the package (`FALSE`), it becomes `TRUE` → The `install.packages` line runs.
+
+3.  **Result**: It ensures your code doesn't waste 10 minutes re-installing a package you already have every time you run the script.
+:::
+
+### 1.3 GitHub (The Developer's Lab)
+
+If a package is very new or in development, it might only be on GitHub. You need the `devtools` or `remotes` package to "clone" it.
+
+```{r}
+#| eval: false
+# devtools is not a default part of R; you must install it first
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
+
+devtools::install_github("YuLab-SMU/ggmsa")
+```
+
+::: callout-note
+**`ggmsa`**: A specialized tool for visualizing **Multiple Sequence Alignments** (MSAs) using `ggplot2` logic.
+:::
+
+### 1.4 Choosing Your Source
+
+-   **CRAN:** Use for general data science (cleaning data, standard plots).
+
+-   **BioConductor:** Use for any "omics" data. This is where you find tools for Bulk/Single-cell RNA-seq.
+
+-   **GitHub:** Use only if the package isn't available elsewhere or if you need the absolute latest (but potentially "buggy") version.
+
+### 1.5 Finding the Right Tool
+
+-   **Bioconductor Views:** A great place to browse by topic (e.g., "Epigenetics").
+
+-   **RDocumentation.org:** Search for any function name to see which package it belongs to.
+
+-   **Google/Stack Overflow:** Usually, if you search "How to do X in R," the top result will suggest a package.
+
+### 1.6 Important Notes on Installation
+
+When installing, R might ask: **"Do you want to update other packages?"**
+
+-   **Recommendation:** Usually, choose **"None"** or **"No"** if you are in a hurry, as updating everything can take a long time and occasionally break other code.
+
+-   **The "Library" Step:** Remember, `install.packages()` puts the app on your phone, but `library()` is what actually **opens** the app so you can use it.
+
+### 1.7 The "Double Colon" Trick
+
+Normally, we use `library(package)` to load all the tools from a package. However, you can access a specific function directly using the `package::function()` syntax.
+
+#### **Why use this?**
+
+1.  **Preventing Naming Conflicts:** Both the `stats` package (built into R) and the `dplyr` package have a function called `filter()`. If you load both, R will "mask" the older one. Using `dplyr::filter()` ensures R knows exactly which "filter" tool you want to use.
+
+2.  **Clarity for Collaborators:** When someone else reads your code, they might not know which package `lfcShrink()` belongs to. Writing `DESeq2::lfcShrink()` makes your code self-documenting.
+
+3.  **One-Time Use:** If you only need a package once in your entire script (like `BiocManager::install()`), it is cleaner to use the double colon than to load the entire library into your computer's memory.
+
+```{r}
+#| eval: false
+# Example 1: Installing without loading the manager
+BiocManager::install("DESeq2")
+
+# Example 2: Being explicit about which 'filter' to use
+# This is very common in bioinformatics pipelines!
+clean_data <- dplyr::filter(my_results, pvalue < 0.05)
+```
+
+This is very common in bioinformatics scripts because it prevents "naming conflicts" (when two different packages have a function with the same name).
+
+### 1.8 Checking Package Versions
+
+In bioinformatics, package versions change rapidly. A result you get with `DESeq2` version 1.38 might be slightly different in version 1.42.
+
+To ensure your research is **reproducible**, you should always check which version you are using before writing your paper.
+
+```{r}
+#| eval: false
+# Check the version of a specific package
+packageVersion("base")
+
+# Or check everything currently loaded in your session
+sessionInfo()
+```
+
+::: callout-note
+**Note:** The `sessionInfo()` command is a "best practice" to run at the end of every analysis. It records your R version, your operating system, and every package version used.
+:::

@@ -1,0 +1,183 @@
+---
+title: "Syntax Operators"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+Syntax operators are the specialized symbols and keywords that define how R interprets your code. They handle essential tasks like naming objects, writing notes to yourself, and digging into complex datasets.
+
+It includes comment line, assignation, access content, and equal.
+
+![](../images/SyntaxOperators.png){fig-align="center"}
+
+## 1. Comments (`#`): Writing Notes to Your Future Self
+
+Comments are used to explain **why** you wrote a specific line of code. This is vital for reproducibility and collaboration. Anything written after the `#` symbol is ignored by R during execution.
+
+-   **Manual:** Type `#` before your note.
+-   **Shortcut (Mac):** `Cmd + Shift + C`
+-   **Shortcut (Windows):** `Ctrl + Shift + C`
+
+```{r}
+# This is a comment. R will not execute this.
+# "hello world"
+```
+
+## 2. Assignment: Creating Objects
+
+Assignment is the process of storing a value (data) inside a named container (an object).
+
+### 2.1 The Left-Hand Assignment (\<-)
+
+The standard way to assign values in R is using the \<- operator. Think of it as an arrow pointing from the data to the label.
+
+```{r}
+# The convention is to use left hand assignation 
+var1 <- "hello world"
+var1
+```
+
+::: callout-note
+### Shortcut for \<-
+
+Instead of typing two characters, use these shortcuts to insert the assignment arrow:
+
+-   Mac: Option + - (minus key)
+
+-   Windows: Alt + - (minus key)
+:::
+
+::: callout-note
+### **A Note on Coding Style: To Space or Not to Space?**
+
+While var1\<-"hello world" works, it is a little bit "dirty" and hard to read.
+
+Following the Tidyverse Style Guide, you should always put a space before and after the assignment operator: `var1 <- "hello world"`
+:::
+
+### 2.2 Other Assignment Methods
+
+#### 2.2.1 The Equals Sign (=):
+
+While = works for assignment, R users generally avoid it. In R, = is typically reserved for defining arguments inside a function. Using it for general assignment is considered poor style.
+
+```{r}
+# It is also possible to use the '=' sign, but is NOT a good practice
+var1 = "hello world"
+var1
+```
+
+#### 2.2.2 Right-Hand Assignment (-\>):
+
+You can technically point the arrow the other way: `"data" -> var1.`
+
+This is rarely used but can be helpful at the end of a long pipe (\|\>) if you decide to save the final result into a new variable.
+
+```{r}
+"hello world" -> var1
+var1
+```
+
+### 2.3 Printing Variables
+
+Once you have stored data in a variable, there are several ways to "call" it back to the console:
+
+#### 2.3.1 Direct Call
+
+Simply type the name. This is the most common method during interactive analysis.
+
+```{r}
+"hello world!"
+```
+
+#### 2.3.2 Using Function print() and cat()
+
+**print():** Explicitly prints the object. This is often used inside "loops" or complex functions where R might not automatically show the output.
+
+**cat():** Short for "concatenate." It prints the raw text without the \[1\] index marker or quotes. It is great for creating clean, human-readable messages.
+
+```{r}
+var1 <- "McGill"
+print(var1)
+```
+
+```{r}
+var1 <- "McGill"
+cat(var1)
+```
+
+## 3. Access Content (\$)
+
+The \$ operator is one of the most powerful symbols in R. It allows you to "reach inside" a complex object (like a Data Frame or a List) and extract a specific column or element by its name.
+
+**Example: The `iris` Dataset**
+
+The `iris` dataset is a built-in collection of measurements for 150 flowers. It includes variables like `Sepal.Length`, `Petal.Length`, and `Species`. To look at *only* the species column, we use the `$` operator.
+
+```{r}
+# Show the first 6 rows of the dataset
+head(iris)
+
+# Extract only the "Species" column
+iris$Species
+```
+
+::: callout-note
+The head() Function
+
+The head() function is a "quick look" tool. It returns the first few rows of a dataset (default is 6) so you can inspect your data without flooding your console with thousands of lines.
+
+Conversely, tail() shows you the last few rows.
+
+Remember, you can always type ?head in your Console to see the full documentation.
+:::
+
+## 4. The Equal Operator (=)
+
+In R, the single equals sign (=) has two primary roles, but they are not created equal.
+
+### 4.1 Assignment (Not Recommended)
+
+While `=` can be used to assign a value to a variable, R users generally avoid this. In the R community, using `=` for assignment is considered poor style because it can be confused with mathematical equality or function arguments.
+
+**Always prefer `<-` for creating variables.**
+
+```{r}
+# It is also possible to use the '=' sign, but is NOT a good practice
+var1 = "hello world"
+var1
+```
+
+### 4.2 Defining Function Arguments (Recommended)
+
+The "correct" and most common use of the = sign in R is to define arguments inside a function. This tells the function exactly how you want it to behave.
+
+Example: The `paste()` Function
+
+The `paste()` function joins multiple pieces of text together. It uses an argument called `sep` to decide what character should go between the pieces.
+
+```{r}
+cal <- 1 + 3
+
+# Using '=' to define the separator argument
+paste("The output of 1 + 3", cal,
+      sep = " = ")
+```
+
+::: callout-note
+Deep Dive: ?paste
+
+If you look at the help documentation for paste(), you will see the usage and arguments explanations:
+
+Usage
+
+paste(..., sep = " ", collapse = NULL)
+
+Arguments
+
+sep: a character string to separate the terms.
+
+By using sep = " = ", we are overriding the default space (" ") and telling R to put an equals sign between our text and our result.
+:::

@@ -1,0 +1,119 @@
+---
+title: "Arithmetic Operators"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+An operator is a symbol or keyword that tells the computer what operation it should perform on values or variables. The arithmetic operators perform mathematical calculations.
+
+![](../images/ArithmeticOperators.png){fig-align="center"}
+
+At its most basic level, R is a powerful scientific calculator. It handles standard arithmetic as well as complex matrix operations required for bioinformatics.
+
+The fundamental operations include **addition**, **subtraction**, **multiplication**, and **division**.
+
+Beyond these, R handles powers (exponents), modulus (remainder from division), integer division, scalar multiplication, and matrix algebra.
+
+::: callout-note
+### **A Note on Coding Style: To Space or Not to Space?**
+
+In R, spaces around operators are generally ignored by the computer, but they matter a lot for human readability.
+
+1.  **Standard Style (Recommended):** Use a space before and after the symbol: `1 + 1`. This is the professional standard (often called the [Tidyverse Style Guide](https://style.tidyverse.org/)). It makes your code much easier to read.
+2.  **Compact Style:** No spaces: `1+1`. This works perfectly, but can look "cramped" in long equations.
+3.  **Inconsistent Style (Avoid):** Using space on only one side, like `1+ 1` or `1 +1`.
+
+### Professional Tip
+
+While R will run your code regardless of the spacing, **consistency is key.** Keeping a clean, spaced-out style helps you (and your PI) catch errors more easily when reviewing your analysis later.
+:::
+
+## 1. Basic Arithmetic
+
+Standard operations follow the symbols you are likely already familiar with:
+
+| Operation          | Operator | Example      |
+|:-------------------|:---------|:-------------|
+| **Addition**       | `+`      | `2 + 100000` |
+| **Subtraction**    | `-`      | `3 - 5`      |
+| **Multiplication** | `*`      | `71 * 9`     |
+| **Division**       | `/`      | `90 / 19`    |
+| **Power**          | `^`      | `2 ^ 3`      |
+
+**Examples in Action**
+
+```{r}
+#| collapse: true
+# Addition: Add 2 and 100,000
+2 + 100000
+
+# Subtraction: Subtract 5 from 3
+3 - 5
+
+# Multiplication: Multiply 71 by 9
+71 * 9
+
+# Division with Order of Operations
+90 / ((3 * 5) + 4)
+
+# Power: 2 to the power of 3
+2 ^ 3
+```
+
+## 2. What can be used with Arithmetic Operations?
+
+In research, you won't just be typing raw numbers. You will frequently perform calculations using objects (variables) that store your data. You can mix and match numbers and objects freely.
+
+Example: Number with Object
+
+```{r}
+num <- 2 
+1 + num
+```
+
+Example: Object with Object
+
+```{r}
+num1 <- 2 
+num2 <- 3
+num1 * num2
+```
+
+::: callout-note
+Wait, what is `<-` ?
+
+In the code above, we used the \<- symbol. This is an Assignment Operator. It is used to store data into the object it points to. Think of it as an arrow putting a value into a labeled box.
+
+We will explore this in depth in the next chapter, but for now, just know that `num1 <- 2` means the box labeled `num1` now contains the number 2.
+:::
+
+## 3. **Operator Precedence**
+
+Not all operators are created equal.
+
+R follows a specific order of operations (similar to high school mathematics, often called PEMDAS). For example, multiplication (`*`) and division (`/`) will always be performed before addition (`+`) and subtraction (`-`).
+
+> **Best Practice:** When in doubt, use **parentheses `()`**. They have the highest precedence and ensure R calculates your formula exactly how you intended.
+
+```{r}
+#| collapse: true
+results1 <- 1 + 2 * 3
+results2 <- (1 + 2) * 3
+
+results1
+results2
+```
+
+## 4. **Vectorized Operators**
+
+Unlike many other programming languages, R is designed specifically for statistics. This means its operators are vectorized.
+
+If you have a list (vector) of 1,000 patient ages and you want to add 10 to all of them, you don't need to write a complex loop. R simply applies the operation to every single value in the list simultaneously.
+
+```{r}
+# Example: Adding 10 to a vector of three ages
+ages <- c(20, 30, 40)
+ages + 10
+```

@@ -1,0 +1,44 @@
+---
+title: "Customize Your Own Functions"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. Customize Your Own Functions
+
+![](../images/Functions.png){fig-align="center" width="500"}
+
+Writing functions is the best way to keep your code **DRY** (Don't Repeat Yourself). If you find yourself copy-pasting code three times, it’s time to write a function.
+
+### The Anatomy of a Function
+
+A function has three parts:
+
+1.  **Input (Arguments):** What the function needs to work (e.g., a vector of numbers).
+
+2.  **Body:** The actual code/math being performed.
+
+3.  **Output (Return):** What the function gives back to you.
+
+```{r}
+# Example: Creating a manual version of the 'mean' function
+new_mean <- function(values) {
+  # The 'Body'
+  result <- sum(values) / length(values)
+  
+  # The 'Return' (Output)
+  return(result)
+}
+
+# Test it out
+x <- 1:5
+new_mean(x)
+```
+
+::: callout-note
+### **Pro-Tip: When to use `return()`**
+
+In R, the function will automatically return the **very last line** of code executed inside the braces. However, using the explicit `return()` function is a "Best Practice" because it makes it much clearer to other researchers exactly what your function is providing.
+:::

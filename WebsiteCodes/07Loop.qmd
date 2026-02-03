@@ -1,0 +1,172 @@
+---
+title: "For & While Loops"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. For Loop
+
+A **For Loop** is used when you know exactly how many times you want to repeat a task. You are "iterating" over a sequence (like a vector or a list).
+
+**The Logic (Pseudo-code):**
+
+::: callout-note
+Think of a `for` loop like an **assembly line**. You have a box of items (a vector or list), and you pick them up one by one, do something to them, and set them aside until the box is empty.
+:::
+
+> ```         
+> for (EACH_ITEM in UR_COLLECTION) {
+>     # 1. Take the current ITEM
+>     # 2. Perform the ACTION (e.g., calculate its square root)
+>     # 3. Move to the next ITEM automatically
+> }
+>
+> # STOP: The loop ends automatically when the COLLECTION is empty
+> ```
+
+**Example: Counting**
+
+```{r}
+# Iterate through the numbers 1 to 10
+for (i in 1:10) {
+  print(i)
+}
+```
+
+**Example: Processing Strings**
+
+```{r}
+# Iterate through a character vector
+x <- c('a', 'ab', 'cab', 'taxi')
+
+for (word in x) {
+  print(word)
+}
+```
+
+::: callout-tip
+The `i` or `word` in the code above is just a placeholder (an "iterator"). You can name it anything you want, but using descriptive names like `gene` or `sample` makes your code much easier to read!
+:::
+
+## 2. While Loop
+
+A **While Loop** is more flexible but also more "dangerous." It repeats a task as long as a certain condition remains **TRUE**.
+
+You use this when you don't know exactly how many iterations you need, **but you know when you want to stop.**
+
+**The Logic (Pseudo-code):**
+
+::: callout-note
+Think of a `while` loop like a **security guard** at a gate. The guard checks the condition *before* letting the code inside. If the condition is still true, the code runs, and then it goes back to the guard to check again.
+:::
+
+> ```         
+> WHILE (condition is TRUE) {
+>     1. Perform the ACTION (e.g., print a value or do math)
+>     2. UPDATE the variables involved in the condition 
+>        (If you don't update them, the loop runs forever!)
+> }
+> # STOP: The loop ends automatically when the condition becomes FALSE
+> ```
+
+**Example:**
+
+```{r}
+x <- 5
+
+# While x is greater than 0, keep running
+while (x > 0) {
+  print(x)
+  # Crucial: you must change x, or the loop will run forever!
+  x <- x - 1
+}
+```
+
+::: callout-caution
+### **A Cautionary Note on While Loops**
+
+If your condition in a `while` loop never becomes `FALSE` (for example, if you forgot to write `x <- x - 1`), you create an **Infinite Loop**.
+
+This will cause R to hang or crash. If this happens, look for the **red "Stop" icon** in the top-right of your RStudio Console to break the loop!
+:::
+
+## 3. Comparison of Iteration Methods
+
+In R, we often prefer **Vectorized** functions (the "Apply" family) over `for` loops because they are usually faster and require less code.
+
+|  |  |  |
+|------------------------|------------------------|------------------------|
+| **Method** | **Best Use Case** | **Output Type** |
+| **`for` loop** | Complex logic with many steps. | Whatever you define. |
+| **`while` loop** | Simulations or tasks with unknown end-points. | Whatever you define. |
+| **`lapply`** | Applying a function to every element of a list/vector. | **List** |
+| **`sapply`** | Same as `lapply`, but tries to "simplify" the result. | **Vector** or **Matrix** |
+
+## 4. The "Apply" Family (`lapply` and `sapply`)
+
+In modern R, `lapply` (List Apply) and `sapply` (Simple Apply) are the gold standard for iteration. They are cleaner and less prone to "off-by-one" errors than standard loops.
+
+### 4.1 `lapply`
+
+Always returns a **list**. This is great for bioinformatics because it can store complex results (like model outputs) for each gene.
+
+```{r}
+genes <- c("BRCA1", "TP53", "EGFR")
+
+# Convert every gene name to lowercase
+results_list <- lapply(genes, tolower)
+results_list
+```
+
+### 4.2 `sapply`
+
+Does the same thing as `lapply`, but it tries to "simplify" the result into a vector if possible.
+
+```{r}
+# Convert every gene name to lowercase and return a vector
+results_vector <- sapply(genes, tolower)
+results_vector
+```
+
+## 5. Complicated Case: `sapply` with a Custom Function
+
+In bioinformatics, we often need to do more than just simple math. We might want to "Score" a list of genes based on several criteria at once.
+
+In this case, we will write a **Custom Function** and then use `sapply` to "fly" that function over a vector of gene expression values.
+
+### **The Scenario:**
+
+We have a vector of Gene Expression values. We want to label them:
+
+-   **"High"** if the value is \>100.
+
+-   **"Low"** if the value is \<10.
+
+-   **"Medium"** for everything else.
+
+```{r}
+# 1. Create our data (Sample Gene Expression)
+expression_values <- c(150, 5, 45, 200, 8, 55)
+names(expression_values) <- c("Gene_A", "Gene_B", "Gene_C", "Gene_D", "Gene_E", "Gene_F")
+
+# 2. Write a Custom Function to handle the logic
+# This function takes ONE number and returns ONE label
+classify_gene <- function(x) {
+  if (x > 100) {
+    return("High")
+  } else if (x < 10) {
+    return("Low")
+  } else {
+    return("Medium")
+  }
+}
+
+# 3. Use sapply to apply this function to every value in our vector
+# sapply handles the "looping" for us!
+gene_status <- sapply(expression_values, classify_gene)
+
+# 4. Look at the result
+gene_status
+```

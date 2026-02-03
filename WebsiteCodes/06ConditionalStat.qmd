@@ -1,0 +1,134 @@
+---
+title: "Conditional Statements"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. The Logic of Decision Making
+
+In programming, **Conditional Statements** allow your code to branch. Instead of running every line of code from top to bottom, R will only run specific sections **if** a condition is met.
+
+### 1.1 Binary Conditions (`if` ... `else`)
+
+This is used for simple "Yes/No" or "Either/Or" logic.
+
+**The Structure (Pseudo-code):**
+
+```{r}
+#| eval: false
+
+if (condition) {
+  # Perform this task if condition is TRUE
+} else {
+  # Perform this task if condition is FALSE
+}
+```
+
+**Example:**
+
+```{r}
+x <- 5
+
+if (x > 5) {
+  # If the number is greater than 5, get its square
+  x^2
+} else {
+  # If not, multiply it by 2
+  x * 2
+}
+```
+
+::: callout-note
+Because the condition `x > 5` evaluated to **`FALSE`** (since 5 is equal to 5, not strictly greater than 5), R skipped the first block and jumped straight to the `else` block.
+:::
+
+### 1.2 Multi-branch Conditions (`else if`)
+
+When your logic is more complex than a simple binary choice, you can chain conditions together. You can have as many `else if` blocks as you need.
+
+**The Structure (Pseudo-code):**
+
+```{r}
+#| eval: false
+
+if (condition_1) {
+  # Perform Task A
+} else if (condition_2) {
+  # Perform Task B
+} else if (condition_3) {
+  # Perform Task C
+} else {
+  # Perform Task D if NONE of the above were TRUE
+}
+```
+
+```{r}
+x <- 7
+
+if (x > 5 && x < 10) {
+  # If x is between 5 AND 10
+  x^2
+} else if (x < 0 || x > 10) {
+  # If x is negative OR greater than 10
+  -x
+} else {
+  # For everything else (like 0, 1, 2, 3, 4, 5)
+  x * 2
+}
+```
+
+## 2. Pro-Tips for Conditionals
+
+### 2.1 `&` vs `&&` (and `|` vs `||`)
+
+You might have noticed the use of double symbols (`&&` and `||`) in the example above. In R, there is a small but important difference:
+
+-   **Single (`&`, `|`):** These are **Vectorized**. Use these when comparing entire columns of data (e.g., filtering a Data Frame).
+
+-   **Double (`&&`, `||`):** These are **Short-circuiting**. They only look at the **first element** of a vector. They are faster and preferred inside `if` statements where you are only checking one value at a time.
+
+### 2.2 The "Missing" Else
+
+The `else` block is optional. If you don't provide one and the `if` condition is `FALSE`, R will simply skip the block and move to the next line of code.
+
+### 2.3 Indentation Matters for Humans!
+
+While R is "space-insensitive" (it doesn't care if your code is a messy pile of text), humans are not. We use **indentation** to show the hierarchy of logic.
+
+It is standard practice to indent the code inside the curly braces `{ }`. This makes it immediately obvious which code belongs to which condition.
+
+::: callout-tip
+**The RStudio Secret**
+
+Don't worry about manually hitting the spacebar! RStudio is designed to help you.
+
+-   **Auto-indent:** When you type a `{` and hit Enter, RStudio automatically adds the correct gap.
+
+-   **The "Re-format" Trick:** If your code looks messy, you don't even need to copy-paste. Simply highlight the code and press **`Ctrl + Shift + A`** (Windows) or **`Cmd + Shift + A`** (Mac). RStudio will instantly clean up the spacing and indentation for you.
+:::
+
+::: callout-tip
+**The `styler` Package**
+
+In professional programming, we often use a package called **`styler`**.
+
+It acts like a "grammar checker" for your code, ensuring it follows the tidyverse style guide used by data scientists at NASA, Google, and beyond.
+:::
+
+### 2.4 **Best Practices for Conditional Logic**
+
+#### **The MECE Principle**
+
+When designing your logic, try to follow the **MECE** principle: **Mutually Exclusive, Collectively Exhaustive.**
+
+-   **Mutually Exclusive:** Your conditions shouldn't overlap. A number shouldn't be able to trigger both the `if` and the `else if` block at the same time.
+
+-   **Collectively Exhaustive:** You have considered **all** possibilities. This is why a final `else` block is so important—it acts as a "safety net" for any data you didn't expect.
+
+#### **The Power of Comments**
+
+In bioinformatics, your "Conditions" are often based on scientific thresholds (e.g., p-value \<0.05 or Log2FoldChange \>2).
+
+**Always** write a comment explaining *why* you chose that threshold. Future you will thank you when you're writing the "Methods" section of your paper!

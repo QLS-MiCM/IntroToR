@@ -1,0 +1,236 @@
+---
+title: "Getting Started: Installing R and RStudio"
+subtitle: "Installation Tutorial"
+description: "Materials adapted from [TC Technology Knowledge Base](https://teacherscollege.screenstepslive.com/a/1135059-install-r-and-rstudio-for-mac)."
+---
+
+::: callout-note
+R and RStudio are two different programs that work together. R is the programming language and RStudio is a front end program that lets you write R code, view plots, etc.
+
+To understand the difference, think of the relationship between a car's engine and its dashboard:
+
+-   **R is the Engine:** It is the powerful machine under the hood. It does all the heavy lifting, makes the car move, and handles the energy. But on its own, an engine is just a block of metal on the floor—you can't sit in it or steer it easily.
+
+-   **RStudio is the Dashboard:** It’s the steering wheel, the seats, the GPS, and the speedometer. It’s the beautiful interface that lets you *interact* with the engine so you can actually drive where you want to go.
+
+**Key Takeaway:** Each program must be downloaded separately. You need to install both programs on your computer, but you will only ever "open" RStudio to do your work.
+:::
+
+## 1. **Install R and RStudio for Mac**
+
+### 1.1 Install R
+
+> **a) To install R, go to [cran.r-project.org](https://cran.r-project.org).**
+
+![](../images/R4mac_1.png){fig-align="center"}
+
+> **b) Click Download R for (Mac) OS X.**
+
+![](../images/R4mac_2.png){fig-align="center"}
+
+> **c) Check the Latest release: section for the appropriate version and follow the directions for download.**
+
+![](../images/R4mac_3.png){fig-align="center"}
+
+::: callout-tip
+### **Find out which macOS your Mac is using**
+
+To ensure you download the correct version of R, you need to check which processor your Mac uses:
+
+1.  Click the Apple menu () in the top-left corner of your screen and select About This Mac.
+
+2.  In the window that appears, look for the Chip or Processor section:
+
+    -   **Apple Silicon:** If you see "Chip" followed by M1, M2, or M3, download the version for Apple silicon Macs.
+
+    -   **Intel:** If you see "Processor" followed by Intel Core i5 or i7, download the version for Older Intel Macs.
+
+**Note:** The appearance of this window may vary depending on your macOS version, but the chip information will always be listed there.
+
+![](../images/R4mac_4.png){fig-align="center" width="182"}
+:::
+
+> **d) Once the file download is complete, click to open the installer in your Downloads folder. Click Continue and proceed through the installer.**
+
+![](../images/R4mac_5.png){fig-align="center"}
+
+> **e) Once the R installer has finished, click Close.**
+
+![](../images/R4mac_6.png){fig-align="center"}
+
+### 1.2 Install R Studio
+
+> **a) Next, download RStudio. Go to <https://posit.co/downloads/>**
+
+> **b) Click Download RStudio.**
+
+![](../images/R4mac_7.png){fig-align="center"}
+
+> **c) Select the RStudio version compatible with your macOS.**
+>
+> Note: If you are using macOS 13 (Ventura) or earlier, you may be redirected to an older version of RStudio that is optimized for your specific operating system.
+
+:::::: columns
+::: {.column width="45%"}
+![](../images/R4mac_7_1.png){.border}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+![](../images/R4mac_7_2.png){.border}
+:::
+::::::
+
+::: callout-tip
+### **Find out which macOS version your Mac is using**
+
+To ensure you download the correct version of R, you need to check which processor your Mac uses:
+
+1.  Click the Apple menu () in the top-left corner of your screen and select About This Mac.
+
+2.  In the window that appears, look for the macOS section:
+
+    -   The number following the macOS name is your version number.
+
+    -   Example: If your screen shows macOS Tahoe 25.0 (as seen in the figure below), your version is 25.
+
+    -   Action: In this case, you should choose the download option `macOS 14+ (macOS 14 and higher)`.
+
+![](../images/R4mac_4.png){fig-align="center" width="182"}
+:::
+
+> **d) Once the file download is complete, click to open the installer. Drag RStudio into your applications folder.**
+
+![](../images/R4mac_8.png){fig-align="center"}
+
+> **e) Once the installation is complete, R and RStudio will open.**
+
+![](../images/R4mac_9.png){fig-align="center"}
+
+## 2. **Install R and RStudio for Windows**
+
+### 2.1 Install R
+
+> **a) To install R, go to [cran.r-project.org](https://cran.r-project.org).**
+
+![](../images/R4mac_1.png){fig-align="center"}
+
+> **b) Choose for Download R for Windows.**
+
+![](../images/R4wds_2.png){fig-align="center"}
+
+> **c) Install R Click on install R for the first time.**
+
+![](../images/R4wds_3.png){fig-align="center"}
+
+> **d) Click Download R for Windows. Open the downloaded file.**
+
+![](../images/R4wds_4.png){fig-align="center"}
+
+> **e) Select the language you would like to use during the installation. Then click OK.**
+
+![](../images/R4wds_5.png){fig-align="center"}
+
+::: callout-tip
+### **Language Recommendation: Why we suggest English**
+
+While RStudio supports multiple languages, **I highly recommend setting your environment to English.** Here is why:
+
+-   **Easier Troubleshooting:** Most R documentation, forums, and Stack Overflow solutions are in English. When you encounter an error message, it is much easier to "Google" the exact text to find a solution.
+
+-   **Encoding Issues:** If you use non-alphabetic languages (like Mandarin), you may run into "text recognition" or encoding errors. This can result in "nonsense" characters (mojibake) in your console or error messages, making them impossible to read.
+
+-   **Consistency:** Most R packages and functions are named using English verbs, so keeping your interface in the same language makes the logic flow more naturally.
+
+**Don't worry if you've already chosen another language.** You can usually change these settings later in the RStudio Global Options. In the absolute worst-case scenario, you can simply reinstall R, but for now, feel free to proceed with whichever language you are most comfortable with!
+:::
+
+> **f) Click Next.**
+
+![](../images/R4wds_6.png){fig-align="center"}
+
+> **g) Select where you would like R to be installed. It will default to your Program Files on your C Drive. Click Next.**
+
+![](../images/R4wds_7.png){fig-align="center"}
+
+> **h) You can then choose which installation you would like.**
+
+![](../images/R4wds_8.png){fig-align="center"}
+
+> **i) (Optional) If your computer is a 64-bit, you can choose the 64-bit User Installation. Then click Next.**
+
+![](../images/R4wds_9.png){fig-align="center"}
+
+::: callout-tip
+### **How can I tell if my Windows device is running a 32-bit or a 64-bit version of Windows?**
+
+Most modern computers run the 64-bit version. Note that Windows 11 is 64-bit only, so if you have Windows 11, you are already set!
+
+To confirm your system type on Windows 10 or 11:
+
+-   Select the Start button and go to Settings \> System \> About.
+
+-   Locate the Device specifications section.
+
+-   Look next to System type:
+
+    -   64-bit operating system, x64-based processor: Choose the 64-bit download.
+
+    -   32-bit operating system, x86-based processor: Choose the 32-bit download (rare for newer machines).
+
+![](../images/R4wds_9_2.png){fig-align="center"}
+:::
+
+> **j) Then specify if you want to customized your startup or just use the defaults. Then click Next.**
+
+![](../images/R4wds_10.png){fig-align="center"}
+
+> **k) Then you can choose the folder that you want R to be saved within or the default if the R folder that was created.  Once you have finished, click Next.**
+
+![](../images/R4wds_11.png){fig-align="center"}
+
+> **l) You can then select additional shortcuts if you would like. Click Next.**
+
+![](../images/R4wds_12.png){fig-align="center"}
+
+> **m) Click Finish.**
+
+![](../images/R4wds_13.png){fig-align="center"}
+
+### 2.2 Install RStudio
+
+> **a) Next, download RStudio. Go to <https://posit.co/downloads/>**
+
+![](../images/R4wds_14.png){fig-align="center"}
+
+> **b) Click Download RStudio.**
+
+![](../images/R4wds_15.png){fig-align="center"}
+
+> **c) Once the packet has downloaded, the Welcome to RStudio Setup Wizard will open. Click Next and go through the installation steps.**
+
+![](../images/R4wds_16.png){fig-align="center"}
+
+> **d) After the Setup Wizard finishing the installation, RStudio will open.**
+
+![](../images/R4wds_17.png){fig-align="center"}
+
+## 3. Notes
+
+### 3.1 Language Recommendation: Why we suggest English
+
+::: callout-tip
+### **Language Recommendation: Why we suggest English**
+
+While RStudio supports multiple languages, **I highly recommend setting your environment to English.** Here is why:
+
+-   **Easier Troubleshooting:** Most R documentation, forums, and Stack Overflow solutions are in English. When you encounter an error message, it is much easier to "Google" the exact text to find a solution.
+
+-   **Encoding Issues:** If you use non-alphabetic languages (like Mandarin), you may run into "text recognition" or encoding errors. This can result in "nonsense" characters (mojibake) in your console or error messages, making them impossible to read.
+
+-   **Consistency:** Most R packages and functions are named using English verbs, so keeping your interface in the same language makes the logic flow more naturally.
+
+**Don't worry if you've already chosen another language.** You can usually change these settings later in the RStudio Global Options. In the absolute worst-case scenario, you can simply reinstall R, but for now, feel free to proceed with whichever language you are most comfortable with!
+:::

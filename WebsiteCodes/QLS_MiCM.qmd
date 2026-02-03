@@ -1,0 +1,35 @@
+---
+title: "QLS-MiCM"
+subtitle: ""
+---
+
+------------------------------------------------------------------------
+
+![](../images/MiCM_Logo_L2.jpg){fig-align="center"}
+
+#### Mission statement: deliver quality workshops designed to help biomedical researchers develop the skills they need to succeed.
+
+#### **Contact:** workshop-micm\@mcgill.ca
+
+:::::: columns
+::: {.column width="45%"}
+### Location: 550 Sherbrooke West, Montreal, Quebec
+
+![](../images/map.jpg){.border}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+### Scan the QR code to sign up for our mailing list
+
+![](../images/MailList.png){.border}
+:::
+::::::
+
+### Workshop
+
+#### **https://www.mcgill.ca/micm/training/workshops-series**
+
+![](../images/WorkshopInfo.png){fig-align="center"}

@@ -1,0 +1,158 @@
+---
+title: "Reading/Writing Data"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 0. The Working Directory
+
+The **Working Directory** is the specific folder on your computer where R is currently "looking" for files. Think of it as R's "home base."
+
+-   **`getwd()`**: Run this in the console to see your current "home base" address.
+
+-   **`setwd("path/to/folder")`**: Use this to change where R is looking.
+
+> **Warning:** Using `setwd()` is generally discouraged in shared projects because the path on your computer won't exist on your colleague's computer.
+
+::: callout-tip
+**Finding Your Working Directory from the console panel:**
+
+Right next to your R version, you will see a file path starting with `~/`.
+
+This is your **Working Directory**—the specific folder on your computer where R is currently "looking" for files.
+
+![](../images/RStudio_4.png){fig-align="center"}
+:::
+
+### Absolute vs. Relative Paths
+
+Understanding how R finds files is essential to avoiding the common `"File not found"` error.
+
+|  |  |  |
+|------------------------|------------------------|------------------------|
+| **Type** | **Description** | **Example** |
+| **Absolute Path** | The full "GPS address" from the root drive. | *C:/Users/Name/Project/data/counts.csv* |
+| **Relative Path** | A shorthand address starting from your **current** folder. | *data/counts.csv* |
+
+::: callout-tip
+**Best Practice:** Keep your data and your R script in the same folder (or a sub-folder) and use **Relative Paths**. This makes your project "portable"—it will work for anyone you share it with!
+:::
+
+## 1. Reading Data Tables
+
+### 1.1 From .csv (Comma Separated Values)
+
+#### **1.1.1 Base R**
+
+These functions come pre-installed with R. They are reliable and don't require any extra libraries, but can be slow with very large genomic datasets.
+
+> **`read.csv()`** Specifically designed for CSV files. It automatically assumes that your data is separated by commas (`,`).
+>
+> **`read.table()` (The "Parent" Function)** This is the most flexible tool in your kit. While `read.csv()` is "locked" to commas, `read.table()` lets you specify **any** separator. This is essential for tab-separated genomic files.
+
+```{r}
+#| eval: false
+dataset <- read.csv("data/my_data.csv")
+```
+
+```{r}
+#| eval: false
+# Reading a Tab-Separated file (.tsv or .txt)
+dataset <- read.table("data/my_data.txt", 
+                      header = TRUE,      # Does the first row have column names?
+                      sep = "\t",         # What separates the data? (\t = tab)
+                      stringsAsFactors = FALSE) # Keep text as text, not categories
+```
+
+::: callout-note
+#### **Key Arguments for `read.table`:**
+
+-   **`header = TRUE`**: Tells R that the first line contains the names of the columns.
+
+-   **`sep`**: The character that separates your values. Common ones are `","` (comma), `"\t"` (tab), and `""` (white space).
+
+-   **`dec`**: The character used for decimal points (useful if you are working with European data that uses a comma as a decimal).
+:::
+
+#### **1.1.2 `readr` (Tidyverse)**
+
+Part of the Tidyverse, `read_csv()` is faster and better at "guessing" your data types correctly.
+
+```{r}
+#| eval: false
+library(readr)
+dataset <- read_csv("data/my_data.csv")
+```
+
+### 1.2 From .xlsx (Excel)
+
+R cannot read Excel files natively. You need the `readxl` package.
+
+```{r}
+#| eval: false
+library(readxl)
+dataset <- read_excel("data/my_data.xlsx", sheet = 1)
+```
+
+## 2. Writing Data Tables
+
+After cleaning your data, you often need to export it for a publication or to share with a collaborator.
+
+### 2.1 `write.csv()`
+
+The standard way to save a table as a CSV.
+
+```{r}
+#| eval: false
+# Save the Africa subset of the gapminder data
+write.csv(africa, file = "data/gapminder_africa.csv", row.names = FALSE)
+```
+
+### 2.2 `write.table()` (For .tsv and custom formats)
+
+Use this if you need a **Tab-Separated Value (.tsv)** file, which is very common in bioinformatics.
+
+```{r}
+#| eval: false
+# Saving as a TSV (using sep = "\t")
+write.table(aust, file = "data/gapminder_australia.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+```
+
+### 2.3 Metadata and Versioning
+
+**Crucial Tip:** When exporting data, always include a date or version number in the filename (e.g., `results_v1_2026-02-01.csv`). This prevents you from accidentally overwriting your old work and helps you track which version of the data was used for which figure.
+
+## 3. R-Specific Formats (.RDS and .RData)
+
+Sometimes you want to save an object exactly as it is in R (e.g., a complex statistical model or a large list).
+
+### 3.1 .RDS (Save one object)
+
+Best for saving a single dataframe or list. You can give it a new name when you load it back in.
+
+```{r}
+#| eval: false
+saveRDS(africa, file = "data/africa.RDS")
+africa_reloaded <- readRDS("data/africa.RDS")
+```
+
+### 3.2 .RData (Save multiple objects)
+
+Used to save your entire "Environment." When you load it, the variables appear with their original names.
+
+```{r}
+#| eval: false
+save(africa, americas, file = "data/continents.RData")
+load("data/continents.RData", verbose = TRUE)
+```
+
+### 3.3 Summary: RDS vs. RData vs. RProject
+
+|  |  |  |
+|------------------------|------------------------|------------------------|
+| **Format** | **Purpose** | **Best Use Case** |
+| **.RDS** | Saves **one** object. | Saving a clean dataset to use in another script. |
+| **.RData** | Saves **multiple** objects. | Saving your whole workspace before lunch. |
+| **.Rproj** | Saves **settings/context**. | Keeping your file paths and open tabs organized. |
