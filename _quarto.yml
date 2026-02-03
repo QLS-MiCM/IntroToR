@@ -1,5 +1,8 @@
 project: 
   type: website
+  render:
+    - "*.qmd"           # Render all standard Quarto files
+    - "!Exercises/"     # Do NOT render anything in the Exercises folder
   
 website: 
   page-navigation: true
