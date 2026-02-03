@@ -4,8 +4,8 @@ project:
 website: 
   page-navigation: true
   title: "Intro To R" 
-  site-url: "https://martinahyang.github.io/IntroToR_Winter2026/" 
-  repo-url: https://github.com/MartinaHYang/IntroToR_Winter2026
+  site-url: "https://martinahyang.github.io/IntroToR/" 
+  repo-url: https://github.com/MartinaHYang/IntroToR
   repo-actions: [edit, issue]
   
   page-footer:
