@@ -23,8 +23,10 @@ This workshop is beginner-level introduction to programming in R. The course is 
 
 ## 2. Software requirements
 
--   [R \> 4.0](https://www.r-project.org)
--   [RStudio](https://www.rstudio.com/products/rstudio/download/)
+-   [R \> 4.0](https://www.r-project.org){target="_blank"}
+-   [RStudio](https://www.rstudio.com/products/rstudio/download/){target="_blank"}
+
+**You could refer to the step-by-step instructions [Getting Started: Installing R and RStudio](https://martinahyang.github.io/IntroToR/WebsiteCodes/Setup.html){target="_blank"}.**
 
 Once you have setup R and RStudio copy the code below to install the packages required for the workshop.
 
@@ -36,7 +38,7 @@ Once you have setup R and RStudio copy the code below to install the packages re
 install.packages(c("data.table", "datasets", "devtools", "dplyr", "ggplot2", "plyr", "medicaldata", "gapminder", "RColorBrewer", "rmarkdown", "stringr", "tidyr", "tidyverse", "viridis"))
 ```
 
-> Don't panic if you get stuck! You can find step-by-step instructions in Section 2.
+> Don't panic if you get stuck!
 >
 > While it helps to be ready before class, we’ve set aside 15 minutes of the workshop to help anyone running into errors.
 
@@ -117,12 +119,12 @@ To conclude the workshop, participants will (1) acquire good coding practices; (
 
 The materials for this workshop were based on the following sources:
 
--   [Base R Cheat Sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf)
--   [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html)
--   [Mastering Software Development in R](https://bookdown.org/rdpeng/RProgDA/)
--   [Online Book: R for Data Science (2e)](https://r4ds.hadley.nz)
--   [Online Book: R Graphics Cookbook, 2nd edition](https://r-graphics.org/index.html)
--   [Online Book: R in Action, Second Edition](https://livebook.manning.com/book/r-in-action-second-edition/chapter-1)
--   [Online Book: Hands-On Programming with R](https://rstudio-education.github.io/hopr/)
+-   [Base R Cheat Sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf){target="_blank"}
+-   [Google's R Style Guide](https://google.github.io/styleguide/Rguide.html){target="_blank"}
+-   [Mastering Software Development in R](https://bookdown.org/rdpeng/RProgDA/){target="_blank"}
+-   [Online Book: R for Data Science (2e)](https://r4ds.hadley.nz){target="_blank"}
+-   [Online Book: R Graphics Cookbook, 2nd edition](https://r-graphics.org/index.html){target="_blank"}
+-   [Online Book: R in Action, Second Edition](https://livebook.manning.com/book/r-in-action-second-edition/chapter-1){target="_blank"}
+-   [Online Book: Hands-On Programming with R](https://rstudio-education.github.io/hopr/){target="_blank"}
 
 *Workshop created as part of the McGill Initiative in Computational Medicine*

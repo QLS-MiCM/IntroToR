@@ -18,19 +18,38 @@ It is common to get these confused, but they are separate entities:
 
     > It is the powerful machine under the hood. It does all the heavy lifting, makes the car move, and handles the energy. But on its own, an engine is just a block of metal on the floor—you can't sit in it or steer it easily.
     >
-    > ![](../images/RStudio_1.png){fig-align="center"}
+    > ![](../images/RStudio_1.png){fig-align="center" width="60%"}
 
 -   **RStudio (The Dashboard):** An **Integrated Development Environment (IDE)**. It is the software interface (developed by **Posit**) that makes writing R code much easier.
 
     > It’s the steering wheel, the seats, the GPS, and the speedometer. It’s the beautiful interface that lets you *interact* with the engine so you can actually drive where you want to go.
     >
-    > ![](../images/RStudio_2.png){fig-align="center"}
+    > ![](../images/RStudio_2.png){fig-align="center" width="80%"}
 
-**Key Takeaway:** Each program must be downloaded separately. You need to install both programs on your computer, but you will only ever "open" RStudio to do your work.
+::: callout-note
+**Key Takeaway:** Each program must be downloaded separately. You need to **install both programs** on your computer, but you will only ever "open" RStudio to do your work.
+:::
 
 ## 2. File Types: Scripts vs. Notebooks
 
 In R, there are several ways to save your work. Choosing the right file type depends on whether you are writing code for a "computer" to run or a "human" to read.
+
+:::::: columns
+::: {.column width="45%"}
+#### **Demo of R Scripts (`.R`)**
+
+![](../images/RStudio_9.png){.border}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+#### **Demo of Notebooks (`.Rmd`, `.qmd`, `.ipynb`)**
+
+![](../images/RStudio_10.png){.border}
+:::
+::::::
 
 ### 2.1 R Scripts (`.R`)
 
@@ -60,8 +79,8 @@ Notebooks follow the **"Literate Programming"** philosophy, where your code, its
 
 ### 2.4 Which one should I use?
 
--   If you are writing a script that will run on a server overnight to process **Biobank data**: Use an **R Script (`.R`)**.
--   If you are analyzing your results and want to show your PI a **GTT curve** along with your interpretation: Use **Quarto (`.qmd`) or R Markdown (`.Rmd`)**.
+-   If you are writing a script that will run on a server overnight to **process data**: Use an **R Script (`.R`)**.
+-   If you are analyzing your results and want to show your PI a **visualization** along with your interpretation: Use **Quarto (`.qmd`) or R Markdown (`.Rmd`)**.
 
 ## 3. How to interact with RStudio
 
@@ -98,11 +117,13 @@ If your screen doesn't look like the default layout, or if one of the panes has 
 ::: callout-tip
 #### **The "Disappearing" Source Pane**
 
-A common question from beginners is: *"Why do I only see three windows?"* If the **Source Editor** (the top-left window) is missing, it is usually because you haven't opened a file yet. To make it appear, you simply need to create a new script:
+A common question from beginners is: *"Why do I only see three windows?"* If the **Source Editor** (the top-left window) is missing, it is usually because you haven't opened a file yet. 
+
+To make it appear, you simply need to create a new script:
 
 -   **Via Menu:** Select **File \> New File \> R Script**.
 
--   **Via Keyboard Shortcut:** 
+-   **Via Keyboard Shortcut:**
 
     -   **PC:** `Ctrl + Shift + N`
 
@@ -113,7 +134,7 @@ A common question from beginners is: *"Why do I only see three windows?"* If the
 
 This is your primary workspace. Think of it as a specialized "Text Editor" for your research files.
 
-![](../images/RStudio_3.png){fig-align="center"}
+![](../images/RStudio_3.png){fig-align="center" width="80%"}
 
 #### **3.2.1 Function Overview**
 
@@ -209,7 +230,7 @@ The Console is the "Engine Room." This is where R actually executes your command
 
 ### **3.4 The Environment & History (Top-Right)**
 
-![](../images/RStudio_5.png){fig-align="center"}
+![](../images/RStudio_5.png){fig-align="center" width="80%"}
 
 -   **Environment:** This tab shows you every "object" (datasets, variables, results) currently stored in R's memory. If a variable isn't listed here, R doesn't know it exists!
 
@@ -219,7 +240,7 @@ The Console is the "Engine Room." This is where R actually executes your command
 
 -   **Key Features & Icons**
 
-    -   ![](../images/RStudio_6.png){fig-align="center"}
+    -   ![](../images/RStudio_6.png){fig-align="center" width="80%"}
 
     -   **Save/Load Workspace (Disk Icons):** These allow you to save your entire Environment as an `.RData` file. This is a huge time-saver for large projects; instead of re-running hours of code to recreate your variables, you can simply "Load" the `.RData` file and pick up exactly where you left off.
 
@@ -231,7 +252,7 @@ The Console is the "Engine Room." This is where R actually executes your command
 
 ### **3.5 Files, Plots, & Help (Bottom-Right)**
 
-![](../images/RStudio_7.png){fig-align="center"}
+![](../images/RStudio_7.png){fig-align="center" width="80%"}
 
 This is your "Utility" pane:
 
@@ -252,7 +273,7 @@ This is your "Utility" pane:
 
     -   **What to look for:** R documentation can be dense, but you should always scroll to the very bottom to find the **Examples** section. You can copy and paste these examples directly into your console to see how the function works in action.
 
-## 4. [HANDS-ON ACTIVITY] Use Help in RStudio
+## 4. \[HANDS-ON ACTIVITY\] Use Help in RStudio
 
 ::: callout-note
 R offers some good resources to help you learn about its functions. For example, if you put a question mark before a function name, on the lower right quadrant of RStudio some help will pop up.

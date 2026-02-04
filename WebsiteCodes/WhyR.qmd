@@ -18,11 +18,13 @@ By the end of this module, you will be able to:
 
 -   **Navigate a curated list of self-taught resources** to continue your R journey beyond this workshop.
 
-## 1. Why Not Excel?
+## 1. Why Not Excel? / Why Not GraphPad Prism?
 
-Excel is a fantastic tool for initial data entry and simple calculations. However, for professional scientific research, it has significant limitations that can compromise your results.
+Excel is a fantastic tool for initial data entry and simple calculations. GraphPad Prism is also widely used for statistical analysis and data visualization.
 
-### The Limitations of Spreadsheets
+However, for professional scientific research, it has some limitations that can compromise your results.
+
+### The Limitations of Spreadsheets and Prism
 
 -   **Inflexible with Large Data:** Large datasets (like genomic data) often cause Excel to lag or crash. Searching a 100MB spreadsheet can take minutes in Excel.
 
@@ -45,6 +47,10 @@ Excel is a fantastic tool for initial data entry and simple calculations. Howeve
 -   **The "Copy-Paste" Risk:** Many students store data in Excel but copy-paste it into software like **GraphPad Prism** or **SPSS** for analysis. This manual step is a major source of human error. It’s easy to lose track of which version of the data you copied.
 
     -   In R, you **import** your data directly via code. This creates a clear, permanent link between your raw data and your final results.
+
+-   **Cost:** One major limitation of GraphPad Prism is its price: approximately \$500+ per year for two seats, rising to \$1,000+ per year for larger labs.
+
+    -   R is completely free and open-source.
 
 ::: callout-note
 ### My Personal Recommendation
@@ -160,9 +166,9 @@ It excels at:
 
     -   **Interactive Web Apps:** Using **R Shiny**.
 
-        -   *Example:* [**Bayesian Diagnostic Test Accuracy Meta-Analysis**](https://bayesdta.shinyapps.io/shiny_app_attempt_15May2025/)
+        -   *Example:* [**Bayesian Diagnostic Test Accuracy Meta-Analysis**](https://bayesdta.shinyapps.io/shiny_app_attempt_15May2025/){target="_blank"}
 
-        -   *Example:* [**shinyDeepDR**](https://shiny.crc.pitt.edu/shinydeepdr): Deep Learning Prediction of Cancer Drug Response.
+        -   *Example:* [**shinyDeepDR**](https://shiny.crc.pitt.edu/shinydeepdr/){target="_blank"}: Deep Learning Prediction of Cancer Drug Response.
 
     -   **Reproducible Documents:** Writing your entire Master’s thesis or Research Day posters or eBooks using **Quarto** (like this website!).
 
@@ -184,30 +190,70 @@ If your primary goal is to analyze your own research data and publish papers, **
 
 If you eventually want to move into pure software engineering or heavy AI, you can study Python later.
 
-The logic you learn in R will make Python much easier to learn!
+**The logic you learn in R will make Python much easier to learn!**
 :::
 
-## 5. Recommended Learning Materials
+## 5. How to use AI as a Learning Accelerator?
+
+With the rise of powerful AI tools, many students ask: *"If AI can write executable code for me, why should I spend time learning R myself?"*
+
+It is true that AI can be a brilliant assistant—even experienced bioinformaticians use it to explore new functions or speed up repetitive tasks. However, to be a scientist, you must move beyond "copy-pasting" to **"comprehending."**
+
+### Why Foundational Knowledge Still Matters
+
+#### **1. Fluency in the Environment**
+
+You must understand the RStudio interface and foundational functions to work fluently. Relying 100% on AI is like using a GPS but not knowing how to drive the car; if the GPS loses signal, you are stranded.
+
+#### **2. The Critical Skill of Debugging**
+
+AI often provides code that is "almost" right but fails due to your specific data structure. You must learn to read error messages and understand the "why" behind a bug to fix it. Without this, you will spend more time arguing with the AI than actually analyzing your data.
+
+#### **3. The "Black Box" Risk (A Cautionary Tale)**
+
+Blindly trusting AI is dangerous. There are documented cases of users running AI-generated scripts that accidentally deleted entire directories because they didn't read the line containing `unlink()` or `rm()`. As a researcher, you are responsible for the integrity of your data. If you don't read the code, you are not in control of your research.
+
+I recently heard a real case in which someone copy-pasted AI-generated code without fully reviewing it. A single incorrect command permanently deleted all of their files.
+
+#### **4. Expanding Your "Mental Toolbox"**
+
+By making an effort to understand each line of code, you build a mental library of what is *possible*. The next time you face a complex genomic problem, you won't just ask AI for a solution—you will know which R tools (like `dplyr` or `ggplot2`) are the right ones for the job.
+
+### The "Pilot and Co-Pilot" Rule
+
+Think of yourself as the **Pilot** and the AI as your **Co-pilot**.
+
+-   **The Pilot** sets the destination, understands the flight plan, and double-checks the instruments.
+
+-   **The Co-pilot** handles the manual, repetitive tasks to make the flight smoother.
+
+::: callout-important
+Never give 100% of your trust to an external resource.
+
+Whether it is code from an AI or a snippet from a forum, you must master the logic behind it. **Master your code, and you master your research.**
+:::
+
+## 6. Recommended Learning Materials
 
 If you want to dive deeper, here is a few free online books and materials:
 
--   [**R for Data Science (2e)**](https://r4ds.hadley.nz)
+-   [**R for Data Science (2e)**](https://r4ds.hadley.nz){target="_blank"}
 
--   [**R Graphics Cookbook, 2nd edition**](https://r-graphics.org/index.html)
+-   [**R Graphics Cookbook, 2nd edition**](https://r-graphics.org/index.html){target="_blank"}
 
--   [**R in Action, Second Edition**](https://livebook.manning.com/book/r-in-action-second-edition/chapter-1)
+-   [**R in Action, Second Edition**](https://livebook.manning.com/book/r-in-action-second-edition/chapter-1){target="_blank"}
 
--   [**Hands-On Programming with R**](https://rstudio-education.github.io/hopr/)
+-   [**Hands-On Programming with R**](https://rstudio-education.github.io/hopr/){target="_blank"}
 
--   [**The Epidemiologist R Handbook**](https://epirhandbook.com/en/)
+-   [**The Epidemiologist R Handbook**](https://epirhandbook.com/en/){target="_blank"}
 
--   [**R for Non-Programmers: A Guide for Social Scientists**](https://r4np.com/)
+-   [**R for Non-Programmers: A Guide for Social Scientists**](https://r4np.com/){target="_blank"}
 
--   [**Codecademy: Learn R Free Course**](https://www.codecademy.com/learn/learn-r)**:** Good for those who prefer an interactive, "in-browser" coding experience to practice syntax.
+-   [**Codecademy: Learn R Free Course**](https://www.codecademy.com/learn/learn-r){target="_blank"}**:** Good for those who prefer an interactive, "in-browser" coding experience to practice syntax.
 
--   [**McGill CDSI Workshops**](https://www.mcgill.ca/cdsi/training/workshops)**:** Our colleagues at the Computational and Data Systems Institute offer excellent deep-dives into specific data topics.
+-   [**McGill CDSI Workshops**](https://www.mcgill.ca/cdsi/training/workshops){target="_blank"}**:** Our colleagues at the Computational and Data Systems Institute offer excellent deep-dives into specific data topics.
 
--   [**McGill QLS-MiCM Workshops**](https://www.mcgill.ca/micm/training/workshops-series/2026-winter-series)**:** Keep an eye on future MiCM workshops for specialized bioinformatics and high-performance computing training.
+-   [**McGill QLS-MiCM Workshops**](https://www.mcgill.ca/micm/training/workshops-series/2026-winter-series){target="_blank"}**:** Keep an eye on future MiCM workshops for specialized bioinformatics and high-performance computing training.
 
 ## Appendix: R Visualization Gallery {#visualization-gallery}
 

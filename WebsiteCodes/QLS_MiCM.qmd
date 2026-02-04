@@ -7,7 +7,7 @@ subtitle: ""
 
 ![](../images/MiCM_Logo_L2.jpg){fig-align="center"}
 
-#### Mission statement: deliver quality workshops designed to help biomedical researchers develop the skills they need to succeed.
+#### **Mission statement:** deliver quality workshops designed to help biomedical researchers develop the skills they need to succeed.
 
 #### **Contact:** workshop-micm\@mcgill.ca
 
@@ -28,8 +28,40 @@ subtitle: ""
 :::
 ::::::
 
-### Workshop
+### More Workshops
 
-#### **https://www.mcgill.ca/micm/training/workshops-series**
+#### [**https://www.mcgill.ca/micm/training/workshops-series**](https://www.mcgill.ca/micm/training/workshops-series){target="_blank"}
 
 ![](../images/WorkshopInfo.png){fig-align="center"}
+
+The following is a list of QLS-MiCM workshops offered in the previous year:
+
+-   **How to think in Code**
+
+-   **Intro to Git & GitHub**
+
+-   **Intro to Unix**
+
+-   **Intro to R (Part 1)**
+
+-   **Statistics in R (Part 2)**
+
+-   **Intro to Python (Part 1)**
+
+-   **Intermediate Python (Part 2)**
+
+-   **Intro to MATLAB**
+
+-   **RNA-seq Bootcamp (DNA2RNA \|\| CDSI)**
+
+-   **Data Processing in Python**
+
+-   **Intro to Machine Learning**
+
+-   **Intro to Molecular Simulations**
+
+-   **Proteogenomics**
+
+-   **Data Processing for Genetics**
+
+-   **Polygenic Risk Scores**
