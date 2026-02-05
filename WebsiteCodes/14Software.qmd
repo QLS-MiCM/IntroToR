@@ -15,11 +15,7 @@ A script should read like a story. Organize it so a colleague (or "Future You") 
 -   **Sectioning:** Use comments (e.g., `#### SECTION NAME ####`) to create a map of your script.
 
     -   **Folding:** You can click the small triangle icon next to the line numbers to "fold" (hide) a big chunk of code once you are finished with it. This keeps your workspace tidy.
-
-    <!-- -->
-
     -   **Navigation:** In RStudio, you can click the **Outline** icon (top right of the script window) to see a table of contents. Click any section name to jump straight to that code.
-
     -   **The Shortcut:** Use `Cmd + Shift + R` (Mac) or `Ctrl + Shift + R` (Windows) to instantly insert a new section header.
 
 -   **The "Head" of the Script:**
@@ -39,6 +35,7 @@ A script should read like a story. Organize it so a colleague (or "Future You") 
 Here is a template demonstrating a clean, professional structure:
 
 ```{r}
+#| eval: false
 # 0. Setup -----------------------------------------------------------------
 
 ## Data Explanation:

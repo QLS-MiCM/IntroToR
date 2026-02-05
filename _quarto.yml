@@ -7,8 +7,8 @@ project:
 website: 
   page-navigation: true
   title: "Intro To R" 
-  site-url: "https://martinahyang.github.io/IntroToR/" 
-  repo-url: https://github.com/MartinaHYang/IntroToR
+  site-url: "https://martinahyang.github.io/IntroToR/"       # Needed to update to https://QLS-MiCM.github.io/IntroToR/
+  repo-url: "https://github.com/MartinaHYang/IntroToR"      # Needed to update to https://github.com/QLS-MiCM/IntroToR
   repo-actions: [edit, issue]
   
   page-footer:
@@ -81,7 +81,7 @@ website:
             href: WebsiteCodes/10RWData.qmd
           - text: "𝟭𝟭 Exploring Data Frames"
             href: WebsiteCodes/11AdvDataFrames.qmd            
-          - text: "𝟭𝟮	Useful Packages for Data Manipulation"
+          - text: "𝟭𝟮	Advanced Data Manipulation"
             href: WebsiteCodes/12Packages4Data.qmd
       - text: "🎃ＥＸＥＲＣＩＳＥ＃２"
         href: WebsiteCodes/Exercise2.qmd
@@ -103,7 +103,7 @@ website:
         href: WebsiteCodes/Exercise4.qmd
       - text: "👍ＳＯＬＵＴＩＯＮＳ＃４"
         href: WebsiteCodes/Solutions4.qmd
-      - text: "Concluding Remarks"
+      - text: "Concluding Remarks🎉"
         href: WebsiteCodes/ConcludingRemarks.qmd
 
 

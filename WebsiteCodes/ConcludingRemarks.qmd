@@ -1,5 +1,5 @@
 ---
-title: "Concluding Remarks"
+title: "Concluding Remarks 🎉"
 subtitle: ""
 description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
 ---
@@ -34,16 +34,72 @@ Today was about the **mechanics** of R. In the next stage, we move toward **inte
 
 -   **Reporting:** Using Quarto to create automated PDF or HTML reports for your PI.
 
-## 3. Resources for Continued Learning
+## 3. Resources for Continued R Learning
 
 As you continue your R study, these resources will be your best friends:
 
--   [**R for Data Science (2e)**](https://r4ds.hadley.nz/)
-
 -   [**Bioconductor Tutorials**](https://www.google.com/search?q=https://www.bioconductor.org/help/tutorials/)
 
--   [**Cheat Sheets**](https://posit.co/resources/cheatsheets/)
+-   [**R Cheat Sheets**](https://posit.co/resources/cheatsheets/)
 
-### 4. **Thank you for attending!**
+<!-- -->
+
+-   [**R for Data Science (2e)**](https://r4ds.hadley.nz){target="_blank"}
+
+-   [**R Graphics Cookbook, 2nd edition**](https://r-graphics.org/index.html){target="_blank"}
+
+-   [**R in Action, Second Edition**](https://livebook.manning.com/book/r-in-action-second-edition/chapter-1){target="_blank"}
+
+-   [**Hands-On Programming with R**](https://rstudio-education.github.io/hopr/){target="_blank"}
+
+-   [**The Epidemiologist R Handbook**](https://epirhandbook.com/en/){target="_blank"}
+
+-   [**R for Non-Programmers: A Guide for Social Scientists**](https://r4np.com/){target="_blank"}
+
+-   [**Codecademy: Learn R Free Course**](https://www.codecademy.com/learn/learn-r){target="_blank"}**:** Good for those who prefer an interactive, "in-browser" coding experience to practice syntax.
+
+-   [**McGill CDSI Workshops**](https://www.mcgill.ca/cdsi/training/workshops){target="_blank"}**:** Our colleagues at the Computational and Data Systems Institute offer excellent deep-dives into specific data topics.
+
+-   [**McGill QLS-MiCM Workshops**](https://www.mcgill.ca/micm/training/workshops-series/2026-winter-series){target="_blank"}**:** Keep an eye on future MiCM workshops for specialized bioinformatics and high-performance computing training.
+
+## 4. More workshops
+
+#### [**https://www.mcgill.ca/micm/training/workshops-series**](https://www.mcgill.ca/micm/training/workshops-series){target="_blank"}
+
+![](../images/WorkshopInfo.png){fig-align="center"}
+
+The following is a list of QLS-MiCM workshops offered in the previous year:
+
+-   **How to think in Code**
+
+-   **Intro to Git & GitHub**
+
+-   **Intro to Unix**
+
+-   **Intro to R (Part 1)**
+
+-   **Statistics in R (Part 2)**
+
+-   **Intro to Python (Part 1)**
+
+-   **Intermediate Python (Part 2)**
+
+-   **Intro to MATLAB**
+
+-   **RNA-seq Bootcamp (DNA2RNA \|\| CDSI)**
+
+-   **Data Processing in Python**
+
+-   **Intro to Machine Learning**
+
+-   **Intro to Molecular Simulations**
+
+-   **Proteogenomics**
+
+-   **Data Processing for Genetics**
+
+-   **Polygenic Risk Scores**
+
+## 5. **Thank you for attending!**
 
 ![](../images/McGillRecordQR.png){fig-align="center"}

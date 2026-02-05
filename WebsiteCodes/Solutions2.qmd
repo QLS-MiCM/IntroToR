@@ -85,7 +85,3 @@ gp[gp$year==2008,]
 ```{r,eval=F}
 tapply(gapminder$lifeExp,gapminder$continent,mean)
 ```
-
-```{r,eval=F}
-tapply(gapminder$lifeExp,gapminder$continent,mean)
-```

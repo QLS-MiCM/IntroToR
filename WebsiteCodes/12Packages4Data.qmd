@@ -79,6 +79,7 @@ The pipe operator is the secret sauce of `dplyr`. It takes the output of one fun
 **The Nest (Hard to read):**
 
 ```{r}
+#| message: false
 # Hard to tell which argument belongs to which function
 set.seed(228)
 demo_data <- data.frame(
@@ -207,6 +208,7 @@ The true beauty of `dplyr` is chaining everything into one clean pipeline.
 
 ```{r}
 #| collapse: true
+#| message: false
 # A complete pipeline: Create a variable, group it, and summarize it
 summary_table <- gapminder %>% 
   dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %>% 

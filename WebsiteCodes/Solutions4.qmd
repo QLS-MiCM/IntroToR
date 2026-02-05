@@ -7,6 +7,7 @@ description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xi
 ------------------------------------------------------------------------
 
 ```{r}
+#| message: false
 if (!require("ggplot2", quietly = TRUE))
     install.packages("ggplot2")
 library(ggplot2)
@@ -83,6 +84,7 @@ covid %>%
 ### Tests by age group
 
 ```{r}
+#| message: false
 tsts_age<-covid %>%
             filter(result!="invalid" & pan_day<=100) %>%
             mutate(age_group=ifelse(age<=21,"children","adults")) %>%

@@ -13,6 +13,7 @@ Base R is great for a "quick look" at your data. It is fast because it doesn't r
 ### Simple Histogram
 
 ```{r}
+#| message: false
 if (!require("gapminder", quietly = TRUE))
     install.packages("gapminder")
 library(gapminder)
@@ -49,6 +50,7 @@ plot(y = df_swiss$gdpPercap, x = df_swiss$year, xlab = "Years", ylab = "GDP per 
 ### Comparing Multiple Countries
 
 ```{r}
+#| message: false
 library(ggplot2)
 library(dplyr)
 
@@ -66,6 +68,7 @@ ggplot(df_subset, aes(x = year, y = lifeExp, color = country)) +
 One of the best features of the Tidyverse is that you can pipe your data manipulation results directly into `ggplot()`. This avoids creating unnecessary intermediate objects in your environment.
 
 ```{r}
+#| message: false
 gapminder %>%
   dplyr::group_by(continent, year) %>%
   dplyr::summarize(mean_gdpPercap = mean(gdpPercap)) %>%
@@ -86,6 +89,7 @@ gapminder %>%
 If you want your legend to appear in a specific order (e.g., descending wealth), you must modify the **Levels** of your factor.
 
 ```{r}
+#| message: false
 gapminder %>%
   dplyr::group_by(continent, year) %>%
   dplyr::mutate(continent = factor(as.character(continent), 

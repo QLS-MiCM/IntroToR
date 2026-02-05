@@ -1,8 +1,35 @@
 ---
-title: "Title"
+title: "Overview: Basic and Advanced Data Manipulation"
 subtitle: ""
 description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
 ---
 
----
+------------------------------------------------------------------------
 
+## Basic Data Manipulation
+
+By the end of this module, you will be able to:
+
+-   **Import and Export Data:** Read from and write to common file formats (e.g., `.csv`, `.tsv`, and `.txt`) using functions like `read.csv()` and `write.table()`.
+
+-   **Navigate Data Frames:** Utilize foundational functions (`dim()`, `str()`, `head()`) to assess the dimensions and structure of any dataset.
+
+-   **Master Base R Subsetting:** Pinpoint specific data using the coordinate system `[row, column]`, the `$` operator, and logical indexing with `which()`.
+
+-   **Modify Columns:** Add, rename, or transform individual columns using standard assignment logic.
+
+-   **Merge Datasets:** Combine tables horizontally and vertically using `cbind()` and `rbind()`.
+
+## Advanced Data Manipulation
+
+By the end of this module, you will be able to:
+
+-   **Apply the `dplyr` Grammar:** Efficiently manipulate data using core "verbs" such as `filter()`, `select()`, `mutate()`, `arrange()`, and `summarize()`.
+
+-   **Construct Pipelines:** Use the pipe operator (`%>%`) to chain multiple operations into a single, readable workflow.
+
+-   **Perform Grouped Analyses:** Use `group_by()` in combination with `summarize()` to calculate statistics (like mean or standard deviation) across different experimental cohorts.
+
+-   **Reshape Data:** Convert between "wide" and "long" formats using `tidyr` functions (`pivot_longer`, `pivot_wider`) to prepare data for visualization.
+
+-   **Integrate External Packages:** Install and load specialized libraries to extend R's data manipulation capabilities.

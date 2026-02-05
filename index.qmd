@@ -12,6 +12,12 @@ description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xi
 
 This workshop is beginner-level introduction to programming in R. The course is designed to be taught in one session of 4 hours and is focused on the application of R to the analysis of tabular data from medical datasets.
 
+## 0. The Workshop Materials
+
+Throughout this course, we will primarily use our dedicated workshop website: 👉 [Introduction to R Workshop: https://martinahyang.github.io/IntroToR/](https://martinahyang.github.io/IntroToR/)
+
+We will use this site to cover the foundational concepts of R, while performing **hands-on exercises** together in the **RStudio**. All necessary code and resources are provided on the site for your convenience.
+
 ## 1. Prior knowledge
 
 -   No previous programming experience is required.
@@ -46,7 +52,7 @@ install.packages(c("data.table", "datasets", "devtools", "dplyr", "ggplot2", "pl
 
 ### 3.1 R basics
 
-In the first module of the workshop, the goals are to (1) familiarize with the language and the logic behind it; (2) Get started with R studio and create your first project; (3) Configure the working directory with a common standard structure; (4) Create your first `.R` file to write down the live code; (5) Compute arithmetic operations; (6) Use logical operators; (7) Get fluent in R's console; (8) Learn how to ask for help within R; and (9) get comfortable with installing packages.
+In the first module of the workshop, the goals are to (1) familiarize with the language and the logic behind it; (2) Get started with R studio and create your first project; (3) Configure the working directory with a common standard structure; (4) Create your first `.R` file to write down the live code; (5) Compute arithmetic operations; (6) Use logical operators; (7) Get fluent in R's console; (8) Learn how to ask for help within R; and (9) get comfortable with installing packages.
 
 **Module content:**
 
