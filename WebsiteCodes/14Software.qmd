@@ -14,9 +14,54 @@ A script should read like a story. Organize it so a colleague (or "Future You") 
 
 -   **Sectioning:** Use comments (e.g., `#### SECTION NAME ####`) to create a map of your script.
 
--   **The "Head" of the Script:** Always load your libraries at the top. This acts as a "Required Hardware" list for R.
+    -   **Folding:** You can click the small triangle icon next to the line numbers to "fold" (hide) a big chunk of code once you are finished with it. This keeps your workspace tidy.
 
--   **Function Management:** Keep your main script clean. If you have many custom functions, save them in a file called `utils.R` or `functions.R` and bring them in using `source("functions.R")`.
+    <!-- -->
+
+    -   **Navigation:** In RStudio, you can click the **Outline** icon (top right of the script window) to see a table of contents. Click any section name to jump straight to that code.
+
+    -   **The Shortcut:** Use `Cmd + Shift + R` (Mac) or `Ctrl + Shift + R` (Windows) to instantly insert a new section header.
+
+-   **The "Head" of the Script:**
+
+    Always load your libraries and set your environment variables (like `set.seed()`) at the very top. This acts as a **"Required Hardware"** list for R. If someone else tries to run your code, they will know immediately which packages they need to install.
+
+-   **Function Management:**
+
+    Keep your main analysis clean. If you have many custom functions:
+
+    -   **The "Functions" Section:** Put them in a dedicated section right below your library imports.
+
+    -   **The External File:** For very long scripts, save your functions in a separate file (e.g., `utils.R`) and bring them in using `source("utils.R")`.
+
+#### **Anatomy of a Professional Script**
+
+Here is a template demonstrating a clean, professional structure:
+
+```{r}
+# 0. Setup -----------------------------------------------------------------
+
+## Data Explanation:
+# This script analyzes the progranulin (GRN) expression in scRNA-seq data.
+# Last updated: Feb 2026 by [Your Name] [Finsihed Data Pre-processing]
+
+# Load Libraries
+library(dplyr)
+library(ggplot2)
+
+# Global Settings
+set.seed(228) # Ensures reproducibility for random samplings
+
+# Customized Functions
+CalculateFoldChange <- function(x, y) { return(log2(x/y)) }
+
+# 1. Load Data -------------------------------------------------------------
+# raw_counts <- read.csv("data/counts.csv")
+
+# 2. Pre-processing --------------------------------------------------------
+
+# 3. Statistical Analysis --------------------------------------------------
+```
 
 ### 1.2 Writing Robust Functions
 

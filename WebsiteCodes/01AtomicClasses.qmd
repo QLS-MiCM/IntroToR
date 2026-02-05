@@ -8,7 +8,9 @@ description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xi
 
 Atomic classes are the fundamental data type found in R. All subsequent data structures are used to store entries of different atomic classes.
 
-![](../images/DataTypes.png){fig-align="center"}
+If an Excel spreadsheet is your storage system, the Atomic Class is the actual "stuff" written inside each cell—whether it's a number, a word, or a simple "True/False."
+
+![](../images/DataTypes.png){fig-align="center" width="60%"}
 
 ## 1. Character
 
@@ -19,17 +21,17 @@ class("a")
 ```
 
 ::: callout-note
-### Understanding the class() Function
+**Understanding the class() Function**
 
-Functions: In R, a function typically follows the format `function_name()`.
+**Functions:** In R, a function typically follows the format `function_name()`.
 
-Arguments: The information you put inside the parentheses () is called an argument. The function takes that argument, processes it, and returns a result.
+**Arguments:** The information you put inside the parentheses () is called an argument. The function takes that argument, processes it, and returns a result.
 
-Testing Types: The class() function is your go-to tool for identifying the data type of any object or value.
+**Testing Types:** The class() function is your go-to tool for identifying the data type of any object or value.
 :::
 
 ::: callout-tip
-### **Efficiency Tip: The Quotation Shortcut**
+**Efficiency Tip: The Quotation Shortcut**
 
 In RStudio, you don't have to manually type quotation marks at the beginning and end of every word or sentence. There is a "surround" shortcut that handles this for you:
 
@@ -41,7 +43,7 @@ In RStudio, you don't have to manually type quotation marks at the beginning and
 
 3.  **Result:** RStudio will automatically place a quotation mark at the start *and* the end of your selection.
 
-### **Wait, where else does this work?**
+**Wait, where else does this work?**
 
 This shortcut also works for other "pairing" symbols in RStudio:
 
@@ -69,7 +71,7 @@ class("McGill University is on land which has long served as a site of meeting a
 ```
 
 ::: callout-note
-#### Single vs. Double Quotes
+**Single vs. Double Quotes**
 
 In R, there is no functional difference between using double quotes (" ") and single quotes (' '). However, double quotes are the standard convention in the R community.
 
@@ -108,10 +110,20 @@ class(a)
 ```
 
 ::: callout-note
-#### Why did this fail?
+**Why did this fail?**
 
-Without the quotation marks, R doesn't see the letter "a". Instead, it looks for an object or variable named a on your workbench (Environment). Since we haven't created a variable named a yet, R reports: Error: object 'a' not found.
+Without the quotation marks, R doesn't see the letter "a".
+
+Instead, it looks for an object or variable named a on your workbench (Environment). Since we haven't created a variable named a yet, R reports: Error: object 'a' not found.
 :::
+
+### 1.4 Summary
+
+-   Anything inside quotation marks is a **Character**.
+
+-   This includes numbers, symbols, and entire paragraphs.
+
+-   Characters are the primary way we store metadata (like "Control" vs "Treatment" groups) in bioinformatics.
 
 ## 2. Numeric
 
@@ -157,6 +169,12 @@ One of the most important habits to build is checking whether your number is bei
 "3.14"
 ```
 
+```{r}
+#| collapse: true
+class(3.14)
+class("3.14")
+```
+
 ::: callout-note
 #### Notice the Difference?
 
@@ -178,7 +196,7 @@ By default, R uses Double-precision floating-point format (often called "Doubles
 -   Flexibility: Storing numbers with decimals by default allows R to handle complex division and scientific calculations without losing data.
 
 ::: callout-note
-#### Forcing an Integer
+**Forcing an Integer**
 
 If you specifically need a whole number to be stored as an Integer (which uses less memory), you must add an `L` after the number: `class(1L)` will return `"integer"`.
 
@@ -187,18 +205,20 @@ However, for 99% of medical research tasks, the default Numeric setting is exact
 
 ## 3. Integer
 
-Integers are numbers that do not have a decimal component. While R defaults to "Numeric" (Double) for almost everything, you can explicitly tell R to store a number as an Integer by adding the suffix `*L*` after the value.
+Integers are numbers that do not have a decimal component.
+
+While R defaults to "Numeric" (Double) for almost everything, you can explicitly tell R to store a number as an Integer by adding the suffix `*L*` after the value.
 
 ```{r}
 class(1234L)
 ```
 
 ::: callout-note
-#### Why the "L"?
+**Why the "L"?**
 
 The "L" stands for Long, a legacy term from older programming languages (like C) used to denote a specific amount of computer memory. In modern R, it simply tells the computer: "Store this as a whole number, not a decimal."
 
-#### Where the Integer data type is necessary
+**Where the Integer data type is necessary**
 
 In most day-to-day experimental medicine tasks, you won't need to worry about this.
 
@@ -248,11 +268,11 @@ class(F)
 ```
 
 ::: callout-warning
-#### A Note on Best Practices
+**A Note on Best Practices**
 
 While using T and F is a common "lazy" shortcut, most professional programmers recommend using the full words TRUE and FALSE.
 
-Why?
+**Why?**
 
 Because in R, T and F are technically variables that can be overwritten (e.g., someone could accidentally set T \<- 0), whereas the full words TRUE and FALSE are "reserved" and cannot be changed. For reproducible research, stick to the full words!
 :::
@@ -270,7 +290,7 @@ class(False)
 ```
 
 ::: callout-note
-#### Summary
+**Summary**
 
 There are only two ways to correctly define a logical data type:
 
@@ -300,27 +320,29 @@ class(NA)
 ```
 
 ::: callout-note
-### Why use NA instead of 0?
+**Why use NA instead of 0?**
 
-It is a common mistake in research to fill missing entries with 0. However, in a medical context, zero is a value (e.g., zero glucose, zero heart rate), whereas NA is an absence of data (e.g., the patient missed their appointment). Treating an NA as a 0 will incorrectly skew your averages and invalidate your statistical tests.
+It is a common mistake in research to fill missing entries with 0.
+
+However, in a medical context, zero is a value (e.g., zero glucose, zero heart rate), whereas NA is an absence of data (e.g., the patient missed their appointment). Treating an NA as a 0 will incorrectly skew your averages and invalidate your statistical tests.
 :::
 
 ### 6.1 How is this helpful for your research?
 
-1.  Automated Data Handling
+1.  **Automated Data Handling**
 
-When you import an Excel sheet into R, empty cells are automatically converted to NA. Most R functions are designed to handle these gracefully. For example, when calculating the average weight of a group, you can tell R to ignore the missing entries: `mean(weights, na.rm = TRUE)`
+    When you import an Excel sheet into R, empty cells are automatically converted to NA. Most R functions are designed to handle these gracefully. For example, when calculating the average weight of a group, you can tell R to ignore the missing entries: `mean(weights, na.rm = TRUE)`
 
-2.  Efficient Quality Control (QC)
+2.  **Efficient Quality Control (QC)**
 
-Instead of scanning a spreadsheet with thousands of rows by eye, you can use R to:
+    Instead of scanning a spreadsheet with thousands of rows by eye, you can use R to:
 
--   Count exactly how many entries are missing in a clinical trial.
+    -   Count exactly how many entries are missing in a clinical trial.
 
--   Identify which patients have incomplete gene expression profiles.
+    -   Identify which patients have incomplete gene expression profiles.
 
--   Filter your dataset to remove any rows or columns that contain NA values in just one line of code (e.g., `na.omit()`).
+    -   Filter your dataset to remove any rows or columns that contain NA values in just one line of code (e.g., `na.omit()`).
 
-3.  Transparency and Reproducibility
+3.  **Transparency and Reproducibility**
 
-Using NA keeps your data "honest." It is a professional standard to keep notes on why data is missing (e.g., "sample contaminated" or "patient withdrew"). By keeping NA in your raw data and handling it with code, you create a clear, reproducible trail of how you arrived at your final results.
+    Using NA keeps your data "honest." **It is a professional standard to keep notes on why data is missing (e.g., "sample contaminated" or "patient withdrew").** By keeping NA in your raw data and handling it with code, you create a clear, reproducible trail of how you arrived at your final results.

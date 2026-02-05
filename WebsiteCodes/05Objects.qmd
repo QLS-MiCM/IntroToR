@@ -10,6 +10,21 @@ In R, **Data Structures** are the containers used to store and organize values.
 
 R provides several built-in structures, each designed for a specific purpose. Understanding the difference between them is critical for data analysis.
 
+:::::: columns
+::: {.column width="45%"}
+
+![](../images/DataStructures.png){.border}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+
+![](../images/DataStructures_2.png){.border}
+:::
+::::::
+
 | Data Structure | Dimensions | Contains Same Type? | Use Case |
 |:-----------------|:-----------------|:-----------------|:-----------------|
 | **Vector** | 1D | **Yes** | Simple sequences of numbers or text. |
@@ -19,8 +34,6 @@ R provides several built-in structures, each designed for a specific purpose. Un
 | **Array** | n-D | **Yes** | Multi-dimensional data (3D+). |
 | **Data Frame** | 2D | **No** | Standard datasets (rows = samples, cols = variables). |
 | **NULL** | \- | \- | \- |
-
-![](../images/DataStructures.png){fig-align="center" width="800"}
 
 ## 1. Overview of data dimension
 

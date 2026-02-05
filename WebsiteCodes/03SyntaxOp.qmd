@@ -25,6 +25,39 @@ Comments are used to explain **why** you wrote a specific line of code. This is 
 # "hello world"
 ```
 
+::: callout-note
+The shortcut is "smart." If you **highlight ten lines of code and** **hit the shortcut**, it will comment out all ten lines at once. Hit it again to "**uncomment**" them.
+:::
+
+::: callout-note
+It doesn't matter how many `#` symbols you use.
+
+R simply looks for the *first* one on a line and ignores everything to the right of it. You are free to use multiple hashtags to create visual hierarchy in your script:
+
+```{r}
+#-----------------------------------------------------------
+## MAIN SECTION: DATA CLEANING
+#-----------------------------------------------------------
+
+### Step 1: Remove outliers
+# The following line filters out p-values above 0.05
+```
+:::
+
+::: callout-tip
+### Best Practices for Commenting
+
+1.  **Don't explain "What":** R (and yourself) knows *what* the code is doing.
+
+    -   *Bad:* `# Adding 1 to x`
+
+2.  **Explain "Why":** Explain the scientific logic.
+
+    -   *Good:* `# Adjusting for batch effect`
+
+3.  **Use them as "Bookmarks":** Use long lines of hashtags to separate your "Loading Data" section from your "Plotting" section.
+:::
+
 ## 2. Assignment: Creating Objects
 
 Assignment is the process of storing a value (data) inside a named container (an object).

@@ -1,12 +1,14 @@
 ---
-title: "Logical operators"
+title: "Comparison Operators and Logical Operators"
 subtitle: ""
 description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
 ---
 
 ------------------------------------------------------------------------
 
-**Comparison operators** are used to compare two values. When you run a comparison, R evaluates the statement and returns a **Logical** value: either `TRUE` or `FALSE`.
+**Comparison operators** are used to compare two values.
+
+When you run a comparison, R evaluates the statement and returns a **Logical** value: either `TRUE` or `FALSE`.
 
 > | Operator |         Name         | Example  | Plain English                 |
 > |:---------|:--------------------:|:---------|:------------------------------|
@@ -26,19 +28,13 @@ description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xi
 > | `!` | **Logical NOT.** Returns FALSE if statement is TRUE; Reverses the result (TRUE becomes FALSE). |
 > | `%in%` | **Contains/Membership.** Checks if a value belongs to a set. |
 
-![](../images/LogicalOperators.png){fig-align="center" width="800"}
+![](../images/LogicalOperators.png){fig-align="center" width="60%"}
 
 ## 1. Comparison operators
 
 ### 1.1 `==`
 
-::: callout-warning
-The Most Common R Error: `=` vs `==`
-
-`=` (or `<-`) is for Assignment: You are telling R that a variable equals a value.
-
-`==` is for Comparison: You are asking R if two things are equal.
-:::
+In R, `==` is a logical operator for comparison. `==` asks: "Is A exactly equal to B?"
 
 ```{r}
 # Comparing numbers
@@ -48,12 +44,43 @@ The Most Common R Error: `=` vs `==`
 "McGill" == "mcgill"
 ```
 
+::: callout-warning
+**The Most Common R Error: `=` vs `==`**
+
+`=` (or `<-`) is for Assignment: You are telling R that a variable equals a value.
+
+`==` is for Comparison: You are asking R if two things are equal.
+
+**Incorrect Demonstrations**
+
+1.  **Attempting to assign to a literal number**
+
+    ```{R}
+    #| error: true
+    # ERROR: This sounds like you are trying to force the number 10 
+    # to take on the value 2. R will block this.
+    10 = 2
+    ```
+
+2.  **Confusing Variables with Text**
+
+    ```{r}
+    #| error: true
+    # ERROR: This creates a NEW variable named McGill and stores "mcgill" in it.
+    # It does NOT check if they are the same.
+    McGill = "mcgill"
+
+    # To actually COMPARE them, you must use double equals and quotes for both:
+    "McGill" == "mcgill"
+    ```
+:::
+
 ### 1.2 `!=`
 
-In R, the exclamation mark `!` stands for **"NOT"**. When combined with the equals sign, `!=` checks if two values are **different**.
+In R, the exclamation mark `!` stands for **"NOT"**. When combined with the equals sign, `!=` checks if two values are **different**. `!=` asks: "Is A different from B?"
 
--   It returns `TRUE` if the values are **not** the same.
--   It returns `FALSE` if they **are** the same.
+-   It returns `TRUE` if the values are **not** the same (are different).
+-   It returns `FALSE` if they **are** the same (are not different).
 
 ```{r}
 # Is 10 equal to 2? (False)
@@ -97,7 +124,7 @@ Look for the key with the backslash `\` (usually above the Return/Enter key).
 
 ### 2.3 `!`
 
-The "NOT" Operator (!): This exclamation mark is used to exclude specific data points.
+The "NOT" Operator (!): This exclamation mark is used to reverse a logical value or exclude specific data points.
 
 ```{r}
 !TRUE
@@ -125,3 +152,15 @@ diabetes_genes <- c("INS", "GCK", "KCNJ11", "SLC30A8")
 # Is 'SOX2' in our list?
 "SOX2" %in% diabetes_genes
 ```
+
+## 3. Extended Reading: what is the difference between \`&`and`&&\`?
+
+In R, you will sometimes see the double operator (`&&` and `||`). While they look similar, they behave very differently under the hood:
+
+|  |  |  |  |
+|----|----|----|----|
+| **Operator** | **Type** | **Behavior** | **Best Use Case** |
+| **`&`** | **Vectorized** | Compares **every element** in a list. | **Data Filtering** (e.g., filtering a whole column of 1,000 patients). |
+| **`&&`** | **Control Flow** | Only looks at the **first element** and ignores the rest. | **`if` statements** inside functions where you only expect one TRUE/FALSE. |
+
+**In this workshop (and for 90% of data analysis), you should always use the single `&` and `|`.** The double versions are advanced tools used mostly by package developers to make code run slightly faster in specific scenarios.
