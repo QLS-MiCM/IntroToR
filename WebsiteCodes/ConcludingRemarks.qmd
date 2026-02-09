@@ -1,0 +1,107 @@
+---
+title: "Concluding Remarks 🎉"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. What We Learned Today
+
+We have covered the foundational pillars of R programming for bioinformatics:
+
+-   **The Ecosystem:** Understanding the difference between **Base** **R, RStudio, CRAN**, **BioConductor, and GitHub**.
+
+-   **The Basics:** Mastering data types (vectors, factors, lists) and the "home base" of the **Working Directory**.
+
+-   **Data Wrangling:** Using `dplyr` verbs and the **Pipe (`%>%`)** to turn messy spreadsheets into clean tables without creating intermediate "clutter."
+
+-   **Visualization:** Moving beyond basic plots to the layered "Grammar of Graphics" in **`ggplot2`**.
+
+-   **Reproducibility:** Learning how to write robust functions and manage project scripts.
+
+## 2. What’s Next?
+
+Today was about the **mechanics** of R. In the next stage, we move toward **interpretation**.
+
+### Statistics in R Workshop (Part 2)
+
+-   **Data Wrangling:** Advanced joining of datasets (merging clinical data with genomic counts).
+
+-   **Statistical Analysis:** Performing T-tests, ANOVA, and correlation studies.
+
+-   **Regression:** Building linear models to understand the relationship between variables.
+
+-   **Reporting:** Using Quarto to create automated PDF or HTML reports for your PI.
+
+## 3. Resources for Continued R Learning
+
+As you continue your R study, these resources will be your best friends:
+
+-   [**Bioconductor Tutorials**](https://www.google.com/search?q=https://www.bioconductor.org/help/tutorials/)
+
+-   [**R Cheat Sheets**](https://posit.co/resources/cheatsheets/)
+
+<!-- -->
+
+-   [**R for Data Science (2e)**](https://r4ds.hadley.nz){target="_blank"}
+
+-   [**R Graphics Cookbook, 2nd edition**](https://r-graphics.org/index.html){target="_blank"}
+
+-   [**R in Action, Second Edition**](https://livebook.manning.com/book/r-in-action-second-edition/chapter-1){target="_blank"}
+
+-   [**Hands-On Programming with R**](https://rstudio-education.github.io/hopr/){target="_blank"}
+
+-   [**The Epidemiologist R Handbook**](https://epirhandbook.com/en/){target="_blank"}
+
+-   [**R for Non-Programmers: A Guide for Social Scientists**](https://r4np.com/){target="_blank"}
+
+-   [**Codecademy: Learn R Free Course**](https://www.codecademy.com/learn/learn-r){target="_blank"}**:** Good for those who prefer an interactive, "in-browser" coding experience to practice syntax.
+
+-   [**McGill CDSI Workshops**](https://www.mcgill.ca/cdsi/training/workshops){target="_blank"}**:** Our colleagues at the Computational and Data Systems Institute offer excellent deep-dives into specific data topics.
+
+-   [**McGill QLS-MiCM Workshops**](https://www.mcgill.ca/micm/training/workshops-series/2026-winter-series){target="_blank"}**:** Keep an eye on future MiCM workshops for specialized bioinformatics and high-performance computing training.
+
+## 4. More workshops
+
+#### [**https://www.mcgill.ca/micm/training/workshops-series**](https://www.mcgill.ca/micm/training/workshops-series){target="_blank"}
+
+![](../images/WorkshopInfo.png){fig-align="center"}
+
+The following is a list of QLS-MiCM workshops offered in the previous year:
+
+-   **How to think in Code**
+
+-   **Intro to Git & GitHub**
+
+-   **Intro to Unix**
+
+-   **Intro to R (Part 1)**
+
+-   **Statistics in R (Part 2)**
+
+-   **Intro to Python (Part 1)**
+
+-   **Intermediate Python (Part 2)**
+
+-   **Intro to MATLAB**
+
+-   **RNA-seq Bootcamp (DNA2RNA \|\| CDSI)**
+
+-   **Data Processing in Python**
+
+-   **Intro to Machine Learning**
+
+-   **Intro to Molecular Simulations**
+
+-   **Proteogenomics**
+
+-   **Data Processing for Genetics**
+
+-   **Polygenic Risk Scores**
+
+## 5. **Thank you for attending! & Feedback Form**
+
+**You are welcome to scan the QR code below or just click [here](https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftinyurl.com%2FQLS-MiCM-Feedback&data=05%7C02%7Chong.yang2%40mail.mcgill.ca%7C6dc02b767c8c4fde82a008de65bdb32f%7Ccd31967152e74a68afa9fcf8f89f09ea%7C0%7C0%7C639060062581653801%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=YB7l24%2FsRatPbl%2FBvLTWFoZnztI%2BExZi5uC45Cal%2BOs%3D&reserved=0){target="_blank"} to share your feedback on today’s workshop. Any suggestions for improvement are warmly welcome!**
+
+![](../images/FeedbackQR.png){fig-align="center" width="40%"}

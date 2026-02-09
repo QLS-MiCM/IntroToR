@@ -1,0 +1,86 @@
+---
+title: "Hands-on Exercise"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+---
+
+
+```{r}
+
+```
+
+Use the `covid_testing` data set and everything you've learned so far to answer the following questions:
+
+## Clinics included
+
+**How many clinics participated in the study, and how many valid tests were performed on each one? Did the testing trend vary over time?**
+
+```{r}
+
+```
+
+### Number of clinics
+
+```{r}
+
+```
+
+### Number of valid tests
+
+```{r}
+
+```
+
+### Testing trend over time
+
+```{r}
+
+```
+
+## Number of positive tests
+
+**How many patients tested positive vs negative in the first 100 days of the pandemic? Do you notice any difference with the age of the patients? Hint: You can make two age groups and calculate the percentage each age group in positive vs negative tests.**
+
+### Number of positive tests in the first 100 days
+
+```{r}
+
+```
+
+### Tests by age group
+
+```{r}
+
+```
+
+## Processing times
+
+**Look at the specimen processing time to receipt, did the sample processing times improve over the first 100 days of the pandemic? Plot the median processing times of each day over the course of the pandemic and then compare the summary statistics of the first 50 vs the last 50 days**
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+## Bonus - Viral load
+
+**Higher viral loads are detected in less PCR cycles.**
+
+**What can you observe about the viral load of positive vs negative samples.**
+
+**Do you notice anything differences in viral load across ages in the positive samples?**
+
+**Hint: Also split the data into two age groups and try using geom_boxplot()**
+
+```{r,warning=FALSE}
+
+```
+
+```{r,warning=FALSE}
+
+```

@@ -1,0 +1,84 @@
+---
+title: "Hands-on Exercise: Data Types"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. Atomic Classes
+
+1.  Write a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!
+2.  **Bonus:** Is there a way to store the result after checking the number?
+
+```{r}
+# 1.  Write a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!
+
+# 2.  Bonus: Is there a way to store the result after checking the number?
+```
+
+## 2. Vectors
+
+Make a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).
+
+```{r}
+# Make a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).
+```
+
+## 3. Matrices
+
+Make a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for `matrix`)
+
+```{r}
+# Make a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for `matrix`)
+```
+
+**Bonus:** Which of the following commands was used to generate the matrix below?
+
+|            |            |            |
+|------------|------------|------------|
+|            | **\[,1\]** | **\[,2\]** |
+| **\[1,\]** | 4          | 1          |
+| **\[2,\]** | 9          | 5          |
+| **\[3,\]** | 10         | 7          |
+
+-   `matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)`
+-   `matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)`
+-   `matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)`
+-   `matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)`
+
+```{r}
+# Bonus: Which of the following commands was used to generate the matrix below?
+```
+
+## 4. Lists
+
+Create a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.
+
+```{r}
+# Create a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.
+```
+
+## 5. Data frames
+
+There are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function `typeof()`)
+
+-   `iris[1]`
+-   `iris[[1]]`
+-   `iris$Species`
+-   `iris["Species"]`
+-   `iris[1,1]`
+-   `iris[,1]`
+-   `iris[1,]`
+
+```{r}
+# There are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function typeof())
+```
+
+## 6. Coercion
+
+Take the list you created in 4 and coerce it into a data frame. Then change the names of the columns to "dataTypes" and "dataStructures"
+
+```{r}
+# Take the list you created in 4 and coerce it into a data frame. Then change the names of the columns to "dataTypes" and "dataStructures"
+```

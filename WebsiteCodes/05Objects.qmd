@@ -1,0 +1,1036 @@
+---
+title: "Objects (Data Structures)"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+In R, **Data Structures** are the containers used to store and organize values.
+
+R provides several built-in structures, each designed for a specific purpose. Understanding the difference between them is critical for data analysis.
+
+:::::: columns
+::: {.column width="45%"}
+![](../images/DataStructures.png){.border}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+![](../images/DataStructures_2.png){.border}
+:::
+::::::
+
+| Data Structure | Dimensions | Contains Same Type? | Use Case |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **Vector** | 1D | **Yes** | Simple sequences of numbers or text. |
+| **Factor** | 1D | **No** (Technically Integers) | Categorical data (groups, treatments). |
+| **List** | 1D | **No** | Storing complex, mixed objects together. |
+| **Matrix** | 2D | **Yes** | Mathematical tables (e.g., gene counts). |
+| **Array** | n-D | **Yes** | Multi-dimensional data (3D+). |
+| **Data Frame** | 2D | **No** | Standard datasets (rows = samples, cols = variables). |
+| **NULL** | \- | \- | \- |
+
+## 1. Overview of Data Dimension
+
+:::::: columns
+::: {.column width="45%"}
+### **1D Structures**
+
+(Vector, Factor, List) ![](../images/1D_DataStructures.png){.border}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+### **2D Structures**
+
+(Matrix, Data Frame) ![](../images/2D_DataStructures.png){.border}
+:::
+::::::
+
+## 2. Vector
+
+**Key points:**
+
+-   The fundamental building block of R.
+
+-   The Vector is a 1D sequence.
+
+-   Can only contain objects of the **same class** (e.g., all numeric or all character).
+
+-   Even a single number in R is actually a vector of length 1.
+
+**Example of vector:** Numeric/integer Vectors, Logical Vectors, Character Vectors.
+
+![](../images/Vectors.png){fig-align="center" width="40%"}
+
+### 2.1 Numeric Vectors
+
+There are multiple ways to create numeric vectors.
+
+#### **2.1.1 Method A: `c()` (Combine)**
+
+This is the most common method.
+
+```{r}
+x <- c(0.3, 0.1)
+x
+is.vector(x)
+```
+
+::: callout-note
+**`c() Function`**
+
+How should we understand `c()`?
+
+-   **The Abbreviation:** `c` stands for **Combine** (or sometimes **Concatenate**).
+
+-   **The Concept:** You can think of `c()` as a **"Glue"** or a **"Container."** It takes individual, separate values and glues them together into a **single, ordered sequence**.
+:::
+
+::: callout-tip
+**Coding Style:**
+
+The Comma Rule It is not mandatory to put a space after a comma—both `c(0.3, 0.1)` and `c(0.3,0.1)` will work perfectly.
+
+However, much like writing in English, your code is significantly easier for others (and your future self) to read if you consistently place a space after every comma. It makes your code look professional and clean.
+:::
+
+#### **2.1.2 Method B: `vector()` or `numeric()`**
+
+Creates an empty vector of a specific size **(defaults to 0)**.
+
+```{r}
+x <- vector(mode = "numeric", length = 10)
+x
+```
+
+```{r}
+x <- numeric(length = 10)
+x
+```
+
+#### **2.1.3 Method C: `seq()` and `rep()`**
+
+Sequences (`seq` and `rep`) are useful for generating data automatically.
+
+```{r}
+#| collapse: true
+# Sequence from 1 to 10, jumping by 2
+x <- seq(from = 1, to = 10, by = 2)
+x
+is.vector(x)
+
+# Repeat the number 2, 10 times
+x <- rep(2, 10)
+x
+is.vector(x)
+```
+
+::: callout-tip
+Checking Vector Length with `length()`
+
+```{r}
+#| collapse: true
+## Creates an empty vector of length 10
+x <- vector(mode = "numeric", length = 10)
+x
+length(x)
+
+# Repeat the number 2, 5 times
+y <- rep(2, 5)
+y
+length(y)
+
+length(x) == length(y)
+
+```
+:::
+
+### 2.2 Integer Vectors
+
+Integers are whole numbers. You force them by adding L.
+
+Creating an integer vector using `c()`
+
+```{r}
+x <- c(1L, 2L, 3L, 4L, 5L)  
+x
+```
+
+**The Colon Operator (:)** The quickest way to make an integer sequence.
+
+```{r}
+x <- 1:10
+x
+```
+
+::: callout-note
+**Notes:**
+
+You can read the `:` symbol as **"from... to..."**
+
+-   `1:10` means "from 1 to 10."
+
+-   `50:100` means "from 50 to 100."
+:::
+
+### 2.3 Logical Vectors
+
+Used for True/False conditions.
+
+```{r}
+# You can use TRUE/FALSE or T/F
+x <- c(TRUE, FALSE, T, F)
+x
+```
+
+Creating a logical vector with `vector()`
+
+```{r}
+x <- vector(mode = "logical", length = 5)
+x
+```
+
+Creating a logical vector using `logical()`
+
+```{r}
+x <- logical(length = 10)
+x
+```
+
+### 2.4 Character Vectors
+
+Text strings must be wrapped in quotes.
+
+```{r}
+#| collapse: true
+x <- c("a", "b", "c")
+x
+
+# Creates an empty character vector of a specific size (defaults to blank).
+x <- vector(mode = "character", length=10)
+x
+
+x <- character(length = 3)
+x
+```
+
+::: callout-tip
+**Useful String Functions**
+
+```{r}
+#| collapse: true
+# Convert to Lowercase
+tolower(c("DNA", "RNA"))
+
+# Convert to UPERCASE
+toupper(letters)
+
+# Create labels by pasting text and numbers
+# Note the implicit coercion
+paste("Patient", 1:5, sep = "_")
+```
+:::
+
+::: callout-note
+In R, coercion is the process of forced conversion from one data type to another.
+
+R is automatically changing the Numeric vector (1:5) into a Character vector so it can be "pasted" together with the Character vector ("Patient").
+
+1.  **The Rule of Vectors**
+
+    As we learned earlier, a vector must contain objects of the same class. You cannot have a single vector that is half-numbers and half-text.
+
+2.  **What happens in paste()?**
+
+    When you run `paste("Patient", 1:5, sep = "_")`:
+
+    -   "Patient" is a Character vector.
+
+    -   1:5 is an Integer/Numeric vector (1, 2, 3...).
+
+    -   Since you can't join "text" and "numbers" into a single result without them being the same type, R implicitly (automatically) converts the numbers into text strings ("1", "2", "3").
+
+3.  **Why is this important?**
+
+    -   In R, there is a "Hierarchy of Types." If you mix different types in a vector, R will always coerce them to the "least restrictive" type to ensure no data is lost, following this order:
+
+    -   **Logical → Integer → Numeric → Character**
+
+4.  **Example of unexpected coercion:**
+
+    -   If you accidentally include a single piece of text in your column of gene expression numbers, R will turn the entire column into text.
+
+    ```{r}
+    #| collapse: true
+    # Mixing numbers and one "missing" string
+    data <- c(1.2, 3.5, "missing", 4.8)
+
+    # Check the class
+    class(data)
+    is.numeric(data)
+    ```
+
+    -   Because of coercion, you can no longer calculate the mean() or sum() of that data because R now sees them all as "character" rather than "numbers." This is a very common reason why R scripts fail during data cleaning!
+
+    ```{r}
+    #| error: true
+
+       # Mixing numbers and one "missing" string
+    data <- c(1.2, 3.5, "missing", 4.8)
+
+    mean(data)
+    ```
+:::
+
+### 2.5 Vector Attributes (Names)
+
+You can give names to specific elements in a vector. This is great for readability.
+
+```{r}
+x <- 1:5
+names(x) <- c("one", "two", "three", "four", "five")
+x
+
+x <- logical(length = 4)
+names(x) <- c("F1", "F2", "F3", "F4")
+x
+```
+
+### 2.6 Vector indexing
+
+In R, indices are **1-based**, meaning the first item is at position `1`. For these examples, we will use a vector of 15 random numbers.
+
+```{r}
+# We set a seed so everyone in the workshop gets the same 15 numbers
+set.seed(228)
+
+# Create 15 unique random numbers between 1 and 100
+x <- sample(x = 1:100, size = 15, replace = FALSE)
+x
+```
+
+::: callout-tip
+**Reproducible Randomness: `set.seed()`**
+
+The `sample()` function generates random numbers. Ordinarily, every time you run it, you get a different result. However, in scientific research, we need our results to be **reproducible**.
+
+The `set.seed()` function provides a "secret key" (the seed) to the random number generator. As long as two people use the same seed, they will get the exact same "random" numbers every time. The seed can be any number you like—important date, your favorite number, or even a random string of digits.
+
+**Fun facts:** the number **42** is one of the most popular seeds in the world, appearing in roughly 4% of all public code. This is a nod to Douglas Adams' *The Hitchhiker's Guide to the Galaxy*, where 42 is the "Answer to the Ultimate Question of Life, the Universe, and Everything."
+:::
+
+#### **2.6.1 Using Position (Numeric Indexing)**
+
+You can grab a single item or a range of items using square brackets `[]`.
+
+```{r}
+#| collapse: true
+x[1]   # Get the first element
+x[13]  # Get the thirteenth element
+
+# Get the first 12 numbers using a sequence
+x[1:12] 
+
+# Get specific positions using a vector of indices
+x[c(1, 5, 9)]
+```
+
+#### **2.6.2 Using Names**
+
+If your vector has names assigned to its elements, you can use those names (as strings) to pull data. This is much safer than numeric indexing because the name stays with the data even if the order changes.
+
+```{r}
+# Assign letters a-o as names to our 15 numbers
+names(x) <- letters[1:length(x)]
+
+# Access specific elements by name
+x[c("a", "c", "d")]
+```
+
+#### **2.6.3 Using Logical Filters (The "Question" Method)**
+
+This is the most powerful way to index. Instead of giving a position, you give R a **Logical Vector** (`TRUE`/`FALSE`). R will only return the items that are `TRUE`.
+
+```{r}
+#| collapse: true
+# Which numbers are greater than 50?
+x[x > 50] 
+
+# Only return numbers that are less than or equal to 30
+x[x <= 30]
+
+# Only return even numbers (using the Modulus operator %%)
+x[x %% 2 == 0]
+```
+
+#### **2.6.4 Skipping Elements**
+
+Sometimes you want everything **except** a few specific items. In R, you do this by using a **negative sign `-`** or the **Not Equal `!=`** operator.
+
+**Using Negative Indices:**
+
+```{r}
+# Return the vector EXCEPT the 1st and 5th elements
+x[c(-1, -5)]
+```
+
+**Using Names:**
+
+```{r}
+# Return everything EXCEPT the element named "a"
+x[names(x) != "a"]
+```
+
+## 3. Factors
+
+Think of a **Factor** as a "Smart Character." It’s a way to tell R: "These words aren't just text; they are specific categories."
+
+**Key points:**
+
+-   Used for Categorical Data (e.g., "Control" vs "Treatment").
+
+-   **Levels:** The fixed set of possible values.
+
+-   Can have implicit order, if needed.
+
+    -   Unlike simple text, factors can be **ordered**.
+
+    -   This is vital for data like cancer stages (Stage I \< Stage II \< Stage III) or dose levels (Low \< Med \< High).
+
+-   Each element has a label or level
+
+-   Essential for statistical modeling (e.g., defining groups for DESeq2).
+
+-   Some operations behave differently on factors
+
+![](../images/Factors.png){fig-align="center" width="300"}
+
+**Creating Factors:** Notice below that we explicitly define the levels. This sets the "order" of the groups (Control first, Case second).
+
+```{r}
+cols <- factor(x = c(rep("red", 4),
+                   rep("blue", 5),
+                   rep("green", 2)),              
+             levels = c("red", "blue", "green"))
+cols
+```
+
+```{r}
+samples <- c("case", "control", "control", "case") 
+samples_factor <- factor(samples, levels = c("control", "case")) 
+
+samples_factor 
+is.factor(samples_factor)
+str(samples_factor)
+```
+
+## 4. List
+
+Lists are the most flexible data structure in R. They are 1D containers that can hold *anything*: numbers, text, or even other lists,.
+
+**Key points:**
+
+-   The "Super Container".
+
+-   Can contain mixed data types (e.g., a vector, a matrix, and a string all in one object).
+
+-   The output of most statistical tests (like t.test) is a list.
+
+![](../images/Lists.png){fig-align="center" width="200"}
+
+### 4.1 Creating and Naming Lists
+
+You can create a list with various data types and assign names to the "pockets" of your backpack for easy access.
+
+```{r}
+my_list <- list(
+  project_name = "Diabetes Study",
+  patient_count = 50,
+  is_finished = FALSE,
+  group_ids = c("A", "B", "C")
+)
+
+my_list
+
+names(my_list)
+```
+
+### 4.2 Indexing and subsetting
+
+**Accessing List Elements:**
+
+Use the **double bracket** `[[ ]]` or the **dollar sign** `$` for named lists.
+
+```{r}
+my_list[["group_ids"]]
+
+my_list$project_name
+```
+
+::: callout-note
+One of the most confusing parts of R for beginners is the difference between `[]` and `[[]]`. Think of a list as a **train carrying cargo**:
+
+-   **`l[1]` (Single Bracket):** This returns the **train car** itself. The result is still a list.
+
+-   **`l[[1]]` (Double Bracket):** This "unzips" the car and returns the **actual cargo** inside.
+
+For example:
+
+```{R}
+#| collapse: true
+my_list[4]
+
+my_list[[4]]
+```
+:::
+
+### 4.3 Automated Operations with `lapply`
+
+In bioinformatics, we often have lists of data (e.g., a list of three different gene sets). If you want to perform the same math on every set, you use `lapply()` (the "List Apply" function).
+
+```{r}
+# Create a list of 3 random sample sets
+l <- list(
+  r1 = sample(1:100, 10), 
+  r2 = sample(1:100, 10), 
+  r3 = sample(1:100, 10)
+)
+
+# Apply the sum function to EVERY element in the list
+lsums <- lapply(l, sum)
+lsums
+```
+
+::: callout-note
+`lapply` always returns a **List**. If you want a simple vector instead, you can use `sapply` (the "Simplified Apply"), which is like `lapply` but tries to tidy the result into a vector for you.
+
+For example:
+
+```{r}
+ssums <- sapply(l, sum)
+ssums
+```
+:::
+
+## 5. Matrix
+
+**Key points:**
+
+-   2-Dimensional (Rows and Columns).
+
+-   Must contain One Data Type (usually all Numeric).
+
+-   Used heavily in bioinformatics for Gene Expression Tables (Genes × Samples).
+
+![](../images/Matrices.png){fig-align="center" width="200"}
+
+**Creating a Matrix:**
+
+```{r}
+# Create a matrix of numbers 1 through 9, arranged in 3 rows
+m <- matrix(1:9, nrow = 3, ncol = 3)
+m
+```
+
+**Adding Row/Column Names:**
+
+```{r}
+m <- matrix(1:9, nrow = 3, ncol = 3)
+colnames(m) <- c("Sample1", "Sample2", "Sample3")
+rownames(m) <- c("GeneA", "GeneB", "GeneC")
+m
+```
+
+### **5.1 Confirming Matrix Structure and Size**
+
+When working with matrices—such as a gene expression matrix—it is essential to verify that the dimensions (rows and columns) match your expectations.
+
+In the example below, we create a matrix with 10 elements.
+
+```{r}
+# Create a matrix with 10 numbers, arranged in 5 rows and 2 columns
+m <- matrix(1:10, nrow = 5, ncol = 2)
+
+m
+```
+
+#### **Checking the Object Type**
+
+These functions tell you **what** the object is.
+
+::: callout-note
+-   **`class()`**: Returns the abstract type of the object (e.g., `"matrix"`, `"array"`).
+
+-   **`typeof()`**: Returns the internal "storage" mode of the data (e.g., `"integer"`, `"double"`).
+:::
+
+```{R}
+#| collapse: true
+# Create a matrix with 10 numbers, arranged in 5 rows and 2 columns
+m <- matrix(1:10, nrow = 5, ncol = 2)
+
+class(m)
+typeof(m)
+```
+
+::: callout-note
+#### **Why does `class()` show both "matrix" and "array"?**
+
+In R, a matrix is technically just a **special case of an array**.
+
+Think of it like this:
+
+-   An **Array** is the "Grandparent" (it can have 1, 2, 3, or 100 dimensions).
+
+-   A **Matrix** is the "Parent" (it is an array that is strictly **2-dimensional**).
+
+When you ask for the `class`, R is telling you: *"This object is a matrix, which means it also inherits all the properties of an array."*
+:::
+
+::: callout-note
+#### **Why is `typeof(m)` "integer" instead of "numeric"?**
+
+This is because of the **Colon Operator (`:`)** you used to create the data.
+
+In R, the `:` operator specifically creates **Integers** (whole numbers) because they take up less memory than "Doubles" (numbers with decimals).
+
+-   **Integer:** Whole numbers (`1L, 2L, 3L`).
+
+-   **Numeric (Double):** Numbers that *can* have decimals (`1.0, 2.5, 3.14`).
+
+Because your matrix `m` was built using `1:10`, R stored them as integers to be efficient.
+:::
+
+#### **Inspecting Dimensions and Size**
+
+These functions tell you **how big** the object is.
+
+::: callout-note
+-   **`dim()`**: Returns both the number of rows and columns as a vector.
+
+-   **`nrow()`**: Returns only the number of rows (e.g., the number of Genes).
+
+-   **`ncol()`**: Returns only the number of columns (e.g., the number of Samples).
+:::
+
+```{R}
+#| collapse: true
+m <- matrix(1:10, nrow = 5, ncol = 2)
+
+dim(m)
+nrow(m)
+ncol(m)
+```
+
+#### **The "Everything" Function: `str()`**
+
+The `str()` (structure) function is perhaps the most useful tool for a researcher. It provides a compact summary of the class, the dimensions, the data type, and a preview of the first few values all in one line.
+
+```{r}
+m <- matrix(1:10, nrow = 5, ncol = 2)
+str(m)
+```
+
+## 6. Array
+
+**Key points:**
+
+-   Similar to a matrix, but can have more than 2 dimensions (3D, 4D, etc.).
+
+-   Useful for time-series data or 3D imaging data.
+
+```{r}
+# Create a 3D array (2 rows, 2 columns, 2 "slices")
+a <- array(1:8, dim = c(2, 2, 2))
+a
+```
+
+## 7. Data Frame
+
+**Key points:**
+
+-   The most common data structure for researchers.
+
+-   2-Dimensional (like a matrix).
+
+-   Can mix data types (e.g., Column 1 is Numeric, Column 2 is Character).
+
+    -   Columns in data frames are vectors
+
+    -   A data frame is essentially a list of vectors
+
+-   Think of it like an Excel Spreadsheet.
+
+![](../images/DataFrames.png){fig-align="center" width="200"}
+
+::: callout-note
+**The Three Rules of Data Frame Anatomy**
+
+**1. The Column Rule (The Vector)**
+
+Every column in a data frame is a **Vector**.
+
+This means that within a single column (like `Age` or `Gene_Expression`), every single entry must be the same data type. You cannot have a number in row 1 and a word in row 2 of the same column.
+
+**2. The Row Rule (The List)**
+
+The data frame itself is a **List** where each element of the list is one of those columns.
+
+Because a list can hold different types of objects, your first list element (Column 1) can be "Numeric" and your second list element (Column 2) can be "Character."
+
+**3. The Alignment Rule (The "Rectangle")**
+
+This is the only way a Data Frame differs from a standard List:
+
+-   In a **List**, you can have one vector of length 10 and another vector of length 500.
+
+-   In a **Data Frame**, R forces a "Rectangular" constraint. **Every column (vector) must have the exact same length.**
+:::
+
+**Creating a Data Frame:**
+
+```{r}
+df <- data.frame(
+  ID = c("P001", "P002", "P003"),
+  Age = c(25, 34, 28),
+  Treatment = c("Placebo", "Drug", "Placebo")
+)
+df
+```
+
+### **7.1 Confirming Data Frame Structure and Size**
+
+```{r}
+#| collapse: true
+df <- data.frame(
+  ID = c("P001", "P002", "P003"),
+  Age = c(25, 34, 28),
+  Treatment = c("Placebo", "Drug", "Placebo")
+)
+
+class(df)
+typeof(df)
+dim(df)
+str(df)
+head(df)
+```
+
+::: callout-note
+|  |  |  |
+|----|----|----|
+| **Function** | **What it tells you** | **Why it matters** |
+| **`class()`** | The high-level structure. | Confirms you have a `data.frame` and not just a simple list or matrix. |
+| `typeof()` | The internal **Storage Type**. | Reveals how R stores the data in your computer's memory. For a data frame, this will return `"list"`, because a data frame is technically a list of equal-length vectors. |
+| **`dim()`** | The Dimensions (Rows, then Columns). | **Crucial.** Tells you how many samples (rows) and variables (cols) you have. |
+| **`str()`** | The internal **str**ucture. | Shows the data type of every column at once (e.g., is Age numeric or text?). |
+| **`head()`** | The first 6 rows. | A "sanity check" to see if the data looks like you expected. |
+| **`tail()`** | The last 6 rows. | Useful for checking if the file ended correctly or has "junk" at the bottom. |
+:::
+
+### 7.2 Re-naming columns
+
+You can rename a specific column by targeting its **index** (its position number).
+
+```{r}
+# Let's rename the 3nd column to "Group"
+df <- data.frame(
+  ID = c("P001", "P002", "P003"),
+  Age = c(25, 34, 28),
+  Treatment = c("Placebo", "Drug", "Placebo")
+)
+
+colnames(df)[3] <- "Group"
+
+# Check the change
+head(df)
+```
+
+### 7.3 Indexing and sub-setting
+
+There are three main ways to pull data out of a data frame. Think of this as giving R an "address" to find your data.
+
+#### **Method A: The Dollar Sign (`$`)**
+
+The most common way to grab a single column by its name. This returns a **vector**.
+
+```{r}
+df$ID
+```
+
+#### **Method B: Single Brackets with Name (`[ ]`)**
+
+This returns a **data frame** containing only that column.
+
+```{r}
+df["Age"]
+```
+
+#### **Method C: Coordinate Indexing (`[row, col]`)**
+
+This is the most precise method. You provide the **Row number**, then a comma, then the **Column number**.
+
+-   **`df[1, ]`**: The 1st Row (all columns).
+
+-   **`df[, 1]`**: The 1st Column (all rows).
+
+-   **`df[3, 2]`**: The specific value at Row 3, Column 2.
+
+```{r}
+df[,3]
+```
+
+#### **Method D: Logical Sub-setting with `which()`**
+
+This is how you "filter" your data based on conditions. The `which()` function tells R the index numbers that meet your criteria.
+
+```{r}
+df[which(df$ID %in% c("P002", "P003")), ]
+```
+
+::: callout-note
+**How to read the "Subsetting Sandwich"**
+
+Think of the line `df[which(df$ID %in% c("P002", "P003")), ]` as a three-layer process. R evaluates this from the **inside out**.
+
+**Layer 1: The Question (`%in%`)**
+
+-   `df$ID %in% c("P002", "P003")` R looks at the ID column and asks: "Is the value in this row either P002 or P003?"
+
+-   **The Result:** A Logical Vector like `[FALSE, TRUE, TRUE, FALSE, ...]`.
+
+**Layer 2: The Address Finder (`which`)**
+
+-   `which(...)` R takes those `TRUE/FALSE` values and converts them into **index numbers** (row numbers). If the 2nd and 3rd rows were `TRUE`, `which()` returns the numbers `2` and `3`.
+
+-   **The Result:** An Integer Vector like `[2, 3]`.
+
+**Layer 3: The Grabber (`[row, col]`)**
+
+-   `df[2:3, ]` Finally, R uses those numbers as the **Row Address**.
+
+-   The **comma** is the most important part! By leaving the space after the comma blank, you are telling R: **"Give me all columns for these specific rows."**
+
+------------------------------------------------------------------------
+
+**Why does the Comma do?**
+
+-   `df[rows , ]` → "I want these **rows**, and keep all the columns."
+
+-   `df[ , cols]` → "I want all the rows, but only these **columns**."
+:::
+
+### 7.4 Coercion
+
+**Coercion** is the act of forcing an object to change from one structure or type to another. We use the `as.` family of functions to do this.
+
+#### **List to Data Frame**
+
+This is a very common workflow: you collect various results in a list and then "solidify" them into a rectangular data frame for plotting or saving.
+
+```{r}
+#| collapse: true
+# 1. Create a list with two vectors of equal length
+l <- list(numbers = 1:10, lowercase = letters[1:10])
+
+# 2. Check type
+typeof(l)
+
+# 3. Coerce the list into a data frame
+df <- as.data.frame(l)
+
+# 4. Observe the change
+typeof(df)
+head(df)
+```
+
+## 8. NULL (The Empty Object)
+
+**Key points:**
+
+-   NULL represents the absence of an object.
+
+-   It is different from NA (which means "missing value").
+
+-   NULL is often used to remove an element from a list or dataframe.
+
+```{r}
+x <- NULL
+is.null(x)
+```
+
+## 9. Built-in Functions
+
+R has many functions to inspect and summarize these objects.
+
+#### **9.1 Inspection Functions**
+
+Use these to check what you are working with.
+
+```{r}
+#| collapse: true
+x <- c(1, 2, 3)
+
+is.vector(x)    # Is it a vector?
+is.na(x)    # Is it empty
+is.null(x)    # Is it NULL
+is.numeric(x)    # Is it numeric
+is.logical(x)    # Is it logical
+is.character(x)    # Is it character
+
+length(x)       # How long is it?
+
+class(x)        # What class is it? Atomic class type
+typeof(x) # Object type or data structure (matrix, list, array...)
+str(x)          # Structure (Compact display)
+```
+
+#### **9.2 Mathematical Summaries**
+
+Use these to calculate statistics on your vectors.
+
+```{r}
+#| collapse: true
+x <- seq(1, 10, 0.3)
+
+min(x) 
+max(x)
+
+mean(x)    # Average
+median(x)  # Median
+sd(x)      # Standard Deviation
+
+summary(x) # Quick summary stats
+
+table(x)
+```
+
+#### **9.3 Grouping Data (`tapply`)**
+
+A powerful function to apply a calculation to groups of data (e.g., "Find the mean measurement for Cases vs. Controls").
+
+```{r}
+# Mock data: 6 measurements
+measurements <- c(10, 12, 11, 20, 22, 21)
+
+# Groups: 3 Controls, 3 Cases
+groups <- factor(c("Control", "Control", "Control", "Case", "Case", "Case"))
+
+
+# Calculate the mean for each group
+tapply(measurements, groups, mean)
+```
+
+::: callout-note
+**Understanding `tapply()`**
+
+Think of `tapply()` as an automated assembly line that follows three steps: **Split**, **Apply**, and **Combine**.
+
+Usage: `tapply(X, INDEX, FUN = NULL, ..., default = NA, simplify = TRUE)`
+
+**The Break-Down:**
+
+Using the example: `tapply(measurements, groups, mean)`
+
+1.  **Data:** `measurements`
+
+2.  **Split (The `INDEX`):** R looks at the `groups` factor. It sees two levels: "Control" and "Case". It then "splits" the `measurements` into two separate piles based on those labels.
+
+    -   *Pile 1 (Control):* 10, 12, 11
+
+    -   *Pile 2 (Case):* 20, 22, 21
+
+3.  **Apply (The `FUN`):** It then takes the function you provided (`mean`) and goes to each pile individually to calculate the result.
+
+    -   Mean of Pile 1 = 11
+
+    -   Mean of Pile 2 = 21
+
+4.  **Combine (The Result):** It glues those two results back together.
+:::
+
+#### **9.4 The "Apply" Family Cheat Sheet: `sapply`**, `lapply`, `tapply`
+
+The main difference between these functions is **what they take in** (Input) and **what they give back** (Output).
+
+|  |  |  |  |
+|------------------|------------------|------------------|------------------|
+| **Function** | **Input** | **Output** | **Purpose ("In Plain English")** |
+| **`lapply`** | List or Vector | **List** | "Apply this to every item and keep it in a list." |
+| **`sapply`** | List or Vector | **Vector/Matrix** | "Apply this to every item and **s**implify the result." |
+| **`tapply`** | Vector + Factor | **Array/Vector** | "Group my data by a **t**ag and then calculate." |
+
+## 10. Vector Operations
+
+R is vectorized, meaning mathematical operations are applied to every element at once.
+
+```{r}
+#| collapse: true
+x <- 1:5
+y <- 6:10
+
+# Multiply every element in x by 2
+x * 2
+
+# Add x and y (element by element)
+x + y
+```
+
+## 11. Summary of Indexing and subsetting
+
+Navigating data in R depends on whether your object is **1-Dimensional** (linear) or **2-Dimensional** (rectangular). Indexing is the most frequent source of errors for beginners, so here is the master cheat sheet for finding your data.
+
+### 11.1 The Universal Indexing Rules
+
+Before looking at specific structures, remember these three core rules of R:
+
+1.  **1-Based Indexing:** The first item is always `[1]`, not `[0]`.
+2.  **Square Brackets `[]`:** These are the "envelopes" used to hold your address.
+3.  **Negative Indices:** Using a minus sign (e.g., `[-1]`) means "Give me everything **except** this position."
+
+### 11.2 Indexing by Data Structure
+
+| Structure | Dimension | Primary Method | Example | Result |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| **Vector** | 1D | `[ x ]` | `v[1:3]` | Returns the first 3 elements. |
+| **Factor** | 1D | `[ x ]` | `f[1]` | Returns the first element + its levels. |
+| **List** | 1D | `[[ x ]]` or `$` | `l[[1]]` | Returns the **content** of the first "drawer." |
+| **Matrix** | 2D | `[row, col]` | `m[1, 2]` | Value at Row 1, Column 2. |
+| **Data Frame** | 2D | `$` or `[row, col]` | `df$age` | Returns the entire "age" column as a vector. |
+
+### 11.3 Specific Methods & Nuances
+
+#### **The 2D Coordinate System (`[row, col]`)**
+
+Used for **Matrices** and **Data Frames**. The **comma** is the most important part!
+
+-   `df[1, 5]`: Specific cell (Row 1, Col 5).
+-   `df[1, ]`: **Entire Row** (Leave the column space empty).
+-   `df[, 5]`: **Entire Column** (Leave the row space empty).
+
+#### **List vs. Data Frame Access**
+
+Because a Data Frame is technically a "list of vectors," it is the most flexible structure for indexing.
+
+```{r}
+#| eval: false
+df <- data.frame(
+  ID = c("P001", "P002", "P003"),
+  Age = c(25, 34, 28),
+  Treatment = c("Placebo", "Drug", "Placebo")
+)
+
+# By Name ($) — Fast and readable
+df$Treatment
+
+# By Position — Useful when you don't know the names but know the order
+df[, 1]
+
+# By Logical Mask — Returns all rows where the Age is over 50
+df[df$Age > 50, ]
+```

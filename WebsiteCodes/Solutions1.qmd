@@ -1,0 +1,208 @@
+---
+title: "Solutions: Data Types"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. Atomic Classes
+
+1.  Write a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!
+2.  **Bonus:** Is there a way to store the result after checking the number?
+
+```{r}
+
+x <- 10
+x > 5
+
+#Bonus
+y <- x > 5
+
+print(y)
+```
+
+## 2. Vectors
+
+Make a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).
+
+```{r}
+x <- 1:26
+x <- x * 2
+names(x) <- LETTERS
+print(x)
+```
+
+## 3. Matrices
+
+Make a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for `matrix`)
+
+```{r}
+# By default the matrix is filled by columns, we can change this behavior using byrow=TRUE
+m <- matrix(1:50, ncol = 5, nrow = 10, byrow = T)
+print(m)
+```
+
+**Bonus:** Which of the following commands was used to generate the matrix below?
+
+|            |            |            |
+|------------|------------|------------|
+|            | **\[,1\]** | **\[,2\]** |
+| **\[1,\]** | 4          | 1          |
+| **\[2,\]** | 9          | 5          |
+| **\[3,\]** | 10         | 7          |
+
+-   `matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)`
+-   `matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)`
+-   `matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)`
+-   `matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)`
+
+```{r}
+#| collapse: true
+# correct
+matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)
+
+# others
+matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)
+
+matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)
+
+matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)
+```
+
+::: callout-note
+**The `byrow` Argument**
+
+The `matrix()` function works like a worker filling a grid of boxes. The `byrow` argument tells that worker whether to walk across the rows or down the columns.
+
+-   **`byrow = FALSE` (Default):** The worker fills the **first column** from top to bottom, then moves to the second column. This is "Column-major order."
+
+-   **`byrow = TRUE`:** The worker fills the **first row** from left to right, then moves to the second row. This is "Row-major order."
+:::
+
+## 4. Lists
+
+Create a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.
+
+```{r}
+dt <- c('double', 'complex', 'integer', 'character', 'logical')
+ds <- c('data.frame', 'vector', 'factor', 'list', 'matrix')
+data.sections <- list(dt, ds)
+print(data.sections)
+```
+
+## 5. Data frames
+
+There are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function `typeof()`)
+
+-   `iris[1]`
+-   `iris[[1]]`
+-   `iris$Species`
+-   `iris["Species"]`
+-   `iris[1,1]`
+-   `iris[,1]`
+-   `iris[1,]`
+
+```{r}
+#| collapse: true
+# The single brace [1] returns the first slice of the list, as another list. In this case it is the first column of the data frame.
+head(iris[1])
+
+# The double brace [[1]] returns the contents of the list item. In this case it is the contents of the first column, a vector of type factor.
+head(iris[[1]])
+
+# This example uses the $ character to address items by name. Species is a vector of type factor.
+head(iris$Species)
+
+# A single brace ["Species"] instead of the index number with the column name will also return a list like in the first example
+head(iris["Species"])
+
+# First element of first row and first column. The returned element is an integer
+iris[1,1]
+
+# First column. Returns a vector
+iris[,1]
+
+# First row. Returns a list with all the values in the first row.
+iris[1,]
+```
+
+## 6. Coercion
+
+Take the list you created in 4 and coerce it into a data frame. Then change the names of the columns to "dataTypes" and "dataStructures"
+
+```{r}
+df <- as.data.frame(data.sections)
+colnames(df) <- c("dataTypes", "dataStructures")
+print(df)
+```
+
+::: callout-note
+**Common ways to change column names**
+
+1.  **`colnames()`**
+
+If you want to rename **all** the columns at once, this is the fastest method. You simply provide a vector of names that matches the number of columns.
+
+```{r}
+# Create a dummy dataframe
+df <- data.frame(V1 = 1:3, V2 = 4:6, V3 = 7:9)
+
+# Rename all columns
+colnames(df) <- c("ID", "Treatment", "Response")
+```
+
+2.  **Indexing**
+
+If you only want to change **one** specific column, you can use its index (position). This is great for small tables but risky for large ones if the column order changes.
+
+```{r}
+# Change only the 2nd column
+colnames(df)[2] <- "Condition"
+```
+
+3.  **`dplyr::rename()`**
+
+This is the preferred method for most researchers because it is **readable** and **safe**. You don't need to know the index of the column, and you can pipe it into your analysis.
+
+-   **Syntax:** `new_name = old_name`
+
+```{r}
+library(dplyr)
+
+df <- df %>% 
+  rename(Patient_ID = ID, 
+         Dosage = Response)
+```
+:::
+
+::: callout-note
+**The "Backtick" Trick: Column Names with Spaces**
+
+Usually, R replaces spaces in column names with a dot (`.`) because spaces can break code. However, you can force R to accept them using **Backticks** (`` ` ``).
+
+> **Important Distinction:** Notice the difference between **Single Quotes** (`'`) and **Backticks** (`` ` ``).
+>
+> -   **Quotes (`' '`):** Tell R that something is **Text**.
+>
+> -   **Backticks (`` ` ` ``):** Tell R that something is a **Name** that contains "illegal" characters (like spaces or starting with a number).
+
+```{r}
+# This works because of the backticks!
+colnames(df) <- c("Data Types", "Data Structures")
+print(df)
+
+# To call this column later, you MUST use backticks:
+df$`Data Types`
+```
+
+**Why we avoid spaces in Bioinformatics**
+
+While R *can* handle spaces, it is generally discouraged in professional pipelines for several reasons:
+
+1.  **Tab Completion:** If you type `df$d...` and hit Tab, RStudio can instantly find `data_types`. If there is a space, you have to manually type the backticks every single time.
+
+2.  **Compatibility:** If you export your data to a colleague using Python or a command-line tool like `awk`, spaces in column names can cause their scripts to crash.
+
+3.  **The "Snake Case" Standard:** Most researchers prefer `snake_case` (e.g., `gene_id`) or `camelCase` (e.g., `geneId`).
+:::

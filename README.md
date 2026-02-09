@@ -4,6 +4,12 @@
 
 This workshop is beginner-level introduction to programming in R. The course is designed to be taught in one session of 4 hours and is focused on the application of R to the analysis of tabular data from medical datasets.
 
+## The Workshop Materials
+
+Throughout this course, we will primarily use our dedicated workshop website: 👉 [Introduction to R Workshop: https://martinahyang.github.io/IntroToR/](https://martinahyang.github.io/IntroToR/)
+
+We will use this site to cover the foundational concepts of R, while performing **hands-on exercises** together in the **RStudio**. All necessary code and resources are provided on the site for your convenience.
+
 ## Prior knowledge
 
 -   No previous programming experience is required.
@@ -17,6 +23,8 @@ This workshop is beginner-level introduction to programming in R. The course is 
 
 -   [R \>4.0](https://www.r-project.org)
 -   [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+**You could refer to the step-by-step instructions [Getting Started: Installing R and RStudio](https://martinahyang.github.io/IntroToR/WebsiteCodes/Setup.html).**
 
 Once you have setup R and RStudio copy the code below to install the packages required for the workshop.
 

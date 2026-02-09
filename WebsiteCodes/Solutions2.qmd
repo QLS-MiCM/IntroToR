@@ -1,0 +1,182 @@
+---
+title: "Solutions: Basic Data Manipulation"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+```{r}
+library(gapminder)
+```
+
+## Writing data
+
+Write a data processing snippet to include only the data points collected after 1995 in Asian countries as a CSV file
+
+```{r,eval=F}
+asia<-gapminder[gapminder$year > 1995 & gapminder$continent=="Asia", ]
+write.table(asia,
+            file = "../data/gapminder_after1995_asia.csv",
+            sep = ",", 
+            quote = FALSE, 
+            row.names = FALSE)
+```
+
+Separate the `gapminder` data frame into 5 individual data frames, one for each continent. Store those 5 data frames as an `RData` file in the `objects` folder called `continents.RData`.
+
+```{r,eval=FALSE}
+asia<-gapminder[gapminder$continent=="Asia", ]
+africa<-gapminder[gapminder$continent=="Africa", ]
+oceania<-gapminder[gapminder$continent=="Oceania", ]
+europe<-gapminder[gapminder$continent=="Europe", ]
+americas<-gapminder[gapminder$continent=="Americas", ]
+
+save(asia,africa,oceania,europe,americas,file="../data/continents.RData")
+```
+
+::: callout-note
+**Understanding File Paths: The Tree Analogy**
+
+When you are working in an RStudio Project, your **Working Directory** is your "Home Base." Think of your folders as a tree:
+
+-   **`./` (The Current Folder):** This is where your `.qmd` or `.Rmd` file is currently saved.
+
+-   **`../` (The Parent Folder):** This tells R to move **up** one level in the folder tree.
+
+-   **`../../` (The Grandparent Folder):** This moves up two levels.
+
+**Breakdown of `"../data/continents.RData"`**
+
+When you run that code, you are telling R to follow these exact steps:
+
+1.  **`../`**: Leave the current folder (e.g., the `scripts` or `vignettes` folder).
+
+2.  **`data/`**: Look for a folder named `data` at that higher level.
+
+3.  **`continents.RData`**: Save the file inside that folder with this specific name.
+:::
+
+::: callout-note
+**The “Folder Not Found” Error**
+
+R is a great calculator, but it isn’t a folder manager. If you tell R to save a file in a folder named `data/` but that folder doesn’t exist yet, R will throw an error: `No such file or directory`.
+
+Before saving, you must create the folder manually or use this code:
+
+```{r}
+#| eval: false
+# Create a 'data' folder in your current working directory
+dir.create("data")
+```
+:::
+
+## Exploring data frames
+
+Finish exploring the `gapminder` data frame and:
+
+-   Find the number of rows and the number of columns\
+-   Print the data type of each column\
+-   Explain the meaning of everything that `str(gapminder)` prints
+
+```{r,eval=F}
+dim(gapminder)
+
+typeof(gapminder$country)
+typeof(gapminder$continent)
+typeof(gapminder$year)
+typeof(gapminder$lifeExp)
+typeof(gapminder$pop)
+typeof(gapminder$gdpPercap)
+
+str(gapminder)
+```
+
+::: callout-note
+**Column Data Types**
+
+While `typeof()` gives you the low-level R storage type, in data analysis, we often care more about the **class** (how R treats the data).
+
+|  |  |  |
+|----|----|----|
+| **Column** | **typeof() result** | **Interpretation** |
+| `country` | **integer** | Stored as numbers (1, 2, 3) because it is a **Factor**. |
+| `continent` | **integer** | Also a **Factor** (categorical data). |
+| `year` | **integer** | Discrete whole numbers. |
+| `lifeExp` | **double** | Floating-point numbers (decimals). |
+| `pop` | **integer** | Whole numbers (count data). |
+| `gdpPercap` | **double** | Floating-point numbers (decimals). |
+
+```{r,eval=F}
+class(gapminder$country)
+class(gapminder$continent)
+class(gapminder$year)
+class(gapminder$lifeExp)
+class(gapminder$pop)
+class(gapminder$gdpPercap)
+```
+:::
+
+::: callout-note
+**The `str()` Output**
+
+The `str()` (Structure) function is arguably the most useful command in Base R. It provides a compact summary of any object.
+
+**The Header**
+
+`tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)`
+
+-   **tibble / data.frame**: This tells you the object "flavor." A tibble is a modern, user-friendly version of a data frame used in the Tidyverse.
+
+-   **\[1,704 x 6\]**: Confirms the dimensions (Rows x Columns).
+
+**The Column Details**
+
+-   **`$ country : Factor w/ 142 levels`**:
+
+    -   `Factor`: This is **Categorical** data.
+
+    -   `142 levels`: There are 142 unique countries.
+
+    -   `1 1 1...`: Internally, R stores "Afghanistan" as the number `1` to save memory.
+
+-   **`$ year : int [1:1704]`**:
+
+    -   `int`: **Integer**. Whole numbers only.
+
+    -   `[1:1704]`: This column is a vector with indices ranging from 1 to 1,704.
+
+-   **`$ lifeExp : num`**:
+
+    -   `num`: **Numeric**. This is a "double" or decimal number. This is what you use for most statistical calculations.
+:::
+
+In which years has the GDP of Canada been larger than the average of all data points?
+
+```{r,eval=F}
+canada<-gapminder[gapminder$country=="Canada",]
+mgdp<-mean(canada$gdpPercap)
+canada[canada$gdpPercap>mgdp,"year"]
+```
+
+Find the mean life expectancy of Switzerland before and after 2000
+
+```{r,eval=F}
+swiss<-gapminder[gapminder$country=="Switzerland",]
+mean(swiss[swiss$year<2000,]$lifeExp) # Before
+mean(swiss[swiss$year>2000,]$lifeExp) # After
+```
+
+You discovered that all the entries from 2007 are actually from 2008. Create a copy of the full `gapminder` data frame in an object called `gp`. Then change the year column to correct the entries from 2007.
+
+```{r,eval=F}
+gp<-gapminder
+gp[gp$year==2007,"year"]<-2008
+gp[gp$year==2008,]
+```
+
+**Bonus -** Find the mean life expectancy and mean gdp per continent using the function `tapply`
+
+```{r,eval=F}
+tapply(gapminder$lifeExp,gapminder$continent,mean)
+```

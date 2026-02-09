@@ -1,0 +1,17 @@
+---
+title: "Overview: Control Structures & Functions"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+### Learning Objectives
+
+-   **Master `if` statements:** Teach your code how to make decisions.
+
+-   **Understand `for` & `while` loops:** Automate repetitive tasks over thousands of genes or samples.
+
+-   **Create Custom Functions:** Write your own reusable tools to keep your scripts clean.
+
+-   **Install & Manage Packages:** Unlock the power of the R community by installing specialized bioinformatics libraries.

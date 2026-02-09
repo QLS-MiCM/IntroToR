@@ -1,0 +1,67 @@
+---
+title: "Overview: Data types and Data Structures"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+## Learning Objectives
+
+By the end of this module, you will be able to:
+
+-   **Distinguish** between objects, classes, and data types.
+-   **Create and manipulate** the four primary atomic data types in R.
+-   **Identify** the differences between vectors, lists, and data frames.
+-   **Access specific data** using 1-based indexing and subsetting.
+-   **Apply vectorized operations** to perform calculations on entire datasets at once.
+
+## Overview of Operators Type
+
+Operators are **symbols or keywords that instruct R to perform specific mathematical, logical, or relational manipulations on data.** The values that these operators act upon are called **operands**.
+
+For example, in the expression `x + 5`: \* The `+` is the **Operator**. \* `x` and `5` are the **Operands**.
+
+**Key Types of Operators in R include:**
+
+### **1. Arithmetic Operators**
+
+Used to perform mathematical calculations.
+
+`+` (Addition), `-` (Subtraction), `*` (Multiplication), `/` (Division).
+
+`^` (Exponent/Power).
+
+`%%` (Modulus: returns the remainder of a division).
+
+...
+
+### **2. Assignment Operators**
+
+Used to store values inside objects.
+
+`<-` (The "Left Arrow" assignment operator): This is the standard in R.
+
+`=` (Equals assignment): Works in many cases but is less common in the R community.
+
+### **3. Comparison (Relational) Operators**
+
+Used to compare two values. These always return a **Logical** result (`TRUE` or `FALSE`).
+
+`==` (Exactly equal to).
+
+`!=` (Not equal to).
+
+`<`, `>`, `<=`, `>=` (Less than, greater than, etc.).
+
+### **4. Logical Operators**
+
+Used to combine multiple comparison statements.
+
+`&` (AND): Returns TRUE if *both* sides are true.
+
+`|` (OR): Returns TRUE if *at least one* side is true.
+
+`!` (NOT): Reverses the logical state (TRUE becomes FALSE).
+
+### **5. Miscellaneous Operators**
+
+Miscellaneous operators are used to manipulate data: The Colon Operator (`:`); The Membership Operator (`%in%`); The Dollar Sign Operator (`$`); The Pipe Operator (`|>`) and (`%>%`).

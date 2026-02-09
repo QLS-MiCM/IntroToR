@@ -1,0 +1,398 @@
+---
+title: "Exploring Data Frames"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. Adding Columns and Rows
+
+We will still use the gapminder dataset as demo dataste.
+
+```{r}
+#| message: false
+#| collapse: true
+# Dataset Preparation
+if (!require("gapminder", quietly = TRUE))
+    install.packages("gapminder")
+library(gapminder)
+
+aust <- gapminder[gapminder$country == "Australia",]
+head(aust)
+dim(aust)
+```
+
+### 1.1 Individually Adding Columns
+
+You can add a new column by simply assigning values to a name that doesn't exist yet using the `$` operator or bracket `[ , ]` notation.
+
+::: callout-important
+**Crucial Rule:** The new column **must** have the exact same number of rows as the existing data frame.
+:::
+
+#### **Method A: Using the \$ operator**
+
+```{r}
+# Method A: Using the $ operator
+# Adding a random column for "mean_children"
+mean_children <- sample(1:10, nrow(aust), replace = TRUE)
+aust$mean_children <- mean_children
+# the same as: aust$mean_children <- sample(1:10, nrow(aust), replace = TRUE)
+
+# Adding a calculated column (GDP = population * GDP per capita)
+aust$GDP <- aust$pop * aust$gdpPercap
+
+head(aust)
+```
+
+::: callout-note
+**Understanding `sample()`:**
+
+-   `1:10`: The range of numbers to choose from.
+
+-   `nrow(aust)`: Tells R exactly how many numbers to generate (12 in this case).
+
+-   `replace = TRUE`: Allows the same number to be picked more than once.
+:::
+
+#### **Method B: Using bracket notation**
+
+```{r}
+# Method B: Using bracket notation
+mean_bikes <- sample(1:4, nrow(aust), replace = TRUE)
+aust[, "mean_bikes"] <- mean_bikes
+
+str(aust)
+```
+
+::: callout-note
+**What happens if the lengths don't match?**
+
+If you try to "force" a vector into a table that is a different height, R will protect the integrity of your data and throw an error.
+
+```{r}
+#| error: true
+mean_bikes <- sample(1:4, 5, replace = TRUE)
+aust[, "mean_bikes"] <- mean_bikes
+```
+
+**Why did this fail?** R uses a concept called **Recycling**.
+
+1.  **If you provide 1 value:** R repeats it for every row (this is allowed).
+
+2.  **If you provide 12 values:** It's a perfect fit (this is allowed).
+
+3.  **If you provide 5 values:** R doesn't know what to do with the remaining 7 rows, so it stops the code to prevent errors in your analysis.
+
+**Best Practice: Use `nrow()`**
+
+Always use `nrow(your_dataframe)` instead of typing a specific number (like 12). If you later filter your data or add more patients, your code will automatically adjust the length of your new columns!
+:::
+
+### 1.2 Combining Data Frames by Columns
+
+#### **Method A: Using the** `cbind()`
+
+If you have a whole table of new data, you can "staple" it to the side of your original data using `cbind()` (column bind). Unlike adding columns one by one, `cbind()` allows you to merge two entire data frames into one.
+
+```{r}
+#| collapse: true
+aust <- gapminder[gapminder$country == "Australia", ]
+# Create a separate data frame with two new variables
+df <- data.frame(mean_children = sample(1:10, nrow(aust), replace = TRUE),
+               mean_bikes = sample(1:4, nrow(aust), replace = TRUE))
+head(df)
+
+aust <- cbind(aust,df)
+head(aust)
+```
+
+::: callout-warning
+**⚠️ A Critical Warning: The Row Order**
+
+While `cbind()` is powerful, it is also "blind."
+
+It assumes that **Row 1** of your first table belongs with **Row 1** of your second table.
+
+In medical research, this is very dangerous if your tables aren't sorted perfectly. If your first table has patients in the order `P001, P002, P003` and your second table has them as `P003, P001, P002`, `cbind()` will mismatch the data!
+
+**Best Practice: Use `merge()` or `left_join()`**
+
+If you aren't 100% sure the rows are in the same order, don't use `cbind()`. Instead, use **`merge()`** (Base R) or **`left_join()`**(dplyr). These functions look at an **ID column** (like a patient ID) and automatically align the rows for you.
+:::
+
+#### **Method B: Using the** `merge()`
+
+To avoid mismatching data, we use **`merge()`**. This function looks at a specific **Key Column** (like `Patient_ID` or `country`) and aligns the rows automatically, even if they are in a different order.
+
+```{r}
+# 1. Prepare a subset of data
+countries <- gapminder[gapminder$country %in% c("Taiwan", "Canada"), ]
+
+# 2. Create a secondary table with a "Key Column" (country)
+# Note: This table could be in any order!
+df_info <- data.frame(
+  country = c("Canada", "Taiwan"),
+  avg_coffee_price = c(4.50, 3.20)
+)
+
+# 3. Merge based on the "country" column
+# R will find where "Taiwan" is in both tables and match them up
+countries_merged <- merge(countries, df_info, by = "country")
+
+head(countries_merged)
+```
+
+```{r}
+# 1. Prepare a subset of data
+patient_info <- data.frame(
+  patientID = c("P1", "P2", "P3", "P100"),
+  BW = c(50, 62, 73, 85)
+)
+
+# 2. Create a secondary table
+patient_BG <- data.frame(
+  patientID = c("P1", "P100", "P3", "P2"),
+  BG = c(7.1, 8.3, 9.5, 11)
+)
+
+# 3. Merge based on the "country" column
+# R will find where "Taiwan" is in both tables and match them up
+data_merged <- merge(patient_info, patient_BG, by = "patientID")
+
+head(data_merged)
+```
+
+::: callout-note
+**💡 Why `merge()` is better than `cbind()`**
+
+-   **Order Doesn't Matter:** In the example above, `df_info` lists Canada first, but in the `countries` dataset, the rows might appear in a different order. `merge()` finds the match regardless of where the row is located.
+
+-   **Flexible Lengths:** Notice that `countries` has many years of data for each country, but `df_info` only has one price per country. `merge()` is smart enough to "broadcast" (repeat) that one coffee price across all the matching years for that country.
+
+-   **Pattern Matching:** Instead of "mechanically" pasting columns, `merge()` looks for a specific pattern (the country name). If a country in your first table isn't found in your second table, R can be told exactly how to handle that "missing" data.
+:::
+
+### 1.3 Adding Rows (`rbind`)
+
+Adding rows is slightly more complex because a row usually contains mixed data types (text, numbers, etc.).
+
+::: callout-note
+**Why use a `list` for a new row?** A data frame is a list of vectors. A single row crosses those vectors, so it must be able to hold different types of data at once. A `list` is the perfect container for this.
+:::
+
+```{r}
+#| collapse: true
+aust <- gapminder[gapminder$country == "Australia",]
+
+# Create a new row as a list
+new_row <- list(
+  "country" = "Australia",
+  "continent" = "Oceania",
+  "year" = 2022,
+  "lifeExp" = mean(aust$lifeExp),
+  "pop" = mean(aust$pop),
+  "gdpPercap" = mean(aust$gdpPercap)
+)
+
+# Append the row to the bottom
+aust <- rbind(aust, new_row)
+
+tail(aust)
+```
+
+## 2. Removing and Filtering Data
+
+### 2.1 Removing Columns and Rows
+
+We use **negative indexing** to drop data.
+
+#### **Method A: Removing by Index (Position)**
+
+If you know exactly where a column is located, you can drop it using its number.
+
+```{r}
+#| collapse: true
+aust <- gapminder[gapminder$country == "Australia",]
+dim(aust)
+colnames(aust)
+
+# 1. Remove the LAST column dynamically
+# ncol(aust) finds the last number for you, so you don't have to count!
+aust <- aust[, -ncol(aust)]
+colnames(aust)
+
+# 2. Remove multiple specific columns (e.g., the 1st and 3rd)
+aust <- aust[, -c(1, 3)]
+colnames(aust)
+
+dim(aust)
+```
+
+#### **Method B: Removing by Name (The Safer Way)**
+
+Using numbers like `-3` is risky because if your dataset changes, the 3rd column might become something else! It is safer to remove columns by their actual **Name**.
+
+You ask R to keep every column **except** the one using the "Not Equal To" operator (`!=`).
+
+```{r}
+#| collapse: true
+# Keep everything where the column name is NOT "pop"
+colnames(aust)
+aust <- aust[, colnames(aust) != "pop"]
+
+colnames(aust)
+```
+
+#### **Method C: Removing Rows**
+
+The logic for rows is the same: use a negative sign before the row indices.
+
+```{r}
+# Remove the first 10 rows
+# Both of these are correct; the first is the most professional standard
+aust_reduced <- aust[-c(1:10), ] 
+## aust_reduced <- aust[-(1:10), ]
+
+dim(aust_reduced)
+```
+
+### 2.2 Applying Filters (Logical Subsetting)
+
+Filtering (or subsetting) is how you "query" your data to find specific samples or variables. In R, we use **Logical Operators** (like `>=`, `==`, or `%in%`) to tell R exactly what to keep.
+
+#### **Method A: Filtering Columns by Name**
+
+If you have a table with 20,000 genes but only want to see two specific ones, you can use the **`%in%`** operator.
+
+```{r}
+#| collapse: true
+aust <- gapminder[gapminder$country == "Australia",]
+
+# Keep only the columns "year" and "pop"
+# which() identifies the position (index) of the names that match our list
+aust_col <- aust[ , which(colnames(aust) %in% c("year", "pop"))]
+
+colnames(aust_col)
+```
+
+::: callout-note
+**Why use `which()`?**
+
+You might notice that `colnames(aust) %in% c("year", "pop")` returns a list of `TRUE` and `FALSE`. Wrapping it in **`which()`** converts those into actual numbers (the column positions), which is often safer and faster when dealing with very large datasets.
+
+```{r}
+#| collapse: true
+colnames(aust)
+
+colnames(aust) %in% c("year", "pop")
+
+which(colnames(aust) %in% c("year", "pop"))
+```
+:::
+
+#### **Method B: Filtering Rows by Condition**
+
+This is where you ask R to find samples that meet a specific clinical or biological threshold.
+
+```{r}
+#| collapse: true
+aust <- gapminder[gapminder$country == "Australia",]
+
+# 1. Filter by a fixed threshold
+# Keep only rows where Life Expectancy is 70 or higher
+long_life <- aust[aust$lifeExp >= 70, ]
+dim(long_life)
+
+# 2. Filter by a calculated threshold
+# Keep only rows where GDP is above average
+high_gdp <- aust[aust$gdpPercap >= mean(aust$gdpPercap), ]
+dim(high_gdp)
+```
+
+::: callout-note
+**💡 Understanding the "Comma" Rule**
+
+The most common mistake for beginners is forgetting the comma inside the brackets: `[rows, columns]`.
+
+-   `aust[aust$lifeExp >= 70 ]` → **Error!** R doesn't know if this is a row or column instruction.
+
+-   `aust[aust$lifeExp >= 70 , ]` → **Success!** The comma tells R: "Filter the **rows** based on this math, but keep **all columns**."
+:::
+
+## 3. Cleaning Your Data
+
+Raw datasets often contain "noise"—such as duplicate entries from technical replicates or empty rows created during data entry.
+
+### 3.1 Handling Duplicates
+
+Duplicates can artificially inflate your sample size and skew your statistics. The `unique()` function scans your data frame and keeps only the first instance of any identical rows.
+
+```{r}
+#| collapse: true
+aust <- gapminder[gapminder$country == "Australia",]
+
+# Create a dataset with duplicates (binding the data to itself)
+aust_double <- rbind(aust, aust)
+dim(aust_double) # Should show 24 rows
+
+# Remove duplicate rows
+aust_unique <- unique(aust_double)
+dim(aust_unique) # Back to 12 rows!
+```
+
+### 3.2 Handling Missing Values (`NA`)
+
+In R, missing data is represented by **`NA`** (Not Available). Most statistical functions (like `mean()` or `sd()`) will fail or return `NA` if even one value is missing, so clearing them is essential.
+
+#### **A. Identifying `NA`s: `is.na()`**
+
+You cannot use `== NA` to find missing data because `NA` is not a value; it is a placeholder. Instead, we use the logical function `is.na()`.
+
+#### **B. Filtering Out Empty Rows**
+
+We use the "Logical NOT" operator (`!`) to tell R: "Keep only the rows where the column is **NOT** NA."
+
+```{r}
+#| collapse: true
+# 1. Let's create an empty row for practice
+# rep(NA, ncol(aust)) creates a row of NAs the same width as our table
+na_row <- rep(NA, ncol(aust))
+aust <- rbind(aust, na_row)
+tail(aust) # You will see the last row is all NA
+
+# 2. Remove rows where 'country' is NA
+# We use !is.na() to keep the "Not NA" data
+aust <- aust[!is.na(aust$country), ]
+
+tail(aust) # The empty row is gone!
+```
+
+::: callout-note
+**Remove any row that has even one NA anywhere in it: `na.omit`**
+
+If you want to remove **any** row that has **even one** `NA` anywhere in it, you can use the "nuclear option":
+
+```{r}
+#| eval: false
+aust_clean <- na.omit(aust)
+```
+
+**Warning:** Be careful with `na.omit()`. If a patient is missing just one minor piece of information (like a middle name), `na.omit()` will delete their entire record, including their vital clinical data! **It is usually safer to filter by specific, essential columns using the `!is.na()` method.**
+:::
+
+### 3.3 Editing Specific Elements
+
+If you find a typo in your data, you can target a single "cell" using `[row, col]`.
+
+```{r}
+#| collapse: true
+# Add 1 year to the Life Expectancy of the first row
+aust[1, "lifeExp"] <- aust[1, "lifeExp"] + 1
+aust[1, ]
+
+# Specify the Life Expectancy of specific cell
+aust[1, "lifeExp"] <- 50
+aust[1, ]
+```

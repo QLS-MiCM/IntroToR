@@ -1,0 +1,141 @@
+---
+title: "Software Development Concepts"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 1. Good Coding Practices
+
+### 1.1 Script Structure
+
+A script should read like a story. Organize it so a colleague (or "Future You") can understand the setup before the action.
+
+-   **Sectioning:** Use comments (e.g., `#### SECTION NAME ####`) to create a map of your script.
+
+    -   **Folding:** You can click the small triangle icon next to the line numbers to "fold" (hide) a big chunk of code once you are finished with it. This keeps your workspace tidy.
+    -   **Navigation:** In RStudio, you can click the **Outline** icon (top right of the script window) to see a table of contents. Click any section name to jump straight to that code.
+    -   **The Shortcut:** Use `Cmd + Shift + R` (Mac) or `Ctrl + Shift + R` (Windows) to instantly insert a new section header.
+
+-   **The "Head" of the Script:**
+
+    Always load your libraries and set your environment variables (like `set.seed()`) at the very top. This acts as a **"Required Hardware"** list for R. If someone else tries to run your code, they will know immediately which packages they need to install.
+
+-   **Function Management:**
+
+    Keep your main analysis clean. If you have many custom functions:
+
+    -   **The "Functions" Section:** Put them in a dedicated section right below your library imports.
+
+    -   **The External File:** For very long scripts, save your functions in a separate file (e.g., `utils.R`) and bring them in using `source("utils.R")`.
+
+#### **Anatomy of a Professional Script**
+
+Here is a template demonstrating a clean, professional structure:
+
+```{r}
+#| eval: false
+# 0. Setup -----------------------------------------------------------------
+
+## Data Explanation:
+# This script analyzes the progranulin (GRN) expression in scRNA-seq data.
+# Last updated: Feb 2026 by [Your Name] [Finsihed Data Pre-processing]
+
+# Load Libraries
+library(dplyr)
+library(ggplot2)
+
+# Global Settings
+set.seed(228) # Ensures reproducibility for random samplings
+
+# Customized Functions
+CalculateFoldChange <- function(x, y) { return(log2(x/y)) }
+
+# 1. Load Data -------------------------------------------------------------
+# raw_counts <- read.csv("data/counts.csv")
+
+# 2. Pre-processing --------------------------------------------------------
+
+# 3. Statistical Analysis --------------------------------------------------
+```
+
+### 1.2 Writing Robust Functions
+
+In bioinformatics, naming and documentation are vital to avoid mixing up your genomic variables.
+
+#### **Naming Conventions (PascalCase)**
+
+Use **PascalCase** (Capitalizing each word) for functions to distinguish them from standard R variables.
+
+```{r}
+# Good: Stands out as a custom tool
+CalculateFoldChange <- function(ctrl, exp) { ... }
+
+# Bad: Looks like a generic variable
+foldchange <- function(ctrl, exp) { ... }
+```
+
+#### **Explicit Returns**
+
+While R automatically returns the last line, being explicit makes your code safer and easier to debug.
+
+```{r}
+# Good: Explicitly states what is being handed back
+AddValues <- function(x, y) {
+  return(x + y)
+}
+```
+
+#### **Internal Documentation**
+
+Always include a "Receipt" at the top of your function explaining what it needs and what it gives back.
+
+```{r}
+AddValues <- function(x, y) {
+  # Description: Adds two numeric values for gene expression normalization
+  # Input: x (numeric), y (numeric)
+  # Output: numeric sum
+  
+  return(x + y)
+}
+```
+
+### 1.3 Documentation and Testing
+
+As your McGill research projects grow into potential publications, you may want to use professional tools:
+
+-   **`roxygen2`**: Allows you to write "Help Files" (like the ones you see when typing `?sum`) directly in your script.
+
+-   **`testthat`**: A framework for "Unit Testing." It automatically checks if your functions still work correctly after you make changes to your code.
+
+### 1.4 External Packages & Namespacing
+
+Loading a library is like opening a whole toolbox. If you only need one hammer, don't bring the whole box.
+
+-   **The "Rule of Two":** If you only use 1 or 2 functions from a package, don't use `library()`. Use the **Namespace**instead.
+
+-   **Namespacing:** This prevents "Function Masking" (when two packages have a function with the same name).
+
+```{r}
+#| eval: false
+# Good: Explicit and avoids conflicts
+purrr::map()
+
+# Bad: Might conflict with 'map' from the 'maps' package
+map()
+```
+
+## 2. Debugging and Troubleshooting
+
+Every bioinformatician gets errors. The difference between a beginner and a pro is how they react to them.
+
+1.  **The "Minimal Reproducible Example" (Reprex):** Try to recreate the error using a tiny, fake dataset (like `df <- data.frame(a=1:5)`). If the error disappears, the problem is with your *data*. If the error stays, the problem is with your *logic*.
+
+2.  **The "Google" Rule:** Copy the **last line** of the error message.
+
+    ::: callout-tip
+    If the error involves a specific package, include the package name in your search (e.g., `"Error in .External2() unable to start data viewer ggplot2"`).
+    :::
+
+3.  **Check the "State":** Use `sessionInfo()` to see if your package versions are causing the conflict.

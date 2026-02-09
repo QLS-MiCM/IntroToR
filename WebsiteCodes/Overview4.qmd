@@ -1,0 +1,33 @@
+---
+title: "Overview: Generating Visual Outputs"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## Generating Visual Outputs
+
+By the end of this module, you will be able to:
+
+-   **Construct Base R Graphics:** Quickly generate exploratory plots using foundational functions like `plot()`, `hist()`, and `boxplot()`.
+
+-   **Master the Grammar of Graphics:** Understand the `ggplot2` philosophy—how to map data variables to visual aesthetics (colors, shapes, and axes).
+
+-   **Build Layered Visualizations:** Create professional-grade scatter plots, bar charts, and line graphs by layering geometric objects (`geoms`).
+
+-   **Leverage Factors for Design:** Use factor levels to control the order, grouping, and color-coding of categorical data in your plots.
+
+-   **Automate Reporting:** Use **RMarkdown** (or Quarto) to weave together code, results, and narrative text into polished, reproducible PDF or HTML reports.
+
+## Software Development Concepts
+
+By the end of this module, you will be able to:
+
+-   **Implement Best Practices:** Write clean, readable code using consistent naming conventions and logical script structures.
+
+-   **Standardize Documentation:** Use comments and headers to document your logic, ensuring your analysis is understandable to "Future You" and your collaborators.
+
+-   **Avoid Common Pitfalls:** Identify and steer clear of frequent R "anti-patterns," such as mixing up `=` and `==` or failing to manage working directories.
+
+-   **Troubleshoot and Debug:** Develop a systematic approach to reading error messages, using the RStudio debugger, and finding solutions in the R community.

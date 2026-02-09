@@ -1,0 +1,252 @@
+---
+title: "Advanced Data Manipulation"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+------------------------------------------------------------------------
+
+## 0. The "Base R" Struggle (A Scenario)
+
+Imagine you have data from an experiment with a Control group and an Experimental group. Each group has 3 males and 3 females. You need to calculate the mean for each unique combination (Sex + Treatment).
+
+**The "Old" Way (Base R):** You have to manually subset the data for every single combination, creating new variables each time.
+
+```{r}
+#| collapse: true
+# prepare demo dataset
+set.seed(228)
+demo_data <- data.frame(
+  "Treatment" = c(rep("ctrl", 6), rep("experiment", 6)),
+  "Sex" = c(rep("Male", 3), rep("Female", 3), rep("Male", 3), rep("Female", 3)),
+  "Measurement" = c(sample(100:300, 12))
+)
+
+# Calculating means manually
+Ctrl_M <- demo_data[which(demo_data$Treatment == "ctrl" & demo_data$Sex == "Male"), "Measurement"]
+mean(Ctrl_M)
+
+Ctrl_F <- demo_data[which(demo_data$Treatment == "ctrl" & demo_data$Sex == "Female"), "Measurement"]
+mean(Ctrl_F)
+```
+
+Now imagine doing this for 10 treatments and 3 timepoints... you would have 60 variables!
+
+There are packages that provide functions to streamline common operations on tabular data and make the code look nicer and cleaner. These packages are part of a broader family called `tidyverse`, for more information you can visit <https://www.tidyverse.org/>.
+
+We will cover 5 of the most commonly used functions and combine them using pipes (`%>%`):
+
+1\. `select()` - used to extract data
+
+2\. `filter()` - to filter entries using logical vectors
+
+3\. `group_by()` - to solve the split-apply-combine problem
+
+4\. `summarize()` - to obtain summary statistics
+
+5\. `mutate()` - to create new columns
+
+## 1. The `tidyverse` Philosophy
+
+To solve this "variable explosion," we use `dplyr`. It is part of the **tidyverse**, a collection of R packages that are designed for data science and share a common grammar. The goal is to provide a consistent way to handle data frames. Instead of creating 60 intermediate objects, we create one **Pipeline**.
+
+```{r}
+#| message: false
+if (!require("gapminder", quietly = TRUE))
+    install.packages("gapminder")
+library(gapminder)
+
+if (!require("dplyr", quietly = TRUE))
+    install.packages("dplyr")
+library(dplyr)
+```
+
+### The Power of the Pipe (`%>%`)
+
+The pipe operator is the secret sauce of `dplyr`. It takes the output of one function and "pipes" it directly into the next.
+
+-   **Think of it as the word "THEN".**
+
+#### Why use the pipe?
+
+1.  **Readability:** Standard R code is nested like an onion: `f(g(h(x)))`. You have to read from the inside out. With the pipe, you read from left to right (or top to bottom).
+
+2.  **No "Intermediate Clutter":** You don't have to save `temp_data_1`, `temp_data_2`, etc.
+
+3.  **Easy Debugging:** You can comment out one line of the pipe to see where the data "breaks."
+
+### Comparisons: The Pipe vs. The Nest
+
+**The Nest (Hard to read):**
+
+```{r}
+#| message: false
+# Hard to tell which argument belongs to which function
+set.seed(228)
+demo_data <- data.frame(
+  "Treatment" = c(rep("ctrl", 6), rep("experiment", 6)),
+  "Sex" = c(rep("Male", 3), rep("Female", 3), rep("Male", 3), rep("Female", 3)),
+  "Measurement" = c(sample(100:300, 12))
+)
+
+as.data.frame(summarise(dplyr::group_by(demo_data, Treatment, Sex), Mean = mean(Measurement)))
+```
+
+**The Pipe (Easy to read):**
+
+```{r}
+# Step-by-step logic
+demo_data %>% 
+  dplyr::group_by(Treatment, Sex) %>% 
+  summarise(
+    Mean = mean(Measurement),
+    SD   = sd(Measurement),
+    .groups  = "drop"
+  ) %>% 
+  as.data.frame()
+```
+
+::: callout-note
+-   **Keyboard Shortcut:**
+
+    -   Windows/Linux: `Ctrl + Shift + M`
+
+    -   Mac: `Cmd + Shift + M`
+
+-   **Fact:** The pipe introduced in the `magrittr` package (2014) and popularized by `dplyr` (`magrittr` package was named after the artist René Magritte, famous for the "This is not a pipe" painting).
+
+-   **Modern R:** Since R 4.1.0, there is a built-in pipe `|>`. It works similarly but has a few more restrictions (like requiring parentheses after every function).
+:::
+
+## 2. The Core `dplyr` Verbs
+
+### 2.1 `select()`: Picking Columns
+
+Use `select()` when you only want specific variables (columns) from your dataset. Think of it as a logical sieve: you define the criteria, and only the rows that meet those conditions pass through.
+
+```{r}
+#| collapse: true
+# Select specific columns
+gapminder %>% 
+  dplyr::select(year, country, gdpPercap) %>% 
+  head()
+
+# Remove a column using the minus sign
+gapminder %>% 
+  dplyr::select(-continent) %>% 
+  head()
+```
+
+::: callout-note
+**Another way of coding:**
+
+```{r}
+dplyr::select(.data = gapminder, 
+              year, country, gdpPercap) %>%
+  head()
+
+dplyr::select(.data = gapminder,
+              -continent) %>%
+  head()
+```
+:::
+
+### 2.2 `filter()`: Picking Rows
+
+Use `filter()` to find observations (rows) that meet a certain condition.
+
+```{r}
+#| collapse: true
+# Include only European countries in the year 2007
+gapminder %>% 
+  dplyr::filter(continent == "Europe", year == 2007) %>% 
+  dplyr::select(country, lifeExp)
+```
+
+::: callout-note
+**The Base R Way**
+
+The logic is "nested." You have to read from the inside out to understand what is happening, and you must repeat the name of the data frame (`gapminder$`) multiple times.
+
+```{r}
+#| collapse: true
+gapminder[which(gapminder$continent == "Europe" & gapminder$year == 2007), 
+          c("country", "lifeExp")]
+```
+:::
+
+## 3. The Power Duo: `group_by()` and `summarize()`
+
+This is the most common workflow in bioinformatics. You **split** the data into groups, **apply** a calculation, and **combine** the results into a summary table.
+
+### 3.1 `group_by()`
+
+This doesn't change the data visually; it creates "hidden" groups that R remembers for the next step.
+
+![](../images/groupby.png){fig-align="center" width="40%"}
+
+```{r}
+#| collapse: true
+gapminder %>% 
+  dplyr::group_by(continent)
+```
+
+### 3.2 `summarize()`
+
+This "collapses" each group into a single row of statistics.
+
+![](../images/summarize.png){fig-align="center" width="50%"}
+
+```{r}
+#| collapse: true
+# Calculate mean GDP and Standard Error for each continent
+gapminder %>% 
+  dplyr::group_by(continent) %>% 
+  dplyr::summarize(
+    mean_le = mean(lifeExp),
+    min_le = min(lifeExp),
+    max_le = max(lifeExp),
+    se_le = sd(lifeExp) / sqrt(dplyr::n()) # n() counts the number of observations
+  )
+```
+
+## 4. `mutate()`: Creating New Variables
+
+`mutate()` allows you to add new columns while keeping the old ones. It is perfect for calculations like unit conversions or normalization.
+
+```{r}
+#| collapse: true
+# Create a new column for GDP in billions
+gapminder %>% 
+  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %>% 
+  head()
+```
+
+## 5. Putting It All Together
+
+The true beauty of `dplyr` is chaining everything into one clean pipeline.
+
+```{r}
+#| collapse: true
+#| message: false
+# A complete pipeline: Create a variable, group it, and summarize it
+summary_table <- gapminder %>% 
+  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %>% 
+  dplyr::group_by(continent, year) %>% 
+  dplyr::summarize(
+    mean_gdpPercap = mean(gdpPercap),
+    sd_gdpPercap = sd(gdpPercap),
+    mean_pop = mean(pop),
+    sd_pop = sd(pop),
+    mean_gdp_billion = mean(gdp_billion),
+    sd_gdp_billion = sd(gdp_billion)
+  )
+
+head(summary_table)
+```
+
+::: callout-note
+### **Why use `dplyr::`?**
+
+You’ll notice I used `dplyr::select()` instead of just `select()`. As we discussed in the "Functions" module, many packages have a `filter` or `select` function. Being explicit ensures that your code **never breaks**, even if you load other libraries later.
+:::

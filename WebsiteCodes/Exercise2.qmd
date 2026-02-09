@@ -1,0 +1,66 @@
+---
+title: "Hands-on Exercise: Basic Data Manipulation"
+subtitle: ""
+description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
+---
+
+---
+
+
+```{r}
+library(gapminder)
+```
+
+## Writing data
+
+Write a data processing snippet to include only the data points collected after 1995 in Asian countries as a CSV file
+
+```{r,eval=F}
+
+```
+
+Separate the `gapminder` data frame into 5 individual data frames, one for each continent. Store those 5 data frames as an `RData` file in the `objects` folder called `continents.RData`.
+
+```{r,eval=FALSE}
+
+```
+
+## Exploring data frames
+
+Finish exploring the `gapminder` data frame and:
+
+-   Find the number of rows and the number of columns\
+-   Print the data type of each column\
+-   Explain the meaning of everything that `str(gapminder)` prints
+
+```{r,eval=F}
+
+```
+
+In which years has the GDP of Canada been larger than the average of all data points?
+
+```{r,eval=F}
+
+```
+
+Find the mean life expectancy of Switzerland before and after 2000
+
+```{r,eval=F}
+
+```
+
+You discovered that all the entries from 2007 are actually from 2008. Create a copy of the full `gapminder` data frame in an object called `gp`. Then change the year column to correct the entries from 2007.
+
+```{r,eval=F}
+
+```
+
+**Bonus -** Find the mean life expectancy and mean gdp per continent using the function `tapply`
+
+```{r,eval=F}
+
+```
+
+```{r,eval=F}
+
+```
