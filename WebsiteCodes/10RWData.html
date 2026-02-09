@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie.">
+
+<title>Reading/Writing Data – Intro To R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../WebsiteCodes/11AdvDataFrames.html" rel="next">
+<link href="../WebsiteCodes/Overview3.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-905fbf686b7dcd19a8dae1af0ccba00f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/Overview3.html">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation</a></li><li class="breadcrumb-item"><a href="../WebsiteCodes/10RWData.html">𝟭𝟬 Reading/Writing Data</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/MiCM_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/MiCM_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://www.mcgill.ca/micm/" title="GLS-MiCM" class="quarto-navigation-tool px-1" aria-label="GLS-MiCM"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/QLS-MiCM" title="MiCM Github" class="quarto-navigation-tool px-1" aria-label="MiCM Github"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/MartinaHYang/IntroToR" title="IntroToR Codes" class="quarto-navigation-tool px-1" aria-label="IntroToR Codes"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome🎉</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/QLS_MiCM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QLS-MiCM</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/WhyR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why R for Data Science?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing R and RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Acquainted with R and RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/MaterialsInstructions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Materials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Types and Data Structures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/01AtomicClasses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭 Atomic Classes (Data Types)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/02ArithmeticOp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟮 Arithmetic operators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/03SyntaxOp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟯 Syntax operators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/04LogicalOp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟰 Logical operators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/05Objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟱 Objects (Data Structures)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃１</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃１</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Control Structures and Functions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/06ConditionalStat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟲 Conditional Statements</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/07Loop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟳 For Loop/While Loop</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/08NewFunctions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟴 Create New Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/09Packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟵 Installing New Packages</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/10RWData.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">𝟭𝟬 Reading/Writing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/11AdvDataFrames.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟭 Exploring Data Frames</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/12Packages4Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟮 Advanced Data Manipulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃２</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃２</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃３</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃３</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/13Graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟯 Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/14Software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟰 Software Development Concepts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃４</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃４</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/ConcludingRemarks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concluding Remarks🎉</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-working-directory" id="toc-the-working-directory" class="nav-link active" data-scroll-target="#the-working-directory">0. The Working Directory</a>
+  <ul class="collapse">
+  <li><a href="#how-to-find-your-current-home-base" id="toc-how-to-find-your-current-home-base" class="nav-link" data-scroll-target="#how-to-find-your-current-home-base">0.1 How to Find Your Current “Home Base”</a></li>
+  <li><a href="#three-ways-to-change-your-directory" id="toc-three-ways-to-change-your-directory" class="nav-link" data-scroll-target="#three-ways-to-change-your-directory">0.2 Three Ways to Change Your Directory</a></li>
+  <li><a href="#absolute-vs.-relative-paths" id="toc-absolute-vs.-relative-paths" class="nav-link" data-scroll-target="#absolute-vs.-relative-paths">0.3 Absolute vs.&nbsp;Relative Paths</a></li>
+  </ul></li>
+  <li><a href="#writing-data-tables" id="toc-writing-data-tables" class="nav-link" data-scroll-target="#writing-data-tables">1. Writing Data Tables</a>
+  <ul class="collapse">
+  <li><a href="#preparing-the-demo-data" id="toc-preparing-the-demo-data" class="nav-link" data-scroll-target="#preparing-the-demo-data">1.1 Preparing the Demo Data</a></li>
+  <li><a href="#saving-as-csv-with-write.csv" id="toc-saving-as-csv-with-write.csv" class="nav-link" data-scroll-target="#saving-as-csv-with-write.csv">1.2 Saving as CSV with <code>write.csv()</code></a></li>
+  <li><a href="#saving-as-tsv-with-write.table" id="toc-saving-as-tsv-with-write.table" class="nav-link" data-scroll-target="#saving-as-tsv-with-write.table">1.3 Saving as TSV with <code>write.table()</code></a></li>
+  <li><a href="#exporting-to-excel-with-write_xlsx" id="toc-exporting-to-excel-with-write_xlsx" class="nav-link" data-scroll-target="#exporting-to-excel-with-write_xlsx">1.4 Exporting to Excel with <code>write_xlsx()</code></a></li>
+  <li><a href="#metadata-and-versioning" id="toc-metadata-and-versioning" class="nav-link" data-scroll-target="#metadata-and-versioning">1.5 Metadata and Versioning</a></li>
+  </ul></li>
+  <li><a href="#reading-data-tables" id="toc-reading-data-tables" class="nav-link" data-scroll-target="#reading-data-tables">2. Reading Data Tables</a>
+  <ul class="collapse">
+  <li><a href="#reading-text-files-.csv-and-.tsv" id="toc-reading-text-files-.csv-and-.tsv" class="nav-link" data-scroll-target="#reading-text-files-.csv-and-.tsv">2.1 Reading Text Files (.csv and .tsv)</a></li>
+  <li><a href="#reading-from-excel-.xlsx" id="toc-reading-from-excel-.xlsx" class="nav-link" data-scroll-target="#reading-from-excel-.xlsx">2.2 Reading from Excel (.xlsx)</a></li>
+  <li><a href="#the-point-and-click-method-interactive" id="toc-the-point-and-click-method-interactive" class="nav-link" data-scroll-target="#the-point-and-click-method-interactive">2.3 The “Point-and-Click” Method (Interactive)</a></li>
+  </ul></li>
+  <li><a href="#r-specific-formats-.rds-and-.rdata" id="toc-r-specific-formats-.rds-and-.rdata" class="nav-link" data-scroll-target="#r-specific-formats-.rds-and-.rdata">3. R-Specific Formats (.RDS and .RData)</a>
+  <ul class="collapse">
+  <li><a href="#rds-save-one-object" id="toc-rds-save-one-object" class="nav-link" data-scroll-target="#rds-save-one-object">3.1 .RDS (Save one object)</a></li>
+  <li><a href="#rdata-save-multiple-objects" id="toc-rdata-save-multiple-objects" class="nav-link" data-scroll-target="#rdata-save-multiple-objects">3.2 .RData (Save multiple objects)</a></li>
+  <li><a href="#summary-rds-vs.-rdata-vs.-rproject" id="toc-summary-rds-vs.-rdata-vs.-rproject" class="nav-link" data-scroll-target="#summary-rds-vs.-rdata-vs.-rproject">3.3 Summary: RDS vs.&nbsp;RData vs.&nbsp;RProject</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/10RWData.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/Overview3.html">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation</a></li><li class="breadcrumb-item"><a href="../WebsiteCodes/10RWData.html">𝟭𝟬 Reading/Writing Data</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Reading/Writing Data</h1>
+</div>
+
+<div>
+  <div class="description">
+    Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<section id="the-working-directory" class="level2">
+<h2 class="anchored" data-anchor-id="the-working-directory">0. The Working Directory</h2>
+<p>The <strong>Working Directory</strong> is the specific folder on your computer where R is currently “looking” for files. Think of it as R’s “home base.”</p>
+<ul>
+<li><p><strong><code>getwd()</code></strong>: Run this in the console to see your current “home base” address.</p></li>
+<li><p><strong><code>setwd()</code></strong>: Use this to change where R is looking.</p></li>
+</ul>
+<section id="how-to-find-your-current-home-base" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-find-your-current-home-base">0.1 How to Find Your Current “Home Base”</h3>
+<p>There are two main ways to check where R is looking:</p>
+<ol type="1">
+<li><p><strong>Using Code:</strong> Run <code>getwd()</code> in the console. R will return the full “GPS address” (path) of your current location.</p></li>
+<li><p><strong>Using Your Eyes:</strong> Look at the top of your <strong>Console</strong> panel. Right next to your R version info, you will see a file path (often starting with <code>~/</code>).</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Finding Your Working Directory from the console panel:</strong></p>
+<p>Right next to your R version, you will see a file path starting with <code>~/</code>.</p>
+<p>This is your <strong>Working Directory</strong>—the specific folder on your computer where R is currently “looking” for files.</p>
+<p>There is a small gray arrow next to the path in the Console. Clicking this will immediately refresh your <strong>Files</strong> pane (bottom-right) to show you exactly what is inside your working directory.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/RStudio_4.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="three-ways-to-change-your-directory" class="level3">
+<h3 class="anchored" data-anchor-id="three-ways-to-change-your-directory">0.2 Three Ways to Change Your Directory</h3>
+<p>If R is looking in the wrong place, you need to move it. You can do this interactively or through code.</p>
+<section id="method-a-the-script-tab-interactive" class="level4">
+<h4 class="anchored" data-anchor-id="method-a-the-script-tab-interactive"><strong>Method A: The Script Tab (Interactive)</strong></h4>
+<p>If you have a script saved in your project folder, right-click the <strong>Script Tab</strong> at the top of your editor and select <strong>“Set Working Directory.”</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/RWData_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="method-b-the-files-pane-interactive" class="level4">
+<h4 class="anchored" data-anchor-id="method-b-the-files-pane-interactive"><strong>Method B: The Files Pane (Interactive)</strong></h4>
+<p>In the <strong>Files</strong> pane (bottom-right), navigate to the folder you want. Click the <strong>“More”</strong> gear icon and select <strong>“Set As Working Directory.”</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/RWData_2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="method-c-using-code-setwd" class="level4">
+<h4 class="anchored" data-anchor-id="method-c-using-code-setwd"><strong>Method C: Using Code (<code>setwd()</code>)</strong></h4>
+<p>This is the most direct way, but it requires typing out the path.</p>
+</section>
+</section>
+<section id="absolute-vs.-relative-paths" class="level3">
+<h3 class="anchored" data-anchor-id="absolute-vs.-relative-paths">0.3 Absolute vs.&nbsp;Relative Paths</h3>
+<p>Understanding how R finds files is essential to avoiding the common <code>"File not found"</code> error.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Type</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Example</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Absolute Path</strong></td>
+<td>The full “GPS address” from the root drive.</td>
+<td><em>C:/Users/Name/Project/data/counts.csv</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Relative Path</strong></td>
+<td>A shorthand address starting from your <strong>current</strong> folder.</td>
+<td><em>data/counts.csv</em></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Best Practice:</strong> Keep your data and your R script in the same folder (or a sub-folder) and use <strong>Relative Paths</strong>. This makes your project “portable”—it will work for anyone you share it with!</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Warning:</strong> Using <code>setwd()</code> is generally <strong>discouraged in shared projects</strong> because the path on your computer won’t exist on your colleague’s computer.</p>
+<p>Why?</p>
+<p>Because a path like <code>C:/Users/Martina/...</code> does not exist on your colleague’s computer. If you share your script, their R will crash immediately.</p>
+<p><strong>Best Practice:</strong> Use <strong>R Projects (<code>.Rproj</code>)</strong>. When you open an R Project, R automatically sets the working directory to that folder. This allows you to use <strong>Relative Paths</strong>, making your code “portable” so it works for anyone, anywhere.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="writing-data-tables" class="level2">
+<h2 class="anchored" data-anchor-id="writing-data-tables">1. Writing Data Tables</h2>
+<p>After cleaning or filtering your data, you need to save your results to your hard drive.</p>
+<section id="preparing-the-demo-data" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-the-demo-data">1.1 Preparing the Demo Data</h3>
+<p>We will use the <code>gapminder</code> dataset to practice. We will create two subsets: one for Australia and one for the continent of Africa.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"gapminder"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"gapminder"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gapminder)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1704    6</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gapminder<span class="sc">$</span>lifeExp)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   23.60   48.20   60.71   59.47   70.85   82.60</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>aust <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>country <span class="sc">==</span> <span class="st">"Australia"</span>,]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>africa <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">"Africa"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="saving-as-csv-with-write.csv" class="level3">
+<h3 class="anchored" data-anchor-id="saving-as-csv-with-write.csv">1.2 Saving as CSV with <code>write.csv()</code></h3>
+<p>The Comma-Separated Value (.csv) is the universal language of data tables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 'data' folder in your current working directory</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the Africa subset of the gapminder data</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(africa, <span class="at">file =</span> <span class="st">"data/gapminder_africa.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>The “Folder Not Found” Error</strong></p>
+<p>R is a great calculator, but it isn’t a folder manager. If you tell R to save a file in a folder named <code>data/</code> but that folder doesn’t exist yet, R will throw an error: <code>No such file or directory</code>.</p>
+<p>Before saving, you must create the folder manually or use this code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 'data' folder in your current working directory</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="saving-as-tsv-with-write.table" class="level3">
+<h3 class="anchored" data-anchor-id="saving-as-tsv-with-write.table">1.3 Saving as TSV with <code>write.table()</code></h3>
+<p>In bioinformatics, <strong>Tab-Separated Value (.tsv)</strong> files are often preferred because gene names or clinical notes sometimes contain commas, which can “break” a CSV file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving as a TSV (using sep = "\t")</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(aust, <span class="at">file =</span> <span class="st">"data/gapminder_australia.tsv"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><strong><code>sep = "\t"</code></strong>: Tells R to use a “Tab” to separate your values. Common ones are <code>","</code> (comma), <code>"\t"</code> (tab), and <code>""</code> (white space).</p></li>
+<li><p><strong><code>quote = FALSE</code></strong>: Prevents R from putting double quotes around every word, making the file much easier to read in a text editor.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="exporting-to-excel-with-write_xlsx" class="level3">
+<h3 class="anchored" data-anchor-id="exporting-to-excel-with-write_xlsx">1.4 Exporting to Excel with <code>write_xlsx()</code></h3>
+<p>Sometimes you need to share results with a collaborator who strictly uses Excel. The <code>writexl</code> package makes this easy.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"writexl"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(aust, <span class="at">path =</span> <span class="st">"data/gapminder_australia.xlsx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="metadata-and-versioning" class="level3">
+<h3 class="anchored" data-anchor-id="metadata-and-versioning">1.5 Metadata and Versioning</h3>
+<p>Scientific data is iterative. You will likely generate 10 versions of the same table before your paper is published.</p>
+<ul>
+<li><p><strong>The “Dated” Filename:</strong> Never name a file <code>results_FINAL.csv</code>. Instead, use: <code>results_v1_2026-02-07.csv</code>. When exporting data, always include a date or version number in the filename. This prevents overwriting and tells you exactly when the data was generated.</p></li>
+<li><p><strong>The <code>row.names = FALSE</code> Rule:</strong> By default, R tries to save the row numbers (1, 2, 3…) into your file. This usually creates an annoying, unnamed “Column 1” in Excel. Setting this to <code>FALSE</code> keeps your data clean.</p></li>
+</ul>
+</section>
+</section>
+<section id="reading-data-tables" class="level2">
+<h2 class="anchored" data-anchor-id="reading-data-tables">2. Reading Data Tables</h2>
+<section id="reading-text-files-.csv-and-.tsv" class="level3">
+<h3 class="anchored" data-anchor-id="reading-text-files-.csv-and-.tsv">2.1 Reading Text Files (.csv and .tsv)</h3>
+<section id="base-r" class="level4">
+<h4 class="anchored" data-anchor-id="base-r"><strong>2.1.1 Base R</strong></h4>
+<p>These functions come pre-installed with R. They are reliable and don’t require any extra libraries, but can be slow with very large genomic datasets.</p>
+<blockquote class="blockquote">
+<p><strong><code>read.csv()</code></strong> Specifically designed for CSV files. It automatically assumes that your data is separated by commas (<code>,</code>).</p>
+<p><strong><code>read.table()</code> (The “Parent” Function)</strong> This is the most flexible tool in your kit. While <code>read.csv()</code> is “locked” to commas, <code>read.table()</code> lets you specify <strong>any</strong> separator. This is essential for tab-separated genomic files.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gapminder_africa.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading a Tab-Separated file (.tsv or .txt)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/gapminder_australia.tsv"</span>, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> <span class="cn">TRUE</span>,      <span class="co"># Does the first row have column names?</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,         <span class="co"># What separates the data? (\t = tab)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="co"># Keep text as text, not categories</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><strong>Key Arguments for <code>read.table</code>:</strong>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><strong><code>header = TRUE</code></strong>: Tells R that the first line contains the names of the columns.</p></li>
+<li><p><strong><code>sep</code></strong>: The character that separates your values. Common ones are <code>","</code> (comma), <code>"\t"</code> (tab), and <code>""</code> (white space).</p></li>
+<li><p><strong><code>dec</code></strong>: The character used for decimal points (useful if you are working with European data that uses a comma as a decimal).</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="readr-tidyverse" class="level4">
+<h4 class="anchored" data-anchor-id="readr-tidyverse"><strong>2.1.2 <code>readr</code> (Tidyverse)</strong></h4>
+<p>Part of the Tidyverse, <code>read_csv()</code> is faster and better at “guessing” your data types correctly.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"readr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/gapminder_africa.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="reading-from-excel-.xlsx" class="level3">
+<h3 class="anchored" data-anchor-id="reading-from-excel-.xlsx">2.2 Reading from Excel (.xlsx)</h3>
+<p>R cannot read Excel files natively. You need the <code>readxl</code> package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"readxl"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/gapminder_australia.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-point-and-click-method-interactive" class="level3">
+<h3 class="anchored" data-anchor-id="the-point-and-click-method-interactive">2.3 The “Point-and-Click” Method (Interactive)</h3>
+<p>If you are a beginner or can’t remember the exact path to your file, use the <strong>Import Dataset</strong> button in the <strong>Environment</strong> panel (top-right).</p>
+<ol type="1">
+<li><p>Click <strong>Import Dataset</strong>.</p></li>
+<li><p>Browse your computer and select your file.</p></li>
+<li><p>Look at the “Code Preview” box in the bottom-right of the window. RStudio writes the code for you! You should <strong>copy and paste</strong> that code into your script so that your work is reproducible next time.</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Performance Limit:</strong></p>
+<p>Avoid using the interactive importer for massive datasets (like 100MB+ genomic files). The “preview” window will try to load the data to show it to you, which can cause RStudio to freeze.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><img src="../images/RWData_3.png" class="border img-fluid"></p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:60%;">
+<p><img src="../images/RWData_4.png" class="border img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="r-specific-formats-.rds-and-.rdata" class="level2">
+<h2 class="anchored" data-anchor-id="r-specific-formats-.rds-and-.rdata">3. R-Specific Formats (.RDS and .RData)</h2>
+<p>Sometimes you want to save an object exactly as it is in R (e.g., a complex statistical model or a large list).</p>
+<section id="rds-save-one-object" class="level3">
+<h3 class="anchored" data-anchor-id="rds-save-one-object">3.1 .RDS (Save one object)</h3>
+<p>Best for saving a single dataframe or list. You can give it a new name when you load it back in.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(africa, <span class="at">file =</span> <span class="st">"data/africa.RDS"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>africa_reloaded <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/africa.RDS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="rdata-save-multiple-objects" class="level3">
+<h3 class="anchored" data-anchor-id="rdata-save-multiple-objects">3.2 .RData (Save multiple objects)</h3>
+<p>Used to save your entire/some part of “Environment.” When you load it, the variables appear with their original names.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(africa, aust, <span class="at">file =</span> <span class="st">"data/continents.RData"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/continents.RData"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="summary-rds-vs.-rdata-vs.-rproject" class="level3">
+<h3 class="anchored" data-anchor-id="summary-rds-vs.-rdata-vs.-rproject">3.3 Summary: RDS vs.&nbsp;RData vs.&nbsp;RProject</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Format</strong></td>
+<td><strong>Purpose</strong></td>
+<td><strong>Best Use Case</strong></td>
+</tr>
+<tr class="even">
+<td><strong>.RDS</strong></td>
+<td>Saves <strong>one</strong> object.</td>
+<td>Saving a clean dataset to use in another script.</td>
+</tr>
+<tr class="odd">
+<td><strong>.RData</strong></td>
+<td>Saves <strong>multiple</strong> objects.</td>
+<td>Saving your whole workspace before lunch.</td>
+</tr>
+<tr class="even">
+<td><strong>.Rproj</strong></td>
+<td>Saves <strong>settings/context</strong>.</td>
+<td>Keeping your file paths and open tabs organized.</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/martinahyang\.github\.io\/IntroToR\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../WebsiteCodes/Overview3.html" class="pagination-link" aria-label="Overview">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../WebsiteCodes/11AdvDataFrames.html" class="pagination-link" aria-label="𝟭𝟭 Exploring Data Frames">
+        <span class="nav-page-text">𝟭𝟭 Exploring Data Frames</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© CC-By McGill QLS-MiCM, 2026. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Workshop created as part of the McGill Initiative in Computational Medicine.</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/10RWData.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

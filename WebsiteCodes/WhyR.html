@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie.">
+
+<title>Foundations of R: Why R for Data Science? – Intro To R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../WebsiteCodes/Setup.html" rel="next">
+<link href="../WebsiteCodes/QLS_MiCM.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-905fbf686b7dcd19a8dae1af0ccba00f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/WhyR.html">Why R for Data Science?</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/MiCM_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/MiCM_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://www.mcgill.ca/micm/" title="GLS-MiCM" class="quarto-navigation-tool px-1" aria-label="GLS-MiCM"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/QLS-MiCM" title="MiCM Github" class="quarto-navigation-tool px-1" aria-label="MiCM Github"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/MartinaHYang/IntroToR" title="IntroToR Codes" class="quarto-navigation-tool px-1" aria-label="IntroToR Codes"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome🎉</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/QLS_MiCM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QLS-MiCM</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/WhyR.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Why R for Data Science?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing R and RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Acquainted with R and RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/MaterialsInstructions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Use This Materials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Types and Data Structures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/01AtomicClasses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭 Atomic Classes (Data Types)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/02ArithmeticOp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟮 Arithmetic operators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/03SyntaxOp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟯 Syntax operators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/04LogicalOp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟰 Logical operators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/05Objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟱 Objects (Data Structures)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃１</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃１</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Control Structures and Functions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/06ConditionalStat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟲 Conditional Statements</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/07Loop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟳 For Loop/While Loop</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/08NewFunctions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟴 Create New Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/09Packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟵 Installing New Packages</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/10RWData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟬 Reading/Writing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/11AdvDataFrames.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟭 Exploring Data Frames</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/12Packages4Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟮 Advanced Data Manipulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃２</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃２</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃３</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃３</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Overview4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/13Graphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟯 Graphics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/14Software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟰 Software Development Concepts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃４</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃４</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/ConcludingRemarks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concluding Remarks🎉</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
+  <li><a href="#why-not-excel-why-not-graphpad-prism" id="toc-why-not-excel-why-not-graphpad-prism" class="nav-link" data-scroll-target="#why-not-excel-why-not-graphpad-prism">1. Why Not Excel? / Why Not GraphPad Prism?</a>
+  <ul class="collapse">
+  <li><a href="#the-limitations-of-spreadsheets-and-prism" id="toc-the-limitations-of-spreadsheets-and-prism" class="nav-link" data-scroll-target="#the-limitations-of-spreadsheets-and-prism">The Limitations of Spreadsheets and Prism</a></li>
+  </ul></li>
+  <li><a href="#what-is-r" id="toc-what-is-r" class="nav-link" data-scroll-target="#what-is-r">2. What is R?</a>
+  <ul class="collapse">
+  <li><a href="#the-free-in-free-software" id="toc-the-free-in-free-software" class="nav-link" data-scroll-target="#the-free-in-free-software">The “Free” in Free Software</a></li>
+  <li><a href="#key-r-facts" id="toc-key-r-facts" class="nav-link" data-scroll-target="#key-r-facts">Key R Facts</a></li>
+  </ul></li>
+  <li><a href="#what-can-r-do" id="toc-what-can-r-do" class="nav-link" data-scroll-target="#what-can-r-do">3. What Can R Do?</a></li>
+  <li><a href="#r-vs.-python-how-to-choose" id="toc-r-vs.-python-how-to-choose" class="nav-link" data-scroll-target="#r-vs.-python-how-to-choose">4. R vs.&nbsp;Python: How to Choose?</a></li>
+  <li><a href="#how-to-use-ai-as-a-learning-accelerator" id="toc-how-to-use-ai-as-a-learning-accelerator" class="nav-link" data-scroll-target="#how-to-use-ai-as-a-learning-accelerator">5. How to use AI as a Learning Accelerator?</a>
+  <ul class="collapse">
+  <li><a href="#why-foundational-knowledge-still-matters" id="toc-why-foundational-knowledge-still-matters" class="nav-link" data-scroll-target="#why-foundational-knowledge-still-matters">Why Foundational Knowledge Still Matters</a></li>
+  <li><a href="#the-pilot-and-co-pilot-rule" id="toc-the-pilot-and-co-pilot-rule" class="nav-link" data-scroll-target="#the-pilot-and-co-pilot-rule">The “Pilot and Co-Pilot” Rule</a></li>
+  </ul></li>
+  <li><a href="#recommended-learning-materials" id="toc-recommended-learning-materials" class="nav-link" data-scroll-target="#recommended-learning-materials">6. Recommended Learning Materials</a></li>
+  <li><a href="#visualization-gallery" id="toc-visualization-gallery" class="nav-link" data-scroll-target="#visualization-gallery">Appendix: R Visualization Gallery</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/WhyR.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Foundations of R: Why R for Data Science?</h1>
+<p class="subtitle lead">The Power and Purpose Behind the Code</p>
+</div>
+
+<div>
+  <div class="description">
+    Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will be able to:</p>
+<ul>
+<li><p><strong>Critique the limitations</strong> of spreadsheet software (like Excel) in the context of professional scientific research and reproducibility.</p></li>
+<li><p><strong>Define the fundamental nature of R</strong> as an open-source, community-driven statistical language.</p></li>
+<li><p><strong>Identify key R applications</strong> in bioinformatics, data visualization, and automated reporting.</p></li>
+<li><p><strong>Evaluate the strengths of R vs.&nbsp;Python</strong> to make informed decisions for your specific research or career path.</p></li>
+<li><p><strong>Navigate a curated list of self-taught resources</strong> to continue your R journey beyond this workshop.</p></li>
+</ul>
+</section>
+<section id="why-not-excel-why-not-graphpad-prism" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-excel-why-not-graphpad-prism">1. Why Not Excel? / Why Not GraphPad Prism?</h2>
+<p>Excel is a fantastic tool for initial data entry and simple calculations. GraphPad Prism is also widely used for statistical analysis and data visualization.</p>
+<p>However, for professional scientific research, it has some limitations that can compromise your results.</p>
+<section id="the-limitations-of-spreadsheets-and-prism" class="level3">
+<h3 class="anchored" data-anchor-id="the-limitations-of-spreadsheets-and-prism">The Limitations of Spreadsheets and Prism</h3>
+<ul>
+<li><p><strong>Inflexible with Large Data:</strong> Large datasets (like genomic data) often cause Excel to lag or crash. Searching a 100MB spreadsheet can take minutes in Excel.</p>
+<ul>
+<li>In R, the same search takes <strong>milliseconds</strong>. R is designed to handle millions of rows efficiently and uses optimized data compression to keep your workflow fast.</li>
+</ul></li>
+<li><p><strong>Automatic “Auto-Correct” Errors:</strong> Excel is famous for “helpfully” converting gene names like <em>MARCH1</em> into dates (e.g., <em>01-March-2025</em>). This has historically corrupted thousands of published papers.</p>
+<ul>
+<li><p>In R, your data is treated as <strong>pure text</strong> by default. R won’t change your data unless you explicitly tell it to.</p></li>
+<li><p><em>Note: The only common “auto-change” in R is the word <code>NA</code>, which R reserves for “Not Available” (missing data)—we will discuss this later.</em></p></li>
+</ul></li>
+<li><p><strong>Poor Reproducibility:</strong> In Excel, if you accidentally delete a cell or change a value, there is no “audit trail.” You might never notice the mistake.</p>
+<ul>
+<li>In R, every change is documented in your <strong>code</strong>. You can add comments to explain <em>why</em> you made a change, allowing you (and your collaborators) to follow your logic months later.</li>
+</ul></li>
+<li><p><strong>Version Incompatibility:</strong> We have all experienced an Excel file that looks perfect on a Mac but appears broken or “skewed” when opened on Windows or in different software like Numbers or WPS.</p>
+<ul>
+<li>R is a <strong>pure programming language</strong>, meaning your code will run exactly the same way regardless of the operating system.</li>
+</ul></li>
+<li><p><strong>The “Copy-Paste” Risk:</strong> Many students store data in Excel but copy-paste it into software like <strong>GraphPad Prism</strong> or <strong>SPSS</strong> for analysis. This manual step is a major source of human error. It’s easy to lose track of which version of the data you copied.</p>
+<ul>
+<li>In R, you <strong>import</strong> your data directly via code. This creates a clear, permanent link between your raw data and your final results.</li>
+</ul></li>
+<li><p><strong>Cost:</strong> One major limitation of GraphPad Prism is its price: approximately $500+ per year for two seats, rising to $1,000+ per year for larger labs.</p>
+<ul>
+<li>R is completely free and open-source.</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>My Personal Recommendation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Excel remains the most user-friendly interface for manual data entry and “beautifying” simple tables for quick viewing.</p>
+<p><strong>I personally recommend a hybrid workflow:</strong></p>
+<ol type="1">
+<li><p>Use <strong>Excel</strong> (specifically saving as <strong>.csv</strong> files rather than .xlsx, just my personal preference) for initial data storage.</p></li>
+<li><p>Use <strong>R</strong> for all subsequent data cleaning, statistical analysis, and publication-quality visualization.</p></li>
+</ol>
+</div>
+</div>
+</section>
+</section>
+<section id="what-is-r" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-r">2. What is R?</h2>
+<p>R is more than just a tool; it is a <strong>Statistical Programming Language</strong> designed by scientists, for scientists. It is an integrated suite for data manipulation, calculation, and graphical display.</p>
+<section id="the-free-in-free-software" class="level3">
+<h3 class="anchored" data-anchor-id="the-free-in-free-software">The “Free” in Free Software</h3>
+<p>In the world of coding, we often say R is <strong>“Free as in Speech, not just free as in beer.”</strong> This means it isn’t just about the cost ($0); it is about the <strong>freedom</strong> to use and share it.</p>
+<p>This philosophy gives you four fundamental freedoms:</p>
+<ol type="1">
+<li><p><strong>Unlimited Use:</strong> You can run the program for any purpose (academic, commercial, or personal) without expensive licenses.</p></li>
+<li><p><strong>Full Transparency:</strong> You can study how every single calculation is performed. There is no “black box” logic hidden from the scientist.</p></li>
+<li><p><strong>Collaborative Sharing:</strong> You can freely share your scripts and tools with colleagues anywhere in the world.</p></li>
+<li><p><strong>Continuous Improvement:</strong> Anyone can fix a bug or add a new feature, which is why R has such a massive library of scientific packages.</p></li>
+</ol>
+</section>
+<section id="key-r-facts" class="level3">
+<h3 class="anchored" data-anchor-id="key-r-facts">Key R Facts</h3>
+<ul>
+<li><p><strong>Interpreted:</strong> You type code, and R runs it immediately—no complex “compiling” needed.</p>
+<ul>
+<li><p>If you make a mistake, you can correct it in your next sentence. You type a line of code in the console, hit Enter, and R gives you the answer immediately.</p></li>
+<li><p>C++/JAVA (Compiled) is like a Book Publisher. Imagine you are writing a novel in English that needs to be translated into French. You have to write the entire book first. You send the whole manuscript to a publisher (the “Compiler”). They translate the whole thing at once into a new, separate book. You can only “read” the results once the entire translation process is finished. If there is a typo on page 1, you might not find out until the whole book is printed. <strong>This is Compiling:</strong> It makes the final program run very fast, but it makes the writing process much slower for the person doing it.</p></li>
+</ul></li>
+<li><p><strong>Object-Oriented:</strong> Everything in R (data, plots, models) is an “object” that you can save and reuse.</p>
+<ul>
+<li>Imagine these objects as labeled boxes on your desk. Each “box” (object) has its own name, a specific type of content (its <strong>class</strong>), and a specific size. You can save these boxes individually or pack them all up together to use later.</li>
+</ul></li>
+<li><p><strong>Case Sensitive:</strong> <code>my_data</code> and <code>My_Data</code> are seen as two different things.</p>
+<ul>
+<li>Tips: Some R users prefer using all lowercase and underscores (e.g., <code>blood_pressure</code>) to avoid simple typing errors.</li>
+</ul></li>
+<li><p><strong>1-Based Indexing:</strong> Unlike Python (which starts at 0), R starts counting at 1. This is much more intuitive for most researchers!</p>
+<ul>
+<li><p>Just like in <strong>Excel</strong>, your rows start at 1, 2, 3… and your columns start at A, B, C (1, 2, 3…).</p></li>
+<li><p>In contrast, languages like Python start counting at 0, which can be confusing if you aren’t a software engineer!</p></li>
+</ul></li>
+<li><p><strong>No Spaces in Variable Names:</strong> R cannot “read” a space inside a name because it thinks the space means the command has ended.</p>
+<ul>
+<li><p><strong>The Rule:</strong> If you try to name a dataset <code>Patient Data</code>, R will look for an object called <code>Patient</code> and then get confused by the word <code>Data</code>.</p></li>
+<li><p><strong>The Solution:</strong> Most researchers use <strong>underscores</strong> (<code>patient_data</code>) or <strong>CamelCase</strong> (<code>PatientData</code>) to connect words.</p></li>
+</ul></li>
+<li><p><strong>Allows User-Defined Functions:</strong> Beyond the built-in tools, R allows you to build your own “custom machines” to perform repetitive tasks.</p>
+<ul>
+<li><strong>How it works:</strong> If you find yourself doing the same three steps to clean your data every single morning, you can write a <strong>Function</strong> that bundles those steps into one single command. It’s like creating your own custom button in a software program that does exactly what you need.</li>
+</ul></li>
+<li><p><strong>Works with Environments:</strong> Think of an “Environment” as your <strong>Active Workspace</strong> or your digital desk.</p>
+<ul>
+<li><p><strong>The Concept:</strong> When you import a file or create a variable, it lives in your “Global Environment.” In RStudio, you can actually see this list in the top-right pane.</p></li>
+<li><p><strong>Analogy:</strong> If your “Objects” are the labeled boxes, the “Environment” is the <strong>room</strong> where those boxes are stored. R can handle multiple “rooms” at once, which helps keep your variables from getting mixed up when you’re running complex analyses or using different packages.</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="what-can-r-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-can-r-do">3. What Can R Do?</h2>
+<p>R is a “Swiss Army Knife” for researchers.</p>
+<p>It excels at:</p>
+<ul>
+<li><p><strong>Data Cleaning:</strong> Tidying messy “real-world” data into a usable format.</p>
+<ul>
+<li><p><strong>Big Data Handling:</strong> Have you ever tried to open a <strong>BioBank</strong> dataset with thousands of patients, hundreds of clinical variables, and tens of thousands of gene expression data points?</p></li>
+<li><p><strong>Speed:</strong> While these 100MB+ (or even multi-GB) files can crash Excel, R is designed to process them efficiently. What takes minutes of “loading” in a spreadsheet takes only seconds in R.</p></li>
+</ul></li>
+<li><p><strong>Statistics &amp; Machine Learning:</strong> From simple T-tests to complex predictive modeling, R provides a rigorous environment for:</p>
+<ul>
+<li><p>Classical statistical testing.</p>
+<ul>
+<li>Perform the standard t-tests, ANOVA, and Chi-square tests you need to show your PI those all-important p-values and significant differences.</li>
+</ul></li>
+<li><p>Linear and non-linear modeling.</p></li>
+<li><p>Machine learning algorithms for predicting disease outcomes or drug responses.</p></li>
+<li><p><strong>Bayesian &amp; Advanced Statistics:</strong> R is the “home” of modern statistics. If you want to use <strong>Bayesian models</strong> or other “fancy” statistical methods to handle uncertainty in your research, R has the most robust tools available.</p></li>
+</ul></li>
+<li><p><strong>Bioinformatics:</strong> Thousands of specialized tools (via <strong>Bioconductor</strong>) for DNA/RNA/Protein analysis.</p>
+<ul>
+<li><p><strong>Genomics:</strong> DNA and RNA sequencing analysis (e.g., <code>DESeq2</code>).</p></li>
+<li><p><strong>Proteomics:</strong> Analyzing protein expression and interaction.</p></li>
+<li><p><strong>Single-Cell Analysis:</strong> Processing complex cellular data (e.g., <code>Seurat</code>).</p></li>
+</ul></li>
+<li><p><strong>Visualization:</strong> Creating publication-quality plots that are far more beautiful than Excel’s defaults.</p>
+<ul>
+<li><p>One of R’s greatest strengths is <code>ggplot2</code>. You can create figures that are not only “GraphPad Prism level” but often far superior in terms of customization and complexity.</p></li>
+<li><p><strong>Repeatability:</strong> Once you design a beautiful plot, you can apply that same style to 100 different datasets with one click.</p></li>
+<li><p><strong>Professionalism:</strong> Most high-impact journals (Nature, Science, Cell) feature plots created directly in R.</p></li>
+<li><p>Here are a few of my <a href="#visualization-gallery">visualization examples</a> made entirely in R.</p></li>
+</ul></li>
+<li><p><strong>Communication:</strong> R isn’t just for math; it’s for sharing your work. You can build:</p>
+<ul>
+<li><p><strong>Interactive Web Apps:</strong> Using <strong>R Shiny</strong>.</p>
+<ul>
+<li><p><em>Example:</em> <a href="https://bayesdta.shinyapps.io/shiny_app_attempt_15May2025/" target="_blank"><strong>Bayesian Diagnostic Test Accuracy Meta-Analysis</strong></a></p></li>
+<li><p><em>Example:</em> <a href="https://shiny.crc.pitt.edu/shinydeepdr/" target="_blank"><strong>shinyDeepDR</strong></a>: Deep Learning Prediction of Cancer Drug Response.</p></li>
+</ul></li>
+<li><p><strong>Reproducible Documents:</strong> Writing your entire Master’s thesis or Research Day posters or eBooks using <strong>Quarto</strong> (like this website!).</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="r-vs.-python-how-to-choose" class="level2">
+<h2 class="anchored" data-anchor-id="r-vs.-python-how-to-choose">4. R vs.&nbsp;Python: How to Choose?</h2>
+<p>This is the most common question for beginners. Both are excellent, but they serve different strengths.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><strong>R</strong></th>
+<th style="text-align: left;"><strong>Python</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Origins</strong></td>
+<td style="text-align: left;">Created by Statisticians</td>
+<td style="text-align: left;">Created by Software Engineers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Best For</strong></td>
+<td style="text-align: left;">Data Analysis &amp; Visualization</td>
+<td style="text-align: left;">Machine Learning &amp; Production</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Bioinformatics</strong></td>
+<td style="text-align: left;">Deep roots in genomics/math</td>
+<td style="text-align: left;">Strong in imaging and deep learning</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Career Path</strong></td>
+<td style="text-align: left;">Academia, Medicine, Economics</td>
+<td style="text-align: left;">Tech Industry, AI, Web Dev</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Our Advice:</strong></p>
+<p>If your primary goal is to analyze your own research data and publish papers, <strong>start with R.</strong></p>
+<p>If you eventually want to move into pure software engineering or heavy AI, you can study Python later.</p>
+<p><strong>The logic you learn in R will make Python much easier to learn!</strong></p>
+</div>
+</div>
+</section>
+<section id="how-to-use-ai-as-a-learning-accelerator" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use-ai-as-a-learning-accelerator">5. How to use AI as a Learning Accelerator?</h2>
+<p>With the rise of powerful AI tools, many students ask: <em>“If AI can write executable code for me, why should I spend time learning R myself?”</em></p>
+<p>It is true that AI can be a brilliant assistant—even experienced bioinformaticians use it to explore new functions or speed up repetitive tasks. However, to be a scientist, you must move beyond “copy-pasting” to <strong>“comprehending.”</strong></p>
+<section id="why-foundational-knowledge-still-matters" class="level3">
+<h3 class="anchored" data-anchor-id="why-foundational-knowledge-still-matters">Why Foundational Knowledge Still Matters</h3>
+<section id="fluency-in-the-environment" class="level4">
+<h4 class="anchored" data-anchor-id="fluency-in-the-environment"><strong>1. Fluency in the Environment</strong></h4>
+<p>You must understand the RStudio interface and foundational functions to work fluently. Relying 100% on AI is like using a GPS but not knowing how to drive the car; if the GPS loses signal, you are stranded.</p>
+</section>
+<section id="the-critical-skill-of-debugging" class="level4">
+<h4 class="anchored" data-anchor-id="the-critical-skill-of-debugging"><strong>2. The Critical Skill of Debugging</strong></h4>
+<p>AI often provides code that is “almost” right but fails due to your specific data structure. You must learn to read error messages and understand the “why” behind a bug to fix it. Without this, you will spend more time arguing with the AI than actually analyzing your data.</p>
+</section>
+<section id="the-black-box-risk-a-cautionary-tale" class="level4">
+<h4 class="anchored" data-anchor-id="the-black-box-risk-a-cautionary-tale"><strong>3. The “Black Box” Risk (A Cautionary Tale)</strong></h4>
+<p>Blindly trusting AI is dangerous. There are documented cases of users running AI-generated scripts that accidentally deleted entire directories because they didn’t read the line containing <code>unlink()</code> or <code>rm()</code>. As a researcher, you are responsible for the integrity of your data. If you don’t read the code, you are not in control of your research.</p>
+<p>I recently heard a real case in which someone copy-pasted AI-generated code without fully reviewing it. A single incorrect command permanently deleted all of their files.</p>
+</section>
+<section id="expanding-your-mental-toolbox" class="level4">
+<h4 class="anchored" data-anchor-id="expanding-your-mental-toolbox"><strong>4. Expanding Your “Mental Toolbox”</strong></h4>
+<p>By making an effort to understand each line of code, you build a mental library of what is <em>possible</em>. The next time you face a complex genomic problem, you won’t just ask AI for a solution—you will know which R tools (like <code>dplyr</code> or <code>ggplot2</code>) are the right ones for the job.</p>
+</section>
+</section>
+<section id="the-pilot-and-co-pilot-rule" class="level3">
+<h3 class="anchored" data-anchor-id="the-pilot-and-co-pilot-rule">The “Pilot and Co-Pilot” Rule</h3>
+<p>Think of yourself as the <strong>Pilot</strong> and the AI as your <strong>Co-pilot</strong>.</p>
+<ul>
+<li><p><strong>The Pilot</strong> sets the destination, understands the flight plan, and double-checks the instruments.</p></li>
+<li><p><strong>The Co-pilot</strong> handles the manual, repetitive tasks to make the flight smoother.</p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Never give 100% of your trust to an external resource.</p>
+<p>Whether it is code from an AI or a snippet from a forum, you must master the logic behind it. <strong>Master your code, and you master your research.</strong></p>
+</div>
+</div>
+</section>
+</section>
+<section id="recommended-learning-materials" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-learning-materials">6. Recommended Learning Materials</h2>
+<p>If you want to dive deeper, here is a few free online books and materials:</p>
+<ul>
+<li><p><a href="https://r4ds.hadley.nz" target="_blank"><strong>R for Data Science (2e)</strong></a></p></li>
+<li><p><a href="https://r-graphics.org/index.html" target="_blank"><strong>R Graphics Cookbook, 2nd edition</strong></a></p></li>
+<li><p><a href="https://livebook.manning.com/book/r-in-action-second-edition/chapter-1" target="_blank"><strong>R in Action, Second Edition</strong></a></p></li>
+<li><p><a href="https://rstudio-education.github.io/hopr/" target="_blank"><strong>Hands-On Programming with R</strong></a></p></li>
+<li><p><a href="https://epirhandbook.com/en/" target="_blank"><strong>The Epidemiologist R Handbook</strong></a></p></li>
+<li><p><a href="https://r4np.com/" target="_blank"><strong>R for Non-Programmers: A Guide for Social Scientists</strong></a></p></li>
+<li><p><a href="https://www.codecademy.com/learn/learn-r" target="_blank"><strong>Codecademy: Learn R Free Course</strong></a><strong>:</strong> Good for those who prefer an interactive, “in-browser” coding experience to practice syntax.</p></li>
+<li><p><a href="https://www.mcgill.ca/cdsi/training/workshops" target="_blank"><strong>McGill CDSI Workshops</strong></a><strong>:</strong> Our colleagues at the Computational and Data Systems Institute offer excellent deep-dives into specific data topics.</p></li>
+<li><p><a href="https://www.mcgill.ca/micm/training/workshops-series/2026-winter-series" target="_blank"><strong>McGill QLS-MiCM Workshops</strong></a><strong>:</strong> Keep an eye on future MiCM workshops for specialized bioinformatics and high-performance computing training.</p></li>
+</ul>
+</section>
+<section id="visualization-gallery" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-gallery">Appendix: R Visualization Gallery</h2>
+<p>Below are a few examples of my visualizations created <strong>entirely in R</strong> using <code>ggplot2</code> and specialized bioinformatics packages.</p>
+<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored" style="text-align: center;" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/WhyR_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Boxplot with Individual Data Points
+</figcaption>
+</figure>
+</div>
+<div id="fig-1.1" class="quarto-float quarto-figure quarto-figure-center anchored" style="text-align: center;" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-1.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/WhyR_1_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Boxplot with Individual Data Points and Statistics
+</figcaption>
+</figure>
+</div>
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored" style="text-align: center;" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/WhyR_2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: A Time-Course Line Plot with an Area Under the Curve (AUC) Boxplot.
+</figcaption>
+</figure>
+</div>
+<div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored" style="text-align: center;" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/WhyR_3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Correlation Plot with Statistical Results
+</figcaption>
+</figure>
+</div>
+<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center anchored" style="text-align: center;" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/WhyR_4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Heatmap
+</figcaption>
+</figure>
+</div>
+<div id="fig-5" class="quarto-float quarto-figure quarto-figure-center anchored" style="text-align: center;" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/WhyR_5.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Forest Plot
+</figcaption>
+</figure>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/martinahyang\.github\.io\/IntroToR\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../WebsiteCodes/QLS_MiCM.html" class="pagination-link" aria-label="QLS-MiCM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">QLS-MiCM</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../WebsiteCodes/Setup.html" class="pagination-link" aria-label="Installing R and RStudio">
+        <span class="nav-page-text">Installing R and RStudio</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© CC-By McGill QLS-MiCM, 2026. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Workshop created as part of the McGill Initiative in Computational Medicine.</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/WhyR.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
