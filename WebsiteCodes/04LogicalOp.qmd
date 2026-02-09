@@ -92,6 +92,8 @@ In R, the exclamation mark `!` stands for **"NOT"**. When combined with the equa
 
 ## 2. Logical operators
 
+![](../images/LogicalOp.png){fig-align="center" width="60%"}
+
 ### 2.1 `&`
 
 The "AND" Operator (&): Use this when your condition must meet all criteria simultaneously.
