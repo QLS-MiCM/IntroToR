@@ -138,6 +138,45 @@ print(df)
 ```
 
 ::: callout-note
+**Common ways to change column names**
+
+1.  **`colnames()`**
+
+If you want to rename **all** the columns at once, this is the fastest method. You simply provide a vector of names that matches the number of columns.
+
+```{r}
+# Create a dummy dataframe
+df <- data.frame(V1 = 1:3, V2 = 4:6, V3 = 7:9)
+
+# Rename all columns
+colnames(df) <- c("ID", "Treatment", "Response")
+```
+
+2.  **Indexing**
+
+If you only want to change **one** specific column, you can use its index (position). This is great for small tables but risky for large ones if the column order changes.
+
+```{r}
+# Change only the 2nd column
+colnames(df)[2] <- "Condition"
+```
+
+3.  **`dplyr::rename()`**
+
+This is the preferred method for most researchers because it is **readable** and **safe**. You don't need to know the index of the column, and you can pipe it into your analysis.
+
+-   **Syntax:** `new_name = old_name`
+
+```{r}
+library(dplyr)
+
+df <- df %>% 
+  rename(Patient_ID = ID, 
+         Dosage = Response)
+```
+:::
+
+::: callout-note
 **The "Backtick" Trick: Column Names with Spaces**
 
 Usually, R replaces spaces in column names with a dot (`.`) because spaces can break code. However, you can force R to accept them using **Backticks** (`` ` ``).

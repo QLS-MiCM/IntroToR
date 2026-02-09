@@ -35,6 +35,42 @@ americas<-gapminder[gapminder$continent=="Americas", ]
 save(asia,africa,oceania,europe,americas,file="../data/continents.RData")
 ```
 
+::: callout-note
+**Understanding File Paths: The Tree Analogy**
+
+When you are working in an RStudio Project, your **Working Directory** is your "Home Base." Think of your folders as a tree:
+
+-   **`./` (The Current Folder):** This is where your `.qmd` or `.Rmd` file is currently saved.
+
+-   **`../` (The Parent Folder):** This tells R to move **up** one level in the folder tree.
+
+-   **`../../` (The Grandparent Folder):** This moves up two levels.
+
+**Breakdown of `"../data/continents.RData"`**
+
+When you run that code, you are telling R to follow these exact steps:
+
+1.  **`../`**: Leave the current folder (e.g., the `scripts` or `vignettes` folder).
+
+2.  **`data/`**: Look for a folder named `data` at that higher level.
+
+3.  **`continents.RData`**: Save the file inside that folder with this specific name.
+:::
+
+::: callout-note
+**The “Folder Not Found” Error**
+
+R is a great calculator, but it isn’t a folder manager. If you tell R to save a file in a folder named `data/` but that folder doesn’t exist yet, R will throw an error: `No such file or directory`.
+
+Before saving, you must create the folder manually or use this code:
+
+```{r}
+#| eval: false
+# Create a 'data' folder in your current working directory
+dir.create("data")
+```
+:::
+
 ## Exploring data frames
 
 Finish exploring the `gapminder` data frame and:
@@ -55,6 +91,65 @@ typeof(gapminder$gdpPercap)
 
 str(gapminder)
 ```
+
+::: callout-note
+**Column Data Types**
+
+While `typeof()` gives you the low-level R storage type, in data analysis, we often care more about the **class** (how R treats the data).
+
+|  |  |  |
+|----|----|----|
+| **Column** | **typeof() result** | **Interpretation** |
+| `country` | **integer** | Stored as numbers (1, 2, 3) because it is a **Factor**. |
+| `continent` | **integer** | Also a **Factor** (categorical data). |
+| `year` | **integer** | Discrete whole numbers. |
+| `lifeExp` | **double** | Floating-point numbers (decimals). |
+| `pop` | **integer** | Whole numbers (count data). |
+| `gdpPercap` | **double** | Floating-point numbers (decimals). |
+
+```{r,eval=F}
+class(gapminder$country)
+class(gapminder$continent)
+class(gapminder$year)
+class(gapminder$lifeExp)
+class(gapminder$pop)
+class(gapminder$gdpPercap)
+```
+:::
+
+::: callout-note
+**The `str()` Output**
+
+The `str()` (Structure) function is arguably the most useful command in Base R. It provides a compact summary of any object.
+
+**The Header**
+
+`tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)`
+
+-   **tibble / data.frame**: This tells you the object "flavor." A tibble is a modern, user-friendly version of a data frame used in the Tidyverse.
+
+-   **\[1,704 x 6\]**: Confirms the dimensions (Rows x Columns).
+
+**The Column Details**
+
+-   **`$ country : Factor w/ 142 levels`**:
+
+    -   `Factor`: This is **Categorical** data.
+
+    -   `142 levels`: There are 142 unique countries.
+
+    -   `1 1 1...`: Internally, R stores "Afghanistan" as the number `1` to save memory.
+
+-   **`$ year : int [1:1704]`**:
+
+    -   `int`: **Integer**. Whole numbers only.
+
+    -   `[1:1704]`: This column is a vector with indices ranging from 1 to 1,704.
+
+-   **`$ lifeExp : num`**:
+
+    -   `num`: **Numeric**. This is a "double" or decimal number. This is what you use for most statistical calculations.
+:::
 
 In which years has the GDP of Canada been larger than the average of all data points?
 

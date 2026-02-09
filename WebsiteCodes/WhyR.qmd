@@ -177,7 +177,7 @@ It excels at:
 This is the most common question for beginners. Both are excellent, but they serve different strengths.
 
 | Feature | **R** | **Python** |
-|:-----------------------|:-----------------------|:-----------------------|
+|:---|:---|:---|
 | **Origins** | Created by Statisticians | Created by Software Engineers |
 | **Best For** | Data Analysis & Visualization | Machine Learning & Production |
 | **Bioinformatics** | Deep roots in genomics/math | Strong in imaging and deep learning |
@@ -263,6 +263,12 @@ Below are a few examples of my visualizations created **entirely in R** using `g
 ![](../images/WhyR_1.png){fig-align="center" width="60%"}
 
 Boxplot with Individual Data Points
+:::
+
+::: {#fig-1.1 style="text-align: center;"}
+![](../images/WhyR_1_1.png){fig-align="center" width="60%"}
+
+Boxplot with Individual Data Points and Statistics
 :::
 
 ::: {#fig-2 style="text-align: center;"}

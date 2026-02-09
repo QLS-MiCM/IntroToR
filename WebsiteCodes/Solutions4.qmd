@@ -25,7 +25,7 @@ if (!require("tidyr", quietly = TRUE))
 library(tidyr)
 ```
 
-Use the `covid_testing` data set and everything you've learned so far to answer the following questions:
+Use the `covid_testing` data set from package `medicaldata` and everything you've learned so far to answer the following questions:
 
 ## Clinics included
 
@@ -53,6 +53,38 @@ clinics %>%
   dplyr::summarize(n_test = length(clinic_name)) %>%
   dplyr::arrange(desc(n_test))
 ```
+
+::: callout-note
+**Step-by-Step Breakdown**
+
+1. **`filter(result != "invalid")`**
+
+You are "cleaning the pipe." Before doing any math, you remove the "noise."
+
+-   **The Question:** "Is this a real test result?"
+
+-   **The Action:** Only rows where the result is **NOT** "invalid" are allowed to move to the next step.
+
+2. **`group_by(clinic_name)`**
+
+You are "sorting the mail." R doesn't calculate anything yet; it just creates invisible folders for each clinic.
+
+-   **The Action:** R puts all "Clinic A" rows in one bucket and "Clinic B" rows in another.
+
+3. `summarize(n_test = length(clinic_name))`
+
+You are "collapsing the buckets." This is where the many rows of your original data become one single summary row per group.
+
+-   **The Action:** Inside each clinic's bucket, R counts how many items are there.
+
+-   **Note:** You can also use the shorthand `n()` instead of `length(clinic_name)`—it does the exact same thing!
+
+4. **`arrange(desc(n_test))`**
+
+You are "ranking the results."
+
+-   **The Action:** By default, R sorts low-to-high. `desc()` (descending) flips it so the clinic with the **most** tests appears at the very top.
+:::
 
 ### Testing trend over time
 
@@ -93,6 +125,73 @@ tsts_age<-covid %>%
             mutate(percent_total=n/sum(n)*100)
 tsts_age
 ```
+
+::: callout-note
+**1. The Cleaning Phase (`filter`)**
+
+```{r}
+#| eval: false       
+filter(result != "invalid" & pan_day <= 100)
+```
+
+Before any analysis, you are narrowing the focus to high-quality, early-pandemic data.
+
+-   **`result != "invalid"`**: Removes tests that didn't work (QC failure).
+
+-   **`&`**: A logical "AND." Both conditions must be true.
+
+-   **`pan_day <= 100`**: Only includes data from the first 100 days of the pandemic.
+
+**2. The Classification Phase (`mutate`)**
+
+```{r}
+#| eval: false
+mutate(age_group = ifelse(age <= 21, "children", "adults"))
+```
+
+You are creating a new column "on the fly" to categorize your patients.
+
+-   **`ifelse(test, yes, no)`**: This is a logical switch. If a patient is 21 or younger, they are labeled "children"; otherwise, they are "adults."
+
+**3. The Organization Phase (`group_by`)**
+
+```{r}
+#| eval: false
+group_by(age_group, result)
+```
+
+This is the most critical step. You are telling R to create sub-buckets for every combination of age and test outcome (e.g., "adults-positive," "adults-negative," "children-positive," etc.).
+
+**4. The Aggregation Phase (`summarize`)**
+
+```{r}
+#| eval: false
+summarize(n = length(subject_id))
+```
+
+R collapses the buckets created in the previous step.
+
+-   It counts how many `subject_id` entries are in each bucket and stores that number in a new column called **`n`**.
+
+**5. The Calculation Phase (`mutate`)**
+
+```{r}
+#| eval: false
+mutate(percent_total = n / sum(n) * 100)
+```
+
+This is a "Smart Calculation." Because the data is still grouped by `age_group`, the `sum(n)` happens **separately for each group**.
+
+-   **Example**: For the "adults" rows, it divides their count by the *total number of adults*.
+
+-   This gives you the percentage of results *within* that specific age group, rather than the percentage of the entire dataset.
+
+------------------------------------------------------------------------
+
+**Notes on `sum(n)`**
+
+In this specific code, the `percent_total` will represent the percentage of results **per age group** (e.g., what % of children were positive vs. negative). If you wanted the percentage of the **entire table**, you would need to `ungroup()` the data before this last `mutate`.
+:::
 
 ## Processing times
 
