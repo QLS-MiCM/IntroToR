@@ -7,8 +7,8 @@ project:
 website: 
   page-navigation: true
   title: "Intro To R" 
-  site-url: "https://martinahyang.github.io/IntroToR/"       # Needed to update to https://QLS-MiCM.github.io/IntroToR/
-  repo-url: "https://github.com/MartinaHYang/IntroToR"      # Needed to update to https://github.com/QLS-MiCM/IntroToR
+  site-url: "https://QLS-MiCM.github.io/IntroToR/"
+  repo-url: "https://github.com/QLS-MiCM/IntroToR"
   repo-actions: [edit, issue]
   
   page-footer:
