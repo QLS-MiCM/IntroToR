@@ -3,8 +3,8 @@ title: "Intro to Programming in R"
 subtitle: "QLS-MiCM Workshop Winter 2026"
 author:
   - "**[Lead Instructor]** Martina Yang;"
-  - "**[Facilitator]** Maria Haddad."
-date: "2026-02-09"
+  - "**[Facilitator]** Sameena Karsan."
+date: "2026-02-16"
 description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
 ---
 
