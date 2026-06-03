@@ -3,7 +3,7 @@ title: "Intro to Programming in R"
 subtitle: "QLS-MiCM Workshop Summer 2026"
 author:
   - "**[Lead Instructor]** Martina Yang;"
-  - "**[Facilitator]** ."
+  - "**[Facilitator]** Megan Tsao."
 date: "2026-06-05"
 description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
 ---
