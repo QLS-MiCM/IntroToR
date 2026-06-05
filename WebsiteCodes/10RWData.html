@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Reading/Writing Data – Intro To R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../WebsiteCodes/Overview3.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-7087e1fe497f498abc06882b41efe3b6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-14f9b607c0a402753ac412aaf8dbf662.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -406,6 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#how-to-find-your-current-home-base" id="toc-how-to-find-your-current-home-base" class="nav-link" data-scroll-target="#how-to-find-your-current-home-base">0.1 How to Find Your Current “Home Base”</a></li>
   <li><a href="#three-ways-to-change-your-directory" id="toc-three-ways-to-change-your-directory" class="nav-link" data-scroll-target="#three-ways-to-change-your-directory">0.2 Three Ways to Change Your Directory</a></li>
   <li><a href="#absolute-vs.-relative-paths" id="toc-absolute-vs.-relative-paths" class="nav-link" data-scroll-target="#absolute-vs.-relative-paths">0.3 Absolute vs.&nbsp;Relative Paths</a></li>
+  <li><a href="#best-practices-organizing-project-files-and-setting-working-directories" id="toc-best-practices-organizing-project-files-and-setting-working-directories" class="nav-link" data-scroll-target="#best-practices-organizing-project-files-and-setting-working-directories">0.4 Best Practices: Organizing Project Files and Setting Working Directories</a></li>
   </ul></li>
   <li><a href="#writing-data-tables" id="toc-writing-data-tables" class="nav-link" data-scroll-target="#writing-data-tables">1. Writing Data Tables</a>
   <ul class="collapse">
@@ -576,6 +579,124 @@ Warning
 <p><strong>Best Practice:</strong> Use <strong>R Projects (<code>.Rproj</code>)</strong>. When you open an R Project, R automatically sets the working directory to that folder. This allows you to use <strong>Relative Paths</strong>, making your code “portable” so it works for anyone, anywhere.</p>
 </div>
 </div>
+</section>
+<section id="best-practices-organizing-project-files-and-setting-working-directories" class="level3">
+<h3 class="anchored" data-anchor-id="best-practices-organizing-project-files-and-setting-working-directories">0.4 Best Practices: Organizing Project Files and Setting Working Directories</h3>
+<p>A <strong>Working Directory</strong> is the “Home Base” for your R session. It is the specific folder where you tell the computer to start looking for files.</p>
+<section id="the-real-life-analogy" class="level4">
+<h4 class="anchored" data-anchor-id="the-real-life-analogy"><strong>The Real-Life Analogy</strong></h4>
+<p>Imagine you want to ask a friend to find a specific bag for you. If you are starting from scratch, you need to provide them with the full, detailed address:</p>
+<blockquote class="blockquote">
+<p><em>Canada, Quebec, Montreal, 3755 Côte Ste-Catherine Road, LDI, Bloomfield Lecture Hall.</em></p>
+</blockquote>
+<p>It works, but it is a mouthful!</p>
+<p>It is the same for a computer. If you want the program to find a file without any context, you need to provide the full address (an <strong>Absolute Path</strong>):</p>
+<blockquote class="blockquote">
+<p><code>"C:/Users/Martina/McGillProject/Thesis/Experiment1/data.csv"</code></p>
+</blockquote>
+<p>Typing this every time is tedious and prone to errors.</p>
+</section>
+<section id="what-if-we-set-a-working-directory" class="level4">
+<h4 class="anchored" data-anchor-id="what-if-we-set-a-working-directory"><strong>What if we set a Working Directory?</strong></h4>
+<p>Setting a working directory is like “teleporting” your friend directly to the <strong>Bloomfield Lecture Hall</strong>. Now, you don’t need to say “Canada, Quebec…”; you just say:</p>
+<blockquote class="blockquote">
+<p><em>“Look in the third row.”</em></p>
+</blockquote>
+<p>By telling the computer to relocate its attention to a specific folder, you can use shorter, simpler paths ( <strong>Relative Paths</strong>) to locate files.</p>
+<blockquote class="blockquote">
+<p><code>"data.csv"</code></p>
+</blockquote>
+</section>
+<section id="good-practice-the-project-based-approach" class="level4">
+<h4 class="anchored" data-anchor-id="good-practice-the-project-based-approach"><strong>Good Practice: The “Project-Based” Approach</strong></h4>
+<p>The best way to handle this in R is to create a dedicated folder for each project.</p>
+<ul>
+<li><p>Store all related <strong>raw data</strong>, <strong>scripts</strong>, and <strong>output figures</strong> inside this one folder.</p></li>
+<li><p>Set your <strong>Working Directory</strong> to be that folder.</p></li>
+</ul>
+<p>In RStudio, we use <strong>RStudio Projects (<code>.Rproj</code>)</strong> to do this automatically. When you open a project file, R immediately “teleports” to that folder, so your code works instantly without you needing to type out long file paths.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>💡 The Gold Standard: Using RStudio Projects (<code>.Rproj</code>)</strong></p>
+<p>Instead of manually typing <code>setwd()</code> (which is considered bad practice because it “hard-codes” your computer’s folder structure), you could use <strong>RStudio Projects</strong>.</p>
+<p><strong>How to do it:</strong></p>
+<ol type="1">
+<li><p>Go to the top right of RStudio and click <strong>New Project</strong>.</p></li>
+<li><p>Choose <strong>New Directory</strong> → <strong>New Project</strong>.</p></li>
+<li><p>Name your folder (e.g., <code>Thesis_Bioinfo_2026</code>).</p></li>
+</ol>
+<p><strong>The Magic:</strong> Whenever you open that project file, RStudio automatically sets your working directory to that folder. You never have to type a full address again!</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can have as many project folders as you like (e.g., <code>Thesis_Chapter1</code>, <code>Coursework_Bioinfo</code>); they are self-contained and won’t influence each other.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>📂 Recommended Folder Structure</strong></p>
+<p>For scientific research, keeping your “home base” organized is essential. Here is a standard template for a bioinformatics project:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Folder</strong></td>
+<td><strong>Purpose</strong></td>
+</tr>
+<tr class="even">
+<td><strong><code>data/</code></strong></td>
+<td>Raw, untouched data files (e.g., <code>.csv</code>, <code>.fastq</code>).</td>
+</tr>
+<tr class="odd">
+<td><strong><code>scripts/</code></strong></td>
+<td>Your R scripts or Quarto files.</td>
+</tr>
+<tr class="even">
+<td><strong><code>output/</code></strong></td>
+<td>Processed data and cleaned tables.</td>
+</tr>
+<tr class="odd">
+<td><strong><code>figures/</code></strong></td>
+<td>Final plots saved for your thesis or paper.</td>
+</tr>
+<tr class="even">
+<td><strong><code>Thesis_Project.Rproj</code></strong></td>
+<td>The “Master Key” that opens your project.</td>
+</tr>
+</tbody>
+</table>
+<p>Now, if you move your project folder to a USB drive or email it to a professor, and the code still runs without errors.</p>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="writing-data-tables" class="level2">
