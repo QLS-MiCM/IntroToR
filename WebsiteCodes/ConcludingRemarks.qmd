@@ -38,11 +38,9 @@ Today was about the **mechanics** of R. In the next stage, we move toward **inte
 
 As you continue your R study, these resources will be your best friends:
 
--   [**Bioconductor Tutorials**](https://www.google.com/search?q=https://www.bioconductor.org/help/tutorials/)
+-   [**Bioconductor Tutorials**](https://www.google.com/search?q=https://www.bioconductor.org/help/tutorials/){target="_blank"}
 
--   [**R Cheat Sheets**](https://posit.co/resources/cheatsheets/)
-
-<!-- -->
+-   [**R Cheat Sheets**](https://posit.co/resources/cheatsheets/){target="_blank"}
 
 -   [**R for Data Science (2e)**](https://r4ds.hadley.nz){target="_blank"}
 
@@ -102,6 +100,6 @@ The following is a list of QLS-MiCM workshops offered in the previous year:
 
 ## 5. **Thank you for attending! & Feedback Form**
 
-**You are welcome to scan the QR code below or just click [here](https://can01.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftinyurl.com%2FQLS-MiCM-Feedback&data=05%7C02%7Chong.yang2%40mail.mcgill.ca%7C6dc02b767c8c4fde82a008de65bdb32f%7Ccd31967152e74a68afa9fcf8f89f09ea%7C0%7C0%7C639060062581653801%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=YB7l24%2FsRatPbl%2FBvLTWFoZnztI%2BExZi5uC45Cal%2BOs%3D&reserved=0){target="_blank"} to share your feedback on today’s workshop. Any suggestions for improvement are warmly welcome!**
+**You are welcome to scan the QR code below or just click [here](https://forms.office.com/pages/responsepage.aspx?id=cZYxzedSaEqvqfz4-J8J6vDmYznQXgROt4BC-q9062NUQzdKRTExVTUzREhDNUJPUE5UVFZORU5STyQlQCN0PWcu&route=shorturl){target="_blank"} to share your feedback on today’s workshop. Any suggestions for improvement are warmly welcome!**
 
 ![](../images/FeedbackQR.png){fig-align="center" width="40%"}

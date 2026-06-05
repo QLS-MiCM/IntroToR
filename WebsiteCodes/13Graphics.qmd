@@ -306,6 +306,8 @@ Creating a publication-ready figure is part science and part art. When you get s
 
 -   [**The R Graph Gallery**](https://r-graph-gallery.com/ggplot2-package.html){target="_blank"}
 
+-   [**Modern Data Visualization with R**](https://rkabacoff.github.io/datavis/){target="_blank"}
+
 ### 🔬 Specialized Biomedical Tools
 
 These resources are specifically designed for high-impact biological and medical journals (Nature, Science, Cell).
@@ -319,6 +321,8 @@ These resources are specifically designed for high-impact biological and medical
 -   [**ggalign Gallery**](https://yunuuuu.github.io/ggalign-gallery/){target="_blank"}
 
 -   [**Bizard**](https://openbiox.github.io/Bizard/){target="_blank"}
+
+-   [**from Data to Vis**](https://www.data-to-viz.com){target="_blank"}
 
 ### 🎨 Color & Style
 

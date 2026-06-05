@@ -78,6 +78,81 @@ Because a path like `C:/Users/Martina/...` does not exist on your colleague’s 
 **Best Practice:** Use **R Projects (`.Rproj`)**. When you open an R Project, R automatically sets the working directory to that folder. This allows you to use **Relative Paths**, making your code "portable" so it works for anyone, anywhere.
 :::
 
+### 0.4 Best Practices: Organizing Project Files and Setting Working Directories
+
+A **Working Directory** is the "Home Base" for your R session. It is the specific folder where you tell the computer to start looking for files.
+
+#### **The Real-Life Analogy**
+
+Imagine you want to ask a friend to find a specific bag for you. If you are starting from scratch, you need to provide them with the full, detailed address:
+
+> *Canada, Quebec, Montreal, 3755 Côte Ste-Catherine Road, LDI, Bloomfield Lecture Hall.*
+
+It works, but it is a mouthful!
+
+It is the same for a computer. If you want the program to find a file without any context, you need to provide the full address (an **Absolute Path**):
+
+> `"C:/Users/Martina/McGillProject/Thesis/Experiment1/data.csv"`
+
+Typing this every time is tedious and prone to errors.
+
+#### **What if we set a Working Directory?**
+
+Setting a working directory is like "teleporting" your friend directly to the **Bloomfield Lecture Hall**. Now, you don't need to say "Canada, Quebec..."; you just say:
+
+> *"Look in the third row."*
+
+By telling the computer to relocate its attention to a specific folder, you can use shorter, simpler paths ( **Relative Paths**) to locate files.
+
+> `"data.csv"`
+
+#### **Good Practice: The "Project-Based" Approach**
+
+The best way to handle this in R is to create a dedicated folder for each project.
+
+-   Store all related **raw data**, **scripts**, and **output figures** inside this one folder.
+
+-   Set your **Working Directory** to be that folder.
+
+In RStudio, we use **RStudio Projects (`.Rproj`)** to do this automatically. When you open a project file, R immediately "teleports" to that folder, so your code works instantly without you needing to type out long file paths.
+
+::: callout-note
+**💡 The Gold Standard: Using RStudio Projects (`.Rproj`)**
+
+Instead of manually typing `setwd()` (which is considered bad practice because it "hard-codes" your computer's folder structure), you could use **RStudio Projects**.
+
+**How to do it:**
+
+1.  Go to the top right of RStudio and click **New Project**.
+
+2.  Choose **New Directory** → **New Project**.
+
+3.  Name your folder (e.g., `Thesis_Bioinfo_2026`).
+
+**The Magic:** Whenever you open that project file, RStudio automatically sets your working directory to that folder. You never have to type a full address again!
+:::
+
+::: callout-note
+You can have as many project folders as you like (e.g., `Thesis_Chapter1`, `Coursework_Bioinfo`); they are self-contained and won't influence each other.
+:::
+
+::: callout-tip
+**📂 Recommended Folder Structure**
+
+For scientific research, keeping your "home base" organized is essential. Here is a standard template for a bioinformatics project:
+
+|  |  |
+|----|----|
+| **Folder** | **Purpose** |
+| **`data/`** | Raw, untouched data files (e.g., `.csv`, `.fastq`). |
+| **`scripts/`** | Your R scripts or Quarto files. |
+| **`output/`** | Processed data and cleaned tables. |
+| **`figures/`** | Final plots saved for your thesis or paper. |
+| **`Thesis_Project.Rproj`** | The "Master Key" that opens your project. |
+
+Now, if you move your project folder to a USB drive or email it to a professor, and the code still runs without errors.
+:::
+
 ## 1. Writing Data Tables
 
 After cleaning or filtering your data, you need to save your results to your hard drive.
@@ -242,7 +317,7 @@ If you are a beginner or can't remember the exact path to your file, use the **I
 3.  Look at the "Code Preview" box in the bottom-right of the window. RStudio writes the code for you! You should **copy and paste** that code into your script so that your work is reproducible next time.
 
 ::: callout-note
-**Performance Limit:** 
+**Performance Limit:**
 
 Avoid using the interactive importer for massive datasets (like 100MB+ genomic files). The "preview" window will try to load the data to show it to you, which can cause RStudio to freeze.
 :::

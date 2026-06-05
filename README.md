@@ -6,7 +6,7 @@ This workshop is beginner-level introduction to programming in R. The course is 
 
 ## The Workshop Materials
 
-Throughout this course, we will primarily use our dedicated workshop website: 👉 [Introduction to R Workshop: https://martinahyang.github.io/IntroToR/](https://martinahyang.github.io/IntroToR/)
+Throughout this course, we will primarily use our dedicated workshop website: 👉 [Introduction to R Workshop: https://qls-micm.github.io/IntroToR/](https://qls-micm.github.io/IntroToR/)
 
 We will use this site to cover the foundational concepts of R, while performing **hands-on exercises** together in the **RStudio**. All necessary code and resources are provided on the site for your convenience.
 

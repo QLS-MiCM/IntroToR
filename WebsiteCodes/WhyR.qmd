@@ -32,6 +32,8 @@ However, for professional scientific research, it has some limitations that can 
 
 -   **Automatic "Auto-Correct" Errors:** Excel is famous for "helpfully" converting gene names like *MARCH1* into dates (e.g., *01-March-2025*). This has historically corrupted thousands of published papers.
 
+    -   ![](../images/excel_example.gif){fig-align="center" width="40%"}
+    
     -   In R, your data is treated as **pure text** by default. R won't change your data unless you explicitly tell it to.
 
     -   *Note: The only common "auto-change" in R is the word `NA`, which R reserves for "Not Available" (missing data)—we will discuss this later.*
@@ -177,7 +179,7 @@ It excels at:
 This is the most common question for beginners. Both are excellent, but they serve different strengths.
 
 | Feature | **R** | **Python** |
-|:---|:---|:---|
+|:-----------------------|:-----------------------|:-----------------------|
 | **Origins** | Created by Statisticians | Created by Software Engineers |
 | **Best For** | Data Analysis & Visualization | Machine Learning & Production |
 | **Bioinformatics** | Deep roots in genomics/math | Strong in imaging and deep learning |
