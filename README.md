@@ -2,7 +2,7 @@
 
 ## Overview
 
-This workshop is beginner-level introduction to programming in R. The course is designed to be taught in one session of 4 hours and is focused on the application of R to the analysis of tabular data from medical datasets.
+This workshop is beginner-level introduction to programming in R. The course is designed to be taught in one session of 2 hours and is focused on the application of R to the analysis of tabular data from medical datasets.
 
 ## The Workshop Materials
 
@@ -18,6 +18,8 @@ We will use this site to cover the foundational concepts of R, while performing 
     -   mathematical operations (exponentials, logarithms)
     -   basic statistics (mean, variance, median, standard deviation)
     -   logical statements (AND, OR, NOT)
+    -   Basic Computational Variables (string, integer, numeric, logical, etc.)
+-   Taking How to Think in Code can help brush up on these topics!
 
 ## Sofware requirements
 
@@ -29,19 +31,19 @@ We will use this site to cover the foundational concepts of R, while performing 
 Once you have setup R and RStudio copy the code below to install the packages required for the workshop.
 
 ```{r}
-install.packages(c("data.table","datasets","devtools","dplyr","ggplot2","plyr","medicaldata","gapminder","RColorBrewer","rmarkdown","stringr","tidyr","tidyverse","viridis"))
+install.packages(c("data.table","datasets","devtools","plyr","medicaldata","gapminder","RColorBrewer","rmarkdown","stringr","tidyr","tidyverse","viridis"))
 ```
 
 ## Workshop Outline
 
 ### 1. R basics
 
-In the first module of the workshop, the goals are to (1) familiarize with the language and the logic behind it; (2) Get started with R studio and create your first project; (3) Configure the working directory with a common standard structure; (4) Create your first `.R` file to write down the live code; (5) Compute arithmetic operations; (6) Use logical operators; (7) Get fluent in R's console; (8) Learn how to ask for help within R ; and (9) get comfortabble with installing packages.
+In the first module of the workshop, the goals are to (1) familiarize with the language and the logic behind it; (2) Get started with R studio and create your first project; (3) Configure the working directory with a common standard structure; (4) Create your first `.R` file to write down the live code; (5) Compute arithmetic operations; (6) Use logical operators; (7) Get fluent in R's console; (8) Learn how to ask for help within R ; and (9) get comfortable with installing packages.
 
 **Module content:**
 
 -   Syntax
--   Aritmetic Operations
+-   Arithmetic Operations
 -   Creating variables
 -   Logical operators
 -   Seeking help
